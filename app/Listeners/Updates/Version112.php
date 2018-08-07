@@ -35,8 +35,8 @@ class Version112 extends Listener
         // Set default locale
         DotenvEditor::setKeys([
             [
-                'key'       => 'APP_LOCALE',
-                'value'     => $locale,
+                'key' => 'APP_LOCALE',
+                'value' => $locale,
             ],
         ])->save();
     }

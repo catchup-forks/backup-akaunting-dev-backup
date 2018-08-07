@@ -27,7 +27,7 @@ class Categories extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Category  $category
+     * @param  Category $category
      * @return \Dingo\Api\Http\Response
      */
     public function show(Category $category)
@@ -45,7 +45,7 @@ class Categories extends ApiController
     {
         $category = Category::create($request->all());
 
-        return $this->response->created(url('api/categories/'.$category->id));
+        return $this->response->created(url('api/categories/' . $category->id));
     }
 
     /**
@@ -65,7 +65,7 @@ class Categories extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Category  $category
+     * @param  Category $category
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Category $category)

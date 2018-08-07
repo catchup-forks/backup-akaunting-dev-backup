@@ -2,8 +2,8 @@
 
 namespace App\Notifications\Income;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class Invoice extends Notification
 {
@@ -17,7 +17,7 @@ class Invoice extends Notification
     /**
      * Create a notification instance.
      *
-     * @param  object  $invoice
+     * @param  object $invoice
      */
     public function __construct($invoice)
     {
@@ -30,7 +30,7 @@ class Invoice extends Notification
     /**
      * Get the notification's channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array|string
      */
     public function via($notifiable)
@@ -41,13 +41,16 @@ class Invoice extends Notification
     /**
      * Build the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         $message = (new MailMessage)
-            ->line(trans('invoices.notification.message', ['amount' => money($this->invoice->amount, $this->invoice->currency_code, true), 'customer' => $this->invoice->customer_name]));
+            ->line(trans('invoices.notification.message', [
+                'amount' => money($this->invoice->amount, $this->invoice->currency_code, true),
+                'customer' => $this->invoice->customer_name
+            ]));
 
         // Override per company as Laravel doesn't read config
         $message->from(config('mail.from.address'), config('mail.from.name'));
@@ -60,7 +63,8 @@ class Invoice extends Notification
         }
 
         if ($this->invoice->customer->user) {
-            $message->action(trans('invoices.notification.button'), url('customers/invoices', $this->invoice->id, true));
+            $message->action(trans('invoices.notification.button'),
+                url('customers/invoices', $this->invoice->id, true));
         }
 
         return $message;
@@ -69,7 +73,7 @@ class Invoice extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)

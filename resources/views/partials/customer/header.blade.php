@@ -4,9 +4,14 @@
     <!-- Logo -->
     <a href="{{ url('customers') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><img src="{{ !empty($company->company_logo) ? Storage::url($company->company_logo) : asset('public/img/company.png') }}" class="logo-image-mini" width="25"  alt="{{ $company->company_name }}"></span>
+        <span class="logo-mini"><img
+                    src="{{ !empty($company->company_logo) ? Storage::url($company->company_logo) : asset('public/img/company.png') }}"
+                    class="logo-image-mini" width="25" alt="{{ $company->company_name }}"></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="{{ !empty($company->company_logo) ? Storage::url($company->company_logo) : asset('public/img/company.png') }}" width="25"  alt="{{ $company->company_name }}"> <b>{{ str_limit($company->company_name, 15) }}</b></span>
+        <span class="logo-lg"><img
+                    src="{{ !empty($company->company_logo) ? Storage::url($company->company_logo) : asset('public/img/company.png') }}"
+                    width="25"
+                    alt="{{ $company->company_name }}"> <b>{{ str_limit($company->company_name, 15) }}</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -19,14 +24,14 @@
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                @stack('header_navbar_right')
+            @stack('header_navbar_right')
 
-                <!-- Notifications: style can be found in dropdown.less -->
+            <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-bell-o"></i>
                         @if ($notifications)
-                        <span class="label label-warning">{{ $notifications }}</span>
+                            <span class="label label-warning">{{ $notifications }}</span>
                         @endif
                     </a>
                     <ul class="dropdown-menu">
@@ -35,11 +40,11 @@
                             <!-- inner menu: contains the actual data -->
                             <ul class="menu">
                                 @if (count($invoices))
-                                <li>
-                                    <a href="{{ url('customers/profile/read-invoices') }}">
-                                        <i class="fa fa-money text-red"></i> {{ trans_choice('header.notifications.overdue_invoices', count($invoices), ['count' => count($invoices)]) }}
-                                    </a>
-                                </li>
+                                    <li>
+                                        <a href="{{ url('customers/profile/read-invoices') }}">
+                                            <i class="fa fa-money text-red"></i> {{ trans_choice('header.notifications.overdue_invoices', count($invoices), ['count' => count($invoices)]) }}
+                                        </a>
+                                    </li>
                                 @endif
                             </ul>
                         </li>
@@ -81,7 +86,7 @@
                             @endif
                             <p>
                                 @if (!empty($user->name))
-                                {{ $user->name }}
+                                    {{ $user->name }}
                                 @endif
                                 <small>{{ trans('header.last_login', ['time' => $user->last_logged_in_at]) }}</small>
                             </p>
@@ -90,11 +95,13 @@
                         <li class="user-footer">
                             @permission('update-customers-profile')
                             <div class="pull-left">
-                                <a href="{{ url('customers/profile/edit') }}" class="btn btn-default btn-flat">{{ trans('auth.profile') }}</a>
+                                <a href="{{ url('customers/profile/edit') }}"
+                                   class="btn btn-default btn-flat">{{ trans('auth.profile') }}</a>
                             </div>
                             @endpermission
                             <div class="pull-right">
-                                <a href="{{ url('customers/logout') }}" class="btn btn-default btn-flat">{{ trans('auth.logout') }}</a>
+                                <a href="{{ url('customers/logout') }}"
+                                   class="btn btn-default btn-flat">{{ trans('auth.logout') }}</a>
                             </div>
                         </li>
                     </ul>

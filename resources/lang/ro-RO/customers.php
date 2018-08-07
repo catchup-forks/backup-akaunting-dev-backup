@@ -2,10 +2,10 @@
 
 return [
 
-    'allow_login'           => 'Permiti conectarea?',
-    'user_created'          => 'Utilizator creat',
+    'allow_login' => 'Permiti conectarea?',
+    'user_created' => 'Utilizator creat',
 
     'error' => [
-        'email'             => 'Acest email a fost deja folosit.'
+        'email' => 'Acest email a fost deja folosit.'
     ]
 ];

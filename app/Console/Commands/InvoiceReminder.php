@@ -24,7 +24,7 @@ class InvoiceReminder extends Command
      * @var string
      */
     protected $description = 'Send reminders for invoices';
-    
+
     /**
      * Create a new command instance.
      */
@@ -61,7 +61,7 @@ class InvoiceReminder extends Command
             $days = explode(',', $company->schedule_invoice_days);
 
             foreach ($days as $day) {
-                $day = (int) trim($day);
+                $day = (int)trim($day);
 
                 $this->remind($day, $company);
             }

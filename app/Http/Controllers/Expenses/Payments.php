@@ -25,7 +25,7 @@ class Payments extends Controller
      */
     public function index()
     {
-        $payments = Payment::with(['vendor', 'account', 'category'])->isNotTransfer()->collect(['paid_at'=> 'desc']);
+        $payments = Payment::with(['vendor', 'account', 'category'])->isNotTransfer()->collect(['paid_at' => 'desc']);
 
         $vendors = collect(Vendor::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.vendors', 2)]), '');
@@ -38,7 +38,8 @@ class Payments extends Controller
 
         $transfer_cat_id = Category::transfer();
 
-        return view('expenses.payments.index', compact('payments', 'vendors', 'categories', 'accounts', 'transfer_cat_id'));
+        return view('expenses.payments.index',
+            compact('payments', 'vendors', 'categories', 'accounts', 'transfer_cat_id'));
     }
 
     /**
@@ -62,7 +63,8 @@ class Payments extends Controller
 
         $currencies = Currency::enabled()->orderBy('name')->pluck('name', 'code')->toArray();
 
-        $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
+        $account_currency_code = Account::where('id',
+            setting('general.default_account'))->pluck('currency_code')->first();
 
         $vendors = Vendor::enabled()->orderBy('name')->pluck('name', 'id');
 
@@ -70,13 +72,14 @@ class Payments extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('expenses.payments.create', compact('accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
+        return view('expenses.payments.create',
+            compact('accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -104,7 +107,7 @@ class Payments extends Controller
     /**
      * Duplicate the specified resource.
      *
-     * @param  Payment  $payment
+     * @param  Payment $payment
      *
      * @return Response
      */
@@ -122,7 +125,7 @@ class Payments extends Controller
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportFile $import
      *
      * @return Response
      */
@@ -142,7 +145,7 @@ class Payments extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Payment  $payment
+     * @param  Payment $payment
      *
      * @return Response
      */
@@ -160,14 +163,16 @@ class Payments extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('expenses.payments.edit', compact('payment', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories', 'payment_methods'));
+        return view('expenses.payments.edit',
+            compact('payment', 'accounts', 'currencies', 'account_currency_code', 'vendors', 'categories',
+                'payment_methods'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Payment  $payment
-     * @param  Request  $request
+     * @param  Payment $payment
+     * @param  Request $request
      *
      * @return Response
      */
@@ -195,7 +200,7 @@ class Payments extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Payment  $payment
+     * @param  Payment $payment
      *
      * @return Response
      */
@@ -223,10 +228,15 @@ class Payments extends Controller
      */
     public function export()
     {
-        \Excel::create('payments', function($excel) {
-            $excel->sheet('payments', function($sheet) {
+        \Excel::create('payments', function ($excel) {
+            $excel->sheet('payments', function ($sheet) {
                 $sheet->fromModel(Payment::filter(request()->input())->get()->makeHidden([
-                    'id', 'company_id', 'parent_id', 'created_at', 'updated_at', 'deleted_at'
+                    'id',
+                    'company_id',
+                    'parent_id',
+                    'created_at',
+                    'updated_at',
+                    'deleted_at'
                 ]));
             });
         })->download('xlsx');

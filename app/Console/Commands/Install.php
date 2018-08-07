@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Session;
 use App\Utilities\Installer;
 use Illuminate\Console\Command;
+use Session;
 
 class Install extends Command
 {
@@ -212,16 +212,18 @@ class Install extends Command
         }
     }
 
-    private function createDatabaseTables() {
-        $this->dbHost     = $this->option(self::OPT_DB_HOST);
-        $this->dbPort     = $this->option(self::OPT_DB_PORT);
-        $this->dbName     = $this->option(self::OPT_DB_NAME);
+    private function createDatabaseTables()
+    {
+        $this->dbHost = $this->option(self::OPT_DB_HOST);
+        $this->dbPort = $this->option(self::OPT_DB_PORT);
+        $this->dbName = $this->option(self::OPT_DB_NAME);
         $this->dbUsername = $this->option(self::OPT_DB_USERNAME);
         $this->dbPassword = $this->option(self::OPT_DB_PASSWORD);
 
         $this->line('Connecting to database ' . $this->dbName . '@' . $this->dbHost . ':' . $this->dbPort);
 
-        if (!Installer::createDbTables($this->dbHost, $this->dbPort, $this->dbName, $this->dbUsername, $this->dbPassword)) {
+        if (!Installer::createDbTables($this->dbHost, $this->dbPort, $this->dbName, $this->dbUsername,
+            $this->dbPassword)) {
             $this->error('Error: Could not connect to the database! Please, make sure the details are correct.');
 
             return false;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Module\Module;
 use App\Events\AdminMenuCreated;
+use App\Models\Module\Module;
 use Auth;
 use Closure;
 use Menu;
@@ -14,8 +14,8 @@ class AdminMenu
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -52,7 +52,7 @@ class AdminMenu
 
             // Incomes
             if ($user->can(['read-incomes-invoices', 'read-incomes-revenues', 'read-incomes-customers'])) {
-                $menu->dropdown(trans_choice('general.incomes', 2), function ($sub) use($user, $attr) {
+                $menu->dropdown(trans_choice('general.incomes', 2), function ($sub) use ($user, $attr) {
                     if ($user->can('read-incomes-invoices')) {
                         $sub->url('incomes/invoices', trans_choice('general.invoices', 2), 1, $attr);
                     }
@@ -72,7 +72,7 @@ class AdminMenu
 
             // Expences
             if ($user->can(['read-expenses-bills', 'read-expenses-payments', 'read-expenses-vendors'])) {
-                $menu->dropdown(trans_choice('general.expenses', 2), function ($sub) use($user, $attr) {
+                $menu->dropdown(trans_choice('general.expenses', 2), function ($sub) use ($user, $attr) {
                     if ($user->can('read-expenses-bills')) {
                         $sub->url('expenses/bills', trans_choice('general.bills', 2), 1, $attr);
                     }
@@ -92,7 +92,7 @@ class AdminMenu
 
             // Banking
             if ($user->can(['read-banking-accounts', 'read-banking-transfers', 'read-banking-transactions'])) {
-                $menu->dropdown(trans('general.banking'), function ($sub) use($user, $attr) {
+                $menu->dropdown(trans('general.banking'), function ($sub) use ($user, $attr) {
                     if ($user->can('read-banking-accounts')) {
                         $sub->url('banking/accounts', trans_choice('general.accounts', 2), 1, $attr);
                     }
@@ -118,7 +118,7 @@ class AdminMenu
                 'read-reports-tax-summary',
                 'read-reports-profit-loss',
             ])) {
-                $menu->dropdown(trans_choice('general.reports', 2), function ($sub) use($user, $attr) {
+                $menu->dropdown(trans_choice('general.reports', 2), function ($sub) use ($user, $attr) {
                     if ($user->can('read-reports-income-summary')) {
                         $sub->url('reports/income-summary', trans('reports.summary.income'), 1, $attr);
                     }
@@ -145,8 +145,13 @@ class AdminMenu
             }
 
             // Settings
-            if ($user->can(['read-settings-settings', 'read-settings-categories', 'read-settings-currencies', 'read-settings-taxes'])) {
-                $menu->dropdown(trans_choice('general.settings', 2), function ($sub) use($user, $attr) {
+            if ($user->can([
+                'read-settings-settings',
+                'read-settings-categories',
+                'read-settings-currencies',
+                'read-settings-taxes'
+            ])) {
+                $menu->dropdown(trans_choice('general.settings', 2), function ($sub) use ($user, $attr) {
                     if ($user->can('read-settings-settings')) {
                         $sub->url('settings/settings', trans('general.general'), 1, $attr);
                     }
@@ -178,7 +183,8 @@ class AdminMenu
                             continue;
                         }
 
-                        $sub->url('settings/apps/' . $module->alias, title_case(str_replace('_', ' ', snake_case($m->getName()))), $position, $attr);
+                        $sub->url('settings/apps/' . $module->alias,
+                            title_case(str_replace('_', ' ', snake_case($m->getName()))), $position, $attr);
 
                         $position++;
                     }

@@ -27,7 +27,7 @@ class Items extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int|string  $id
+     * @param  int|string $id
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
@@ -52,7 +52,7 @@ class Items extends ApiController
     {
         $item = Item::create($request->all());
 
-        return $this->response->created(url('api/items/'.$item->id));
+        return $this->response->created(url('api/items/' . $item->id));
     }
 
     /**
@@ -72,7 +72,7 @@ class Items extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Item  $item
+     * @param  Item $item
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Item $item)

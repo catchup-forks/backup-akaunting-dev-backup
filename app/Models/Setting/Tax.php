@@ -7,28 +7,25 @@ use App\Models\Model;
 class Tax extends Model
 {
 
-    protected $table = 'taxes';
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = ['title'];
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'name', 'rate', 'enabled'];
-
     /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'rate', 'enabled'];
+    protected $table = 'taxes';
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['title'];
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['company_id', 'name', 'rate', 'enabled'];
 
     public function items()
     {
@@ -48,12 +45,12 @@ class Tax extends Model
     /**
      * Convert rate to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setRateAttribute($value)
     {
-        $this->attributes['rate'] = (double) $value;
+        $this->attributes['rate'] = (double)$value;
     }
 
     /**

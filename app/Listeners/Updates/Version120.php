@@ -3,15 +3,13 @@
 namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
-use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 use App\Models\Common\Company;
-use App\Models\Expense\Bill;
-use App\Models\Income\Invoice;
 use App\Models\Setting\Category;
+use Artisan;
 use DB;
 use Schema;
-use Artisan;
 
 class Version120 extends Listener
 {

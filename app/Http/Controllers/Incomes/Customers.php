@@ -13,8 +13,8 @@ use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use Date;
 use Illuminate\Http\Request as FRequest;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
 class Customers extends Controller
@@ -35,7 +35,7 @@ class Customers extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Customer $customer
      *
      * @return Response
      */
@@ -105,6 +105,25 @@ class Customers extends Controller
     }
 
     /**
+     * Generate a pagination collection.
+     *
+     * @param array|Collection $items
+     * @param int $perPage
+     * @param int $page
+     * @param array $options
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -119,7 +138,7 @@ class Customers extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -164,7 +183,7 @@ class Customers extends Controller
     /**
      * Duplicate the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Customer $customer
      *
      * @return Response
      */
@@ -182,7 +201,7 @@ class Customers extends Controller
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportFile $import
      *
      * @return Response
      */
@@ -202,7 +221,7 @@ class Customers extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Customer $customer
      *
      * @return Response
      */
@@ -216,8 +235,8 @@ class Customers extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Customer  $customer
-     * @param  Request  $request
+     * @param  Customer $customer
+     * @param  Request $request
      *
      * @return Response
      */
@@ -258,7 +277,7 @@ class Customers extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Customer $customer
      *
      * @return Response
      */
@@ -277,7 +296,7 @@ class Customers extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  Customer  $customer
+     * @param  Customer $customer
      *
      * @return Response
      */
@@ -296,7 +315,7 @@ class Customers extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Customer  $customer
+     * @param  Customer $customer
      *
      * @return Response
      */
@@ -314,7 +333,8 @@ class Customers extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $customer->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted',
+                ['name' => $customer->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }
@@ -329,10 +349,14 @@ class Customers extends Controller
      */
     public function export()
     {
-        \Excel::create('customers', function($excel) {
-            $excel->sheet('customers', function($sheet) {
+        \Excel::create('customers', function ($excel) {
+            $excel->sheet('customers', function ($sheet) {
                 $sheet->fromModel(Customer::filter(request()->input())->get()->makeHidden([
-                    'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
+                    'id',
+                    'company_id',
+                    'created_at',
+                    'updated_at',
+                    'deleted_at'
                 ]));
             });
         })->download('xlsx');
@@ -340,7 +364,7 @@ class Customers extends Controller
 
     public function currency()
     {
-        $customer_id = (int) request('customer_id');
+        $customer_id = (int)request('customer_id');
 
         if (empty($customer_id)) {
             return response()->json([]);
@@ -386,10 +410,12 @@ class Customers extends Controller
             foreach ($request['fields'] as $field) {
                 switch ($field) {
                     case 'password':
-                        $html .= \Form::passwordGroup('password', trans('auth.password.current'), 'key', [], null, 'col-md-6 password');
+                        $html .= \Form::passwordGroup('password', trans('auth.password.current'), 'key', [], null,
+                            'col-md-6 password');
                         break;
                     case 'password_confirmation':
-                        $html .= \Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'), 'key', [], null, 'col-md-6 password');
+                        $html .= \Form::passwordGroup('password_confirmation', trans('auth.password.current_confirm'),
+                            'key', [], null, 'col-md-6 password');
                         break;
                 }
             }
@@ -400,24 +426,5 @@ class Customers extends Controller
         ];
 
         return response()->json($json);
-    }
-
-    /**
-     * Generate a pagination collection.
-     *
-     * @param array|Collection      $items
-     * @param int   $perPage
-     * @param int   $page
-     * @param array $options
-     *
-     * @return LengthAwarePaginator
-     */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

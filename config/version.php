@@ -2,24 +2,24 @@
 
 return [
 
-    'name'      =>  'Akaunting',
+    'name' => 'Akaunting',
 
-    'code'      =>  'Recurring',
+    'code' => 'Recurring',
 
-    'major'     =>  '1',
+    'major' => '1',
 
-    'minor'     =>  '2',
+    'minor' => '2',
 
-    'patch'     =>  '12',
+    'patch' => '12',
 
-    'build'     =>  '',
+    'build' => '',
 
-    'status'    =>  'Stable',
+    'status' => 'Stable',
 
-    'date'      =>  '26-July-2018',
+    'date' => '26-July-2018',
 
-    'time'      =>  '16:00',
+    'time' => '16:00',
 
-    'zone'      =>  'GMT +3',
+    'zone' => 'GMT +3',
 
 ];

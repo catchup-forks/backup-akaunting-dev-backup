@@ -2,8 +2,8 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
 use App\Models\Expense\BillStatus;
+use App\Models\Model;
 use Illuminate\Database\Seeder;
 
 class BillStatuses extends Seeder

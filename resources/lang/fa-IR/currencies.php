@@ -2,17 +2,17 @@
 
 return [
 
-    'code'                  => 'کد',
-    'rate'                  => 'نرخ',
-    'default'               => 'واحد پول پیش فرض',
-    'decimal_mark'          => 'ممیز',
-    'thousands_separator'   => 'هزاران جدا کننده',
-    'precision'             => 'دقت',
+    'code' => 'کد',
+    'rate' => 'نرخ',
+    'default' => 'واحد پول پیش فرض',
+    'decimal_mark' => 'ممیز',
+    'thousands_separator' => 'هزاران جدا کننده',
+    'precision' => 'دقت',
     'symbol' => [
-        'symbol'            => 'نماد',
-        'position'          => 'موقعیت نماد',
-        'before'            => 'مقدار بعد از',
-        'after'             => 'مقدار بعد از',
+        'symbol' => 'نماد',
+        'position' => 'موقعیت نماد',
+        'before' => 'مقدار بعد از',
+        'after' => 'مقدار بعد از',
     ]
 
 ];

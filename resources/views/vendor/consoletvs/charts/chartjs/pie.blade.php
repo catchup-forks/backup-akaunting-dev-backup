@@ -16,18 +16,18 @@
             datasets: [{
                 data: [
                     @foreach($model->values as $dta)
-                        {{ $dta }},
+                    {{ $dta }},
                     @endforeach
                 ],
                 backgroundColor: [
                     @if($model->colors)
-                        @foreach($model->colors as $color)
-                            "{{ $color }}",
-                        @endforeach
-                    @else
-                        @foreach($model->values as $dta)
-                            "{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}",
-                        @endforeach
+                            @foreach($model->colors as $color)
+                        "{{ $color }}",
+                    @endforeach
+                            @else
+                            @foreach($model->values as $dta)
+                        "{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}",
+                    @endforeach
                     @endif
                 ],
             }]
@@ -36,11 +36,11 @@
             responsive: {{ $model->responsive || !$model->width ? 'true' : 'false' }},
             maintainAspectRatio: false,
             @if($model->title)
-                title: {
-                    display: true,
-                    text: "{!! $model->title !!}",
-                    fontSize: 20,
-                }
+            title: {
+                display: true,
+                text: "{!! $model->title !!}",
+                fontSize: 20,
+            }
             @endif
         }
     });

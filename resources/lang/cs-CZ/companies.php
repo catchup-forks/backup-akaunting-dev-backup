@@ -2,12 +2,12 @@
 
 return [
 
-    'domain'                => 'Doména',
-    'logo'                  => 'Logo',
-    'manage'                => 'Správa společností',
-    'all'                   => 'Všechny společnosti',
+    'domain' => 'Doména',
+    'logo' => 'Logo',
+    'manage' => 'Správa společností',
+    'all' => 'Všechny společnosti',
     'error' => [
-        'delete_active'     => 'Chyba: Nejde smazat aktivní společnost. Nejdřív ji změnte!',
+        'delete_active' => 'Chyba: Nejde smazat aktivní společnost. Nejdřív ji změnte!',
     ],
 
 ];

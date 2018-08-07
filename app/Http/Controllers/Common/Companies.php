@@ -54,7 +54,7 @@ class Companies extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -97,7 +97,7 @@ class Companies extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
@@ -120,10 +120,28 @@ class Companies extends Controller
     }
 
     /**
+     * Check user company assignment
+     *
+     * @param  Company $company
+     *
+     * @return boolean
+     */
+    public function isUserCompany(Company $company)
+    {
+        $companies = auth()->user()->companies()->pluck('id')->toArray();
+
+        if (in_array($company->id, $companies)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Update the specified resource in storage.
      *
-     * @param  Company  $company
-     * @param  Request  $request
+     * @param  Company $company
+     * @param  Request $request
      *
      * @return Response
      */
@@ -145,7 +163,7 @@ class Companies extends Controller
         setting()->forgetAll();
         setting()->setExtraColumns(['company_id' => $company->id]);
         setting()->load(true);
-        
+
         // Update settings
         setting()->set('general.company_name', $request->get('company_name'));
         setting()->set('general.company_email', $request->get('company_email'));
@@ -177,7 +195,7 @@ class Companies extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
@@ -196,7 +214,7 @@ class Companies extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
@@ -224,7 +242,7 @@ class Companies extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
@@ -251,7 +269,7 @@ class Companies extends Controller
     /**
      * Change the active company.
      *
-     * @param  Company  $company
+     * @param  Company $company
      *
      * @return Response
      */
@@ -265,23 +283,5 @@ class Companies extends Controller
         }
 
         return redirect('/');
-    }
-
-    /**
-     * Check user company assignment
-     *
-     * @param  Company  $company
-     *
-     * @return boolean
-     */
-    public function isUserCompany(Company $company)
-    {
-        $companies = auth()->user()->companies()->pluck('id')->toArray();
-
-        if (in_array($company->id, $companies)) {
-            return true;
-        }
-
-        return false;
     }
 }

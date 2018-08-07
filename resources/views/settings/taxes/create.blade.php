@@ -3,8 +3,8 @@
 @section('title', trans('general.title.new', ['type' => trans_choice('general.tax_rates', 1)]))
 
 @section('content')
-      <!-- Default box -->
-      <div class="box box-success">
+    <!-- Default box -->
+    <div class="box box-success">
         {!! Form::open(['url' => 'settings/taxes', 'role' => 'form']) !!}
 
         <div class="box-body">
@@ -22,7 +22,7 @@
         <!-- /.box-footer -->
 
         {!! Form::close() !!}
-      </div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -30,7 +30,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#enabled_1').trigger('click');
 
             $('#name').focus();

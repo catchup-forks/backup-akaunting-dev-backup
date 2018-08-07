@@ -4,9 +4,9 @@ namespace App\Models\Common;
 
 use App\Models\Model;
 use App\Traits\Currencies;
+use App\Traits\Media;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Item extends Model
 {
@@ -26,7 +26,18 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'name', 'sku', 'description', 'sale_price', 'purchase_price', 'quantity', 'category_id', 'tax_id', 'enabled'];
+    protected $fillable = [
+        'company_id',
+        'name',
+        'sku',
+        'description',
+        'sale_price',
+        'purchase_price',
+        'quantity',
+        'category_id',
+        'tax_id',
+        'enabled'
+    ];
 
     /**
      * Sortable columns.
@@ -41,8 +52,8 @@ class Item extends Model
      * @var array
      */
     protected $searchableColumns = [
-        'name'        => 10,
-        'sku'         => 5,
+        'name' => 10,
+        'sku' => 5,
         'description' => 2,
     ];
 
@@ -69,23 +80,23 @@ class Item extends Model
     /**
      * Convert sale price to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setSalePriceAttribute($value)
     {
-        $this->attributes['sale_price'] = (double) $value;
+        $this->attributes['sale_price'] = (double)$value;
     }
 
     /**
      * Convert purchase price to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setPurchasePriceAttribute($value)
     {
-        $this->attributes['purchase_price'] = (double) $value;
+        $this->attributes['purchase_price'] = (double)$value;
     }
 
     /**
@@ -109,7 +120,7 @@ class Item extends Model
     {
         return $query->where(function ($query) use ($filter) {
             foreach ($filter as $key => $value) {
-                $query->orWhere($key, 'LIKE', "%" . $value  . "%");
+                $query->orWhere($key, 'LIKE', "%" . $value . "%");
             }
         });
     }

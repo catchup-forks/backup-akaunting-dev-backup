@@ -2,9 +2,9 @@
 
 namespace App\Transformers\Income;
 
+use App\Models\Income\InvoicePayment as Model;
 use App\Transformers\Banking\Account;
 use App\Transformers\Setting\Currency;
-use App\Models\Income\InvoicePayment as Model;
 use League\Fractal\TransformerAbstract;
 
 class InvoicePayments extends TransformerAbstract

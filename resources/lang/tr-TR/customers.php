@@ -2,10 +2,10 @@
 
 return [
 
-    'allow_login'           => 'Giriş yapabilsin?',
-    'user_created'          => 'Kullanıcı oluşturuldu',
+    'allow_login' => 'Giriş yapabilsin?',
+    'user_created' => 'Kullanıcı oluşturuldu',
 
     'error' => [
-        'email'             => 'Bu email adresi kullanılmaktadır.'
+        'email' => 'Bu email adresi kullanılmaktadır.'
     ]
 ];

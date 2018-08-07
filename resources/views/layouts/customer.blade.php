@@ -1,20 +1,20 @@
 <html lang="{{ setting('general.default_locale') }}">
-    @include('partials.customer.head')
+@include('partials.customer.head')
 
-    <body class="hold-transition skin-green-light sidebar-mini fixed">
-        @stack('body_start')
+<body class="hold-transition skin-green-light sidebar-mini fixed">
+@stack('body_start')
 
-        <!-- Site wrapper -->
-        <div class="wrapper">
-            @include('partials.customer.header')
+<!-- Site wrapper -->
+<div class="wrapper">
+    @include('partials.customer.header')
 
-            @include('partials.customer.menu')
+    @include('partials.customer.menu')
 
-            @include('partials.customer.content')
+    @include('partials.customer.content')
 
-            @include('partials.customer.footer')
-        </div>
+    @include('partials.customer.footer')
+</div>
 
-        @stack('body_end')
-    </body>
+@stack('body_end')
+</body>
 </html>

@@ -42,7 +42,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#enabled_1').trigger('click');
 
             $('#name').focus();

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
-use App\Traits\Modules;
 use App\Models\Module\Module;
-use Illuminate\Routing\Route;
+use App\Traits\Modules;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class Tiles extends Controller
 {

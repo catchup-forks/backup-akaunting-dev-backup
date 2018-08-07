@@ -6,21 +6,19 @@ use App\Models\Model;
 
 class Category extends Model
 {
-    protected $table = 'categories';
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'name', 'type', 'color', 'enabled'];
-
     /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'type', 'enabled'];
+    protected $table = 'categories';
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['company_id', 'name', 'type', 'color', 'enabled'];
 
     public function bills()
     {

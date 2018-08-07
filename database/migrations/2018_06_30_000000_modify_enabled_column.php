@@ -15,23 +15,23 @@ class ModifyEnabledColumn extends Migration
         Schema::table('accounts', function (Blueprint $table) {
             $table->boolean('enabled')->default(1)->change();
         });
-        
+
         Schema::table('categories', function (Blueprint $table) {
             $table->boolean('enabled')->default(1)->change();
         });
-        
+
         Schema::table('currencies', function (Blueprint $table) {
             $table->boolean('enabled')->default(1)->change();
         });
-        
+
         Schema::table('items', function (Blueprint $table) {
             $table->boolean('enabled')->default(1)->change();
         });
-        
+
         Schema::table('customers', function (Blueprint $table) {
             $table->boolean('enabled')->default(1)->change();
         });
-        
+
         Schema::table('vendors', function (Blueprint $table) {
             $table->boolean('enabled')->default(1)->change();
         });

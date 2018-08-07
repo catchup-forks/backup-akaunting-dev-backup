@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use App\Models\Model;
 use App\Models\Company\Company;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillItem;
 use App\Models\Expense\BillTotal;
+use App\Models\Model;
 use App\Models\Setting\Tax;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateBillTotalsTable extends Migration
 {

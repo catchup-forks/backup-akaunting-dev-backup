@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
@@ -53,7 +52,7 @@ class Forgot extends Controller
     /**
      * Send a reset link to the given user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
@@ -75,7 +74,7 @@ class Forgot extends Controller
     /**
      * Get the response for a successful password reset link.
      *
-     * @param  string  $response
+     * @param  string $response
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendResetLinkResponse($response)
@@ -89,7 +88,7 @@ class Forgot extends Controller
      * Get the response for a failed password reset link.
      *
      * @param  \Illuminate\Http\Request
-     * @param  string  $response
+     * @param  string $response
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)

@@ -27,7 +27,7 @@ class Permissions extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Permission  $permission
+     * @param  Permission $permission
      * @return \Dingo\Api\Http\Response
      */
     public function show(Permission $permission)
@@ -45,7 +45,7 @@ class Permissions extends ApiController
     {
         $permission = Permission::create($request->all());
 
-        return $this->response->created(url('api/permissions/'.$permission->id));
+        return $this->response->created(url('api/permissions/' . $permission->id));
     }
 
     /**
@@ -65,7 +65,7 @@ class Permissions extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Permission  $permission
+     * @param  Permission $permission
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Permission $permission)

@@ -2,8 +2,8 @@
 
 namespace App\Notifications\Auth;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class Reset extends Notification
 {
@@ -17,7 +17,7 @@ class Reset extends Notification
     /**
      * Create a notification instance.
      *
-     * @param  string  $token
+     * @param  string $token
      */
     public function __construct($token)
     {
@@ -27,7 +27,7 @@ class Reset extends Notification
     /**
      * Get the notification's channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array|string
      */
     public function via($notifiable)
@@ -38,7 +38,7 @@ class Reset extends Notification
     /**
      * Build the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)

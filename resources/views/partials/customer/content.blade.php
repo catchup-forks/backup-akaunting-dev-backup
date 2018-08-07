@@ -2,9 +2,9 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    @stack('content_wrapper_start')
+@stack('content_wrapper_start')
 
-    <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
     <section class="content-header content-center">
         @stack('content_header_start')
 

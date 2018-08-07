@@ -53,13 +53,13 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('./js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
 @endpush
 
 @push('scripts')
@@ -67,16 +67,16 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#locale").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.languages', 1)]) }}"
             });
 
             @if (setting('general.use_gravatar', '0') != '1')
             $('#picture').fancyfile({
-                text  : '{{ trans('general.form.select.file') }}',
-                style : 'btn-default',
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                text: '{{ trans('general.form.select.file') }}',
+                style: 'btn-default',
+                placeholder: '{{ trans('general.form.no_file_selected') }}'
             });
             @endif
 

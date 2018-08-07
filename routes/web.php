@@ -53,7 +53,10 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('invoices/{invoice}/print', 'Incomes\Invoices@printInvoice');
                 Route::get('invoices/{invoice}/pdf', 'Incomes\Invoices@pdfInvoice');
                 Route::get('invoices/{invoice}/duplicate', 'Incomes\Invoices@duplicate');
-                Route::post('invoices/payment', 'Incomes\Invoices@payment')->middleware(['dateformat', 'money.amount'])->name('invoice.payment');
+                Route::post('invoices/payment', 'Incomes\Invoices@payment')->middleware([
+                    'dateformat',
+                    'money.amount'
+                ])->name('invoice.payment');
                 Route::delete('invoices/payment/{payment}', 'Incomes\Invoices@paymentDestroy');
                 Route::post('invoices/import', 'Incomes\Invoices@import')->name('invoices.import');
                 Route::get('invoices/export', 'Incomes\Invoices@export')->name('invoices.export');
@@ -78,11 +81,15 @@ Route::group(['middleware' => 'language'], function () {
                 Route::get('bills/{bill}/print', 'Expenses\Bills@printBill');
                 Route::get('bills/{bill}/pdf', 'Expenses\Bills@pdfBill');
                 Route::get('bills/{bill}/duplicate', 'Expenses\Bills@duplicate');
-                Route::post('bills/payment', 'Expenses\Bills@payment')->middleware(['dateformat', 'money.amount'])->name('bill.payment');
+                Route::post('bills/payment', 'Expenses\Bills@payment')->middleware([
+                    'dateformat',
+                    'money.amount'
+                ])->name('bill.payment');
                 Route::delete('bills/payment/{payment}', 'Expenses\Bills@paymentDestroy');
                 Route::post('bills/import', 'Expenses\Bills@import')->name('bills.import');
                 Route::get('bills/export', 'Expenses\Bills@export')->name('bills.export');
-                Route::resource('bills', 'Expenses\Bills', ['middleware' => ['dateformat', 'money.price', 'money.tax', 'money.total']]);
+                Route::resource('bills', 'Expenses\Bills',
+                    ['middleware' => ['dateformat', 'money.price', 'money.tax', 'money.total']]);
                 Route::get('payments/{payment}/duplicate', 'Expenses\Payments@duplicate');
                 Route::post('payments/import', 'Expenses\Payments@import')->name('payments.import');
                 Route::get('payments/export', 'Expenses\Payments@export')->name('payments.export');

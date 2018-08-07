@@ -71,19 +71,19 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    <script src="{{ asset('./js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#account_id').trigger('change');
 
             //Date picker
@@ -111,34 +111,34 @@
             });
 
             $('#attachment').fancyfile({
-                text  : '{{ trans('general.form.select.file') }}',
-                style : 'btn-default',
+                text: '{{ trans('general.form.select.file') }}',
+                style: 'btn-default',
                 @if($revenue->attachment)
-                placeholder : '<?php echo $revenue->attachment->basename; ?>'
+                placeholder: '<?php echo $revenue->attachment->basename; ?>'
                 @else
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                placeholder: '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($revenue->attachment)
-                attachment_html  = '<span class="attachment">';
-                attachment_html += '    <a href="{{ url('uploads/' . $revenue->attachment->id . '/download') }}">';
-                attachment_html += '        <span id="download-attachment" class="text-primary">';
-                attachment_html += '            <i class="fa fa-file-{{ $revenue->attachment->aggregate_type }}-o"></i> {{ $revenue->attachment->basename }}';
-                attachment_html += '        </span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $revenue->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $revenue->attachment->id)], 'style' => 'display:inline']) !!}';
-                attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
-                attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::close() !!}';
-                attachment_html += '</span>';
+                attachment_html = '<span class="attachment">';
+            attachment_html += '    <a href="{{ url('uploads/' . $revenue->attachment->id . '/download') }}">';
+            attachment_html += '        <span id="download-attachment" class="text-primary">';
+            attachment_html += '            <i class="fa fa-file-{{ $revenue->attachment->aggregate_type }}-o"></i> {{ $revenue->attachment->basename }}';
+            attachment_html += '        </span>';
+            attachment_html += '    </a>';
+            attachment_html += '    {!! Form::open(['id' => 'attachment-' . $revenue->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $revenue->attachment->id)], 'style' => 'display:inline']) !!}';
+            attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
+            attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
+            attachment_html += '    </a>';
+            attachment_html += '    {!! Form::close() !!}';
+            attachment_html += '</span>';
 
-                $('.fancy-file .fake-file').append(attachment_html);
+            $('.fancy-file .fake-file').append(attachment_html);
 
-                $(document).on('click', '#remove-attachment', function (e) {
-                    confirmDelete("#attachment-{!! $revenue->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $revenue->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
+            $(document).on('click', '#remove-attachment', function (e) {
+                confirmDelete("#attachment-{!! $revenue->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $revenue->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
             @endif
         });
 
@@ -148,7 +148,7 @@
                 type: 'GET',
                 dataType: 'JSON',
                 data: 'account_id=' + $(this).val(),
-                success: function(data) {
+                success: function (data) {
                     $('#currency').val(data.currency_code);
 
                     $('#currency_code').val(data.currency_code);

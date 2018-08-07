@@ -3,8 +3,8 @@
 namespace App\Http\ViewComposers;
 
 use App\Models\Common\Media;
-use Illuminate\View\View;
 use File;
+use Illuminate\View\View;
 use Image;
 use Storage;
 
@@ -14,7 +14,7 @@ class Logo
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param  View $view
      * @return void
      */
     public function compose(View $view)

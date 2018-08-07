@@ -48,7 +48,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#currency_code").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans_choice('general.currencies', 1)]) }}"
             });

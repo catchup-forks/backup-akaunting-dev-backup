@@ -27,7 +27,7 @@ class Vendors extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int|string  $id
+     * @param  int|string $id
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
@@ -52,7 +52,7 @@ class Vendors extends ApiController
     {
         $vendor = Vendor::create($request->all());
 
-        return $this->response->created(url('api/vendors/'.$vendor->id));
+        return $this->response->created(url('api/vendors/' . $vendor->id));
     }
 
     /**
@@ -72,7 +72,7 @@ class Vendors extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Vendor  $vendor
+     * @param  Vendor $vendor
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Vendor $vendor)

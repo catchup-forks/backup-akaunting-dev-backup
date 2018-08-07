@@ -44,7 +44,7 @@ class Taxes extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -62,7 +62,7 @@ class Taxes extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Tax  $tax
+     * @param  Tax $tax
      *
      * @return Response
      */
@@ -74,8 +74,8 @@ class Taxes extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Tax  $tax
-     * @param  Request  $request
+     * @param  Tax $tax
+     * @param  Request $request
      *
      * @return Response
      */
@@ -96,7 +96,8 @@ class Taxes extends Controller
 
             return redirect('settings/taxes');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -107,7 +108,7 @@ class Taxes extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  Tax  $tax
+     * @param  Tax $tax
      *
      * @return Response
      */
@@ -126,7 +127,7 @@ class Taxes extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  Tax  $tax
+     * @param  Tax $tax
      *
      * @return Response
      */
@@ -146,7 +147,8 @@ class Taxes extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -159,7 +161,7 @@ class Taxes extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Tax  $tax
+     * @param  Tax $tax
      *
      * @return Response
      */
@@ -178,7 +180,8 @@ class Taxes extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted',
+                ['name' => $tax->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }

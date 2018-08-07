@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Setting\Setting as Request;
 use App\Models\Banking\Account;
 use App\Models\Common\Company;
+use App\Models\Common\Media;
 use App\Models\Setting\Currency;
 use App\Models\Setting\Setting;
-use App\Models\Common\Media;
 use App\Models\Setting\Tax;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
@@ -96,7 +96,7 @@ class Settings extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -115,7 +115,7 @@ class Settings extends Controller
         $file_keys = ['company_logo', 'invoice_logo'];
 
         $companies = Company::all()->count();
-        
+
         foreach ($fields as $key => $value) {
             // Don't process unwanted keys
             if (in_array($key, $skip_keys)) {

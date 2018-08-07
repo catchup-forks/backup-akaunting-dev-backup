@@ -14,7 +14,7 @@
 
             <div class="form-group col-md-6 required {{ $errors->has('color') ? 'has-error' : ''}}">
                 {!! Form::label('color', trans('general.color'), ['class' => 'control-label']) !!}
-                <div  id="category-color-picker" class="input-group colorpicker-component">
+                <div id="category-color-picker" class="input-group colorpicker-component">
                     <div class="input-group-addon"><i></i></div>
                     {!! Form::text('color', '#00a65a', ['id' => 'color', 'class' => 'form-control', 'required' => 'required']) !!}
                 </div>
@@ -35,11 +35,12 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
 @endpush
 
 @push('scripts')
@@ -47,7 +48,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#enabled_1').trigger('click');
 
             $('#name').focus();

@@ -59,17 +59,23 @@
                             </thead>
                             <tbody>
                             @if($items)
-                            @foreach($items as $item)
-                                <tr id="method-{{ $item->code }}">
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->code }}</td>
-                                    <td class="text-center">{{ $item->order }}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-xs method-edit" id="edit-{{ $item->code }}" title="{{ trans('general.edit') }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</button>
-                                        <button type="button" class="btn btn-danger btn-xs method-delete" id="delete-{{ $item->code }}" title="{{ trans('general.delete') }}"><i class="fa fa-trash-o" aria-hidden="true"></i> {{ trans('general.delete') }}</button>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                @foreach($items as $item)
+                                    <tr id="method-{{ $item->code }}">
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->code }}</td>
+                                        <td class="text-center">{{ $item->order }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-xs method-edit"
+                                                    id="edit-{{ $item->code }}" title="{{ trans('general.edit') }}"><i
+                                                        class="fa fa-pencil-square-o"
+                                                        aria-hidden="true"></i> {{ trans('general.edit') }}</button>
+                                            <button type="button" class="btn btn-danger btn-xs method-delete"
+                                                    id="delete-{{ $item->code }}" title="{{ trans('general.delete') }}">
+                                                <i class="fa fa-trash-o"
+                                                   aria-hidden="true"></i> {{ trans('general.delete') }}</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @else
 
                             @endif
@@ -116,8 +122,8 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function() {
-            $('.method-edit').on('click', function() {
+        $(document).ready(function () {
+            $('.method-edit').on('click', function () {
                 var code = $(this).attr('id').replace('edit-', '');
 
                 $.ajax({
@@ -125,15 +131,15 @@
                     type: 'post',
                     dataType: 'json',
                     data: {code: code},
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                    beforeSend: function() {
+                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                    beforeSend: function () {
                         $('#install-loading').html('<span class="install-loading-bar"><span class="install-loading-spin"><i class="fa fa-spinner fa-spin"></i></span></span>');
                         $('.install-loading-bar').css({"height": $('.col-md-4.no-padding-left').height() - 23});
                     },
-                    complete: function() {
-                       $('#install-loading .install-loading-bar').remove();
+                    complete: function () {
+                        $('#install-loading .install-loading-bar').remove();
                     },
-                    success: function(json) {
+                    success: function (json) {
                         if (json['error']) {
                         }
 
@@ -159,7 +165,7 @@
                 });
             });
 
-            $('.method-delete').on('click', function() {
+            $('.method-delete').on('click', function () {
                 var code = $(this).attr('id').replace('delete-', '');
 
                 $.ajax({
@@ -167,8 +173,8 @@
                     type: 'post',
                     dataType: 'json',
                     data: {code: code},
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                    success: function(json) {
+                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                    success: function (json) {
                         if (json['error']) {
                         }
 

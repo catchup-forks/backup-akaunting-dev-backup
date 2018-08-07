@@ -7,8 +7,8 @@ use App\Models\Module\Module;
 use App\Models\Module\ModuleHistory;
 use App\Traits\Modules;
 use Artisan;
-use Module as LModule;
 use Illuminate\Http\Request;
+use Module as LModule;
 
 class Item extends Controller
 {
@@ -86,19 +86,19 @@ class Item extends Controller
         // Download
         $json['step'][] = [
             'text' => trans('modules.installation.download', ['module' => $name]),
-            'url'  => url('apps/download')
+            'url' => url('apps/download')
         ];
 
         // Unzip
         $json['step'][] = [
             'text' => trans('modules.installation.unzip', ['module' => $name]),
-            'url'  => url('apps/unzip')
+            'url' => url('apps/unzip')
         ];
 
         // Download
         $json['step'][] = [
             'text' => trans('modules.installation.install', ['module' => $name]),
-            'url'  => url('apps/install')
+            'url' => url('apps/install')
         ];
 
         return response()->json($json);

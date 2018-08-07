@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Common;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Common\Media;
 use File;
+use Illuminate\Http\Request;
 use Storage;
 
 class Uploads extends Controller
@@ -26,6 +26,36 @@ class Uploads extends Controller
         }
 
         return response()->file($path);
+    }
+
+    /**
+     * Get the full path of resource.
+     *
+     * @param  $media
+     * @return boolean|string
+     */
+    protected function getPath($media)
+    {
+        $path = $media->basename;
+
+        if (!empty($media->directory)) {
+            $folders = explode('/', $media->directory);
+
+            // Check if company can access media
+            if ($folders[0] != session('company_id')) {
+                return false;
+            }
+
+            $path = $media->directory . '/' . $media->basename;
+        }
+
+        if (!Storage::exists($path)) {
+            return false;
+        }
+
+        $full_path = Storage::path($path);
+
+        return $full_path;
     }
 
     /**
@@ -81,35 +111,5 @@ class Uploads extends Controller
         }
 
         return back();
-    }
-
-    /**
-     * Get the full path of resource.
-     *
-     * @param  $media
-     * @return boolean|string
-     */
-    protected function getPath($media)
-    {
-        $path = $media->basename;
-
-        if (!empty($media->directory)) {
-            $folders = explode('/', $media->directory);
-
-            // Check if company can access media
-            if ($folders[0] != session('company_id')) {
-                return false;
-            }
-
-            $path = $media->directory . '/' . $media->basename;
-        }
-
-        if (!Storage::exists($path)) {
-            return false;
-        }
-
-        $full_path = Storage::path($path);
-
-        return $full_path;
     }
 }

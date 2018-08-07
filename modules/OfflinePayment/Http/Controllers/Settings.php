@@ -3,12 +3,11 @@
 namespace Modules\OfflinePayment\Http\Controllers;
 
 use Artisan;
-
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\OfflinePayment\Http\Requests\Setting as Request;
-use Modules\OfflinePayment\Http\Requests\SettingGet as GRequest;
 use Modules\OfflinePayment\Http\Requests\SettingDelete as DRequest;
+use Modules\OfflinePayment\Http\Requests\SettingGet as GRequest;
 
 class Settings extends Controller
 {
@@ -72,7 +71,7 @@ class Settings extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  GRequest  $request
+     * @param  GRequest $request
      *
      * @return Response
      */
@@ -104,14 +103,14 @@ class Settings extends Controller
         return response()->json([
             'errors' => false,
             'success' => true,
-            'data'    => $data
+            'data' => $data
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  DRequest  $request
+     * @param  DRequest $request
      *
      * @return Response
      */

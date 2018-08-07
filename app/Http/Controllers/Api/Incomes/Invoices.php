@@ -6,12 +6,12 @@ use App\Events\InvoiceCreated;
 use App\Events\InvoiceUpdated;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Income\Invoice as Request;
+use App\Models\Common\Item;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceHistory;
 use App\Models\Income\InvoiceItem;
 use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceTotal;
-use App\Models\Common\Item;
 use App\Models\Setting\Tax;
 use App\Notifications\Common\Item as ItemNotification;
 use App\Transformers\Income\Invoice as Transformer;
@@ -170,7 +170,80 @@ class Invoices extends ApiController
         // Fire the event to make it extendible
         event(new InvoiceCreated($invoice));
 
-        return $this->response->created(url('api/invoices/'.$invoice->id));
+        return $this->response->created(url('api/invoices/' . $invoice->id));
+    }
+
+    protected function addTotals($invoice, $request, $taxes, $sub_total, $tax_total)
+    {
+        // Add invoice total taxes
+        if ($request['totals']) {
+            $sort_order = 1;
+
+            foreach ($request['totals'] as $total) {
+                if (!empty($total['sort_order'])) {
+                    $sort_order = $total['sort_order'];
+                }
+
+                $invoice_total = [
+                    'company_id' => $request['company_id'],
+                    'invoice_id' => $invoice->id,
+                    'code' => $total['code'],
+                    'name' => $total['name'],
+                    'amount' => $total['amount'],
+                    'sort_order' => $sort_order,
+                ];
+
+                InvoiceTotal::create($invoice_total);
+
+                if (empty($total['sort_order'])) {
+                    $sort_order++;
+                }
+            }
+        } else {
+            // Added invoice total sub total
+            $invoice_sub_total = [
+                'company_id' => $request['company_id'],
+                'invoice_id' => $invoice->id,
+                'code' => 'sub_total',
+                'name' => 'invoices.sub_total',
+                'amount' => $sub_total,
+                'sort_order' => 1,
+            ];
+
+            InvoiceTotal::create($invoice_sub_total);
+
+            $sort_order = 2;
+
+            // Added invoice total taxes
+            if ($taxes) {
+                foreach ($taxes as $tax) {
+                    $invoice_tax_total = [
+                        'company_id' => $request['company_id'],
+                        'invoice_id' => $invoice->id,
+                        'code' => 'tax',
+                        'name' => $tax['name'],
+                        'amount' => $tax['amount'],
+                        'sort_order' => $sort_order,
+                    ];
+
+                    InvoiceTotal::create($invoice_tax_total);
+
+                    $sort_order++;
+                }
+            }
+
+            // Added invoice total total
+            $invoice_total = [
+                'company_id' => $request['company_id'],
+                'invoice_id' => $invoice->id,
+                'code' => 'total',
+                'name' => 'invoices.total',
+                'amount' => $sub_total + $tax_total,
+                'sort_order' => $sort_order,
+            ];
+
+            InvoiceTotal::create($invoice_total);
+        }
     }
 
     /**
@@ -272,7 +345,7 @@ class Invoices extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Invoice  $invoice
+     * @param  Invoice $invoice
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Invoice $invoice)
@@ -284,77 +357,5 @@ class Invoices extends ApiController
         InvoiceHistory::where('invoice_id', $invoice->id)->delete();
 
         return $this->response->noContent();
-    }
-
-    protected function addTotals($invoice, $request, $taxes, $sub_total, $tax_total) {
-        // Add invoice total taxes
-        if ($request['totals']) {
-            $sort_order = 1;
-
-            foreach ($request['totals'] as $total) {
-                if (!empty($total['sort_order'])) {
-                    $sort_order = $total['sort_order'];
-                }
-
-                $invoice_total = [
-                    'company_id' => $request['company_id'],
-                    'invoice_id' => $invoice->id,
-                    'code' => $total['code'],
-                    'name' => $total['name'],
-                    'amount' => $total['amount'],
-                    'sort_order' => $sort_order,
-                ];
-
-                InvoiceTotal::create($invoice_total);
-
-                if (empty($total['sort_order'])) {
-                    $sort_order++;
-                }
-            }
-        } else {
-            // Added invoice total sub total
-            $invoice_sub_total = [
-                'company_id' => $request['company_id'],
-                'invoice_id' => $invoice->id,
-                'code' => 'sub_total',
-                'name' => 'invoices.sub_total',
-                'amount' => $sub_total,
-                'sort_order' => 1,
-            ];
-
-            InvoiceTotal::create($invoice_sub_total);
-
-            $sort_order = 2;
-
-            // Added invoice total taxes
-            if ($taxes) {
-                foreach ($taxes as $tax) {
-                    $invoice_tax_total = [
-                        'company_id' => $request['company_id'],
-                        'invoice_id' => $invoice->id,
-                        'code' => 'tax',
-                        'name' => $tax['name'],
-                        'amount' => $tax['amount'],
-                        'sort_order' => $sort_order,
-                    ];
-
-                    InvoiceTotal::create($invoice_tax_total);
-
-                    $sort_order++;
-                }
-            }
-
-            // Added invoice total total
-            $invoice_total = [
-                'company_id' => $request['company_id'],
-                'invoice_id' => $invoice->id,
-                'code' => 'total',
-                'name' => 'invoices.total',
-                'amount' => $sub_total + $tax_total,
-                'sort_order' => $sort_order,
-            ];
-
-            InvoiceTotal::create($invoice_total);
-        }
     }
 }

@@ -26,11 +26,11 @@
             <div class="row invoice-header">
                 <div class="col-xs-7">
                     @if (setting('general.invoice_logo'))
-                        <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
+                        <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo"/>
                     @elseif (setting('general.company_logo'))
-                        <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
+                        <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo"/>
                     @else
-                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
+                        <img src="{{ asset('./img/company.png') }}" class="invoice-logo"/>
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">
@@ -38,11 +38,11 @@
                         <strong>{{ setting('general.company_name') }}</strong><br>
                         {!! nl2br(setting('general.company_address')) !!}<br>
                         @if (setting('general.company_tax_number'))
-                        {{ trans('general.tax_number') }}: {{ setting('general.company_tax_number') }}<br>
+                            {{ trans('general.tax_number') }}: {{ setting('general.company_tax_number') }}<br>
                         @endif
                         <br>
                         @if (setting('general.company_phone'))
-                        {{ setting('general.company_phone') }}<br>
+                            {{ setting('general.company_phone') }}<br>
                         @endif
                         {{ setting('general.company_email') }}
                     </address>
@@ -56,11 +56,11 @@
                         <strong>{{ $invoice->customer_name }}</strong><br>
                         {!! nl2br($invoice->customer_address) !!}<br>
                         @if ($invoice->customer_tax_number)
-                        {{ trans('general.tax_number') }}: {{ $invoice->customer_tax_number }}<br>
+                            {{ trans('general.tax_number') }}: {{ $invoice->customer_tax_number }}<br>
                         @endif
                         <br>
                         @if ($invoice->customer_phone)
-                        {{ $invoice->customer_phone }}<br>
+                            {{ $invoice->customer_phone }}<br>
                         @endif
                         {{ $invoice->customer_email }}
                     </address>
@@ -69,24 +69,24 @@
                     <div class="table-responsive">
                         <table class="table no-border">
                             <tbody>
-                                <tr>
-                                    <th>{{ trans('invoices.invoice_number') }}:</th>
-                                    <td class="text-right">{{ $invoice->invoice_number }}</td>
-                                </tr>
-                                @if ($invoice->order_number)
+                            <tr>
+                                <th>{{ trans('invoices.invoice_number') }}:</th>
+                                <td class="text-right">{{ $invoice->invoice_number }}</td>
+                            </tr>
+                            @if ($invoice->order_number)
                                 <tr>
                                     <th>{{ trans('invoices.order_number') }}:</th>
                                     <td class="text-right">{{ $invoice->order_number }}</td>
                                 </tr>
-                                @endif
-                                <tr>
-                                    <th>{{ trans('invoices.invoice_date') }}:</th>
-                                    <td class="text-right">{{ Date::parse($invoice->invoiced_at)->format($date_format) }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ trans('invoices.payment_due') }}:</th>
-                                    <td class="text-right">{{ Date::parse($invoice->due_at)->format($date_format) }}</td>
-                                </tr>
+                            @endif
+                            <tr>
+                                <th>{{ trans('invoices.invoice_date') }}:</th>
+                                <td class="text-right">{{ Date::parse($invoice->invoiced_at)->format($date_format) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('invoices.payment_due') }}:</th>
+                                <td class="text-right">{{ Date::parse($invoice->due_at)->format($date_format) }}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -97,25 +97,26 @@
                 <div class="col-xs-12 table-responsive">
                     <table class="table table-striped">
                         <tbody>
-                            <tr>
-                                <th>{{ trans_choice('general.items', 1) }}</th>
-                                <th class="text-center">{{ trans('invoices.quantity') }}</th>
-                                <th class="text-right">{{ trans('invoices.price') }}</th>
-                                <th class="text-right">{{ trans('invoices.total') }}</th>
-                            </tr>
-                            @foreach($invoice->items as $item)
+                        <tr>
+                            <th>{{ trans_choice('general.items', 1) }}</th>
+                            <th class="text-center">{{ trans('invoices.quantity') }}</th>
+                            <th class="text-right">{{ trans('invoices.price') }}</th>
+                            <th class="text-right">{{ trans('invoices.total') }}</th>
+                        </tr>
+                        @foreach($invoice->items as $item)
                             <tr>
                                 <td>
                                     {{ $item->name }}
                                     @if ($item->sku)
-                                        <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
+                                        <br>
+                                        <small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
                                     @endif
                                 </td>
                                 <td class="text-center">{{ $item->quantity }}</td>
                                 <td class="text-right">@money($item->price, $invoice->currency_code, true)</td>
                                 <td class="text-right">@money($item->total, $invoice->currency_code, true)</td>
                             </tr>
-                            @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -123,37 +124,42 @@
 
             <div class="row">
                 <div class="col-xs-7">
-                @if ($invoice->notes)
-                    <p class="lead">{{ trans_choice('general.notes', 2) }}</p>
+                    @if ($invoice->notes)
+                        <p class="lead">{{ trans_choice('general.notes', 2) }}</p>
 
-                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-                        {{ $invoice->notes }}
-                    </p>
-                @endif
+                        <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                            {{ $invoice->notes }}
+                        </p>
+                    @endif
                 </div>
                 <div class="col-xs-5">
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                @foreach ($invoice->totals as $total)
+                            @foreach ($invoice->totals as $total)
                                 @if ($total->code != 'total')
                                     <tr>
                                         <th>{{ trans($total->title) }}:</th>
-                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)
+                                        </td>
                                     </tr>
                                 @else
                                     @if ($invoice->paid)
                                         <tr class="text-success">
                                             <th>{{ trans('invoices.paid') }}:</th>
-                                            <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                                            <td class="text-right">- @money($invoice->paid, $invoice->currency_code,
+                                                true)
+                                            </td>
                                         </tr>
                                     @endif
                                     <tr>
                                         <th>{{ trans($total->name) }}:</th>
-                                        <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                                        <td class="text-right">@money($total->amount - $invoice->paid,
+                                            $invoice->currency_code, true)
+                                        </td>
                                     </tr>
                                 @endif
-                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -165,35 +171,51 @@
                     <a href="{{ url('incomes/invoices/' . $invoice->id . '/edit') }}" class="btn btn-default">
                         <i class="fa fa-pencil-square-o"></i>&nbsp; {{ trans('general.edit') }}
                     </a>
-                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-success">
+                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/print') }}" target="_blank"
+                       class="btn btn-success">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
                     <div class="btn-group dropup">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-circle-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false"><i
+                                    class="fa fa-chevron-circle-up"></i>&nbsp; {{ trans('general.more_actions') }}
+                        </button>
                         <ul class="dropdown-menu" role="menu">
                             @if($invoice->status->code != 'paid')
-                            @permission('update-incomes-invoices')
-                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a></li>
-                            @endpermission
-                            @if(empty($invoice->payments()->count()) || (!empty($invoice->payments()->count()) && $invoice->payments()->paid() != $invoice->amount))
-                            <li><a href="#" id="button-payment">{{ trans('invoices.add_payment') }}</a></li>
-                            @endif
-                            <li class="divider"></li>
+                                @permission('update-incomes-invoices')
+                                <li>
+                                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/pay') }}">{{ trans('invoices.mark_paid') }}</a>
+                                </li>
+                                @endpermission
+                                @if(empty($invoice->payments()->count()) || (!empty($invoice->payments()->count()) && $invoice->payments()->paid() != $invoice->amount))
+                                    <li><a href="#" id="button-payment">{{ trans('invoices.add_payment') }}</a></li>
+                                @endif
+                                <li class="divider"></li>
                             @endif
                             @permission('update-incomes-invoices')
                             @if($invoice->invoice_status_code == 'draft')
-                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a></li>
+                                <li>
+                                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/sent') }}">{{ trans('invoices.mark_sent') }}</a>
+                                </li>
                             @else
-                            <li><a href="javascript:void(0);" class="disabled"><span class="text-disabled">{{ trans('invoices.mark_sent') }}</span></a></li>
+                                <li><a href="javascript:void(0);" class="disabled"><span
+                                                class="text-disabled">{{ trans('invoices.mark_sent') }}</span></a></li>
                             @endif
                             @endpermission
                             @if($invoice->customer_email)
-                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/email') }}">{{ trans('invoices.send_mail') }}</a></li>
+                                <li>
+                                    <a href="{{ url('incomes/invoices/' . $invoice->id . '/email') }}">{{ trans('invoices.send_mail') }}</a>
+                                </li>
                             @else
-                            <li><a href="javascript:void(0);" class="green-tooltip disabled" data-toggle="tooltip" data-placement="right" title="{{ trans('invoices.messages.email_required') }}"><span class="text-disabled">{{ trans('invoices.send_mail') }}</span></a></li>
+                                <li><a href="javascript:void(0);" class="green-tooltip disabled" data-toggle="tooltip"
+                                       data-placement="right"
+                                       title="{{ trans('invoices.messages.email_required') }}"><span
+                                                class="text-disabled">{{ trans('invoices.send_mail') }}</span></a></li>
                             @endif
                             <li class="divider"></li>
-                            <li><a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}">{{ trans('invoices.download_pdf') }}</a></li>
+                            <li>
+                                <a href="{{ url('incomes/invoices/' . $invoice->id . '/pdf') }}">{{ trans('invoices.download_pdf') }}</a>
+                            </li>
                             <li class="divider"></li>
                             @permission('delete-incomes-invoices')
                             <li>{!! Form::deleteLink($invoice, 'incomes/invoices') !!}</li>
@@ -232,7 +254,8 @@
                     <h3 class="box-title">{{ trans('invoices.histories') }}</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                        </button>
                     </div>
                     <!-- /.box-tools -->
                 </div>
@@ -267,7 +290,8 @@
                     <h3 class="box-title">{{ trans('invoices.payments') }}</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                        </button>
                     </div>
                     <!-- /.box-tools -->
                 </div>
@@ -289,8 +313,14 @@
                                     <td>@money($payment->amount, $payment->currency_code, true)</td>
                                     <td>{{ $payment->account->name }}</td>
                                     <td>
-                                        <a href="{{ url('incomes/invoices/' . $payment->id . '') }}" class="btn btn-info btn-xs hidden"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
-                                        <a href="{{ url('incomes/revenues/' . $payment->id . '/edit') }}" class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
+                                        <a href="{{ url('incomes/invoices/' . $payment->id . '') }}"
+                                           class="btn btn-info btn-xs hidden"><i class="fa fa-eye"
+                                                                                 aria-hidden="true"></i> {{ trans('general.show') }}
+                                        </a>
+                                        <a href="{{ url('incomes/revenues/' . $payment->id . '/edit') }}"
+                                           class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o"
+                                                                                     aria-hidden="true"></i> {{ trans('general.edit') }}
+                                        </a>
                                         {!! Form::open([
                                             'id' => 'invoice-payment-' . $payment->id,
                                             'method' => 'DELETE',
@@ -317,18 +347,18 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('./js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $(document).on('click', '#button-payment', function (e) {
                 $('#payment-modal').remove();
 
@@ -426,7 +456,7 @@
                     type: 'GET',
                     dataType: 'JSON',
                     data: 'account_id=' + $(this).val(),
-                    success: function(data) {
+                    success: function (data) {
                         $('#currency').val(data.currency_name);
                         $('#currency_code').val(data.currency_code);
                     }
@@ -473,14 +503,14 @@
                 type: 'POST',
                 dataType: 'JSON',
                 data: $('#payment-modal input[type=\'text\'], #payment-modal input[type=\'hidden\'], #payment-modal textarea, #payment-modal select'),
-                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                beforeSend: function() {
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                beforeSend: function () {
                     $('#payment-modal .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
                 },
-                complete: function() {
+                complete: function () {
                     $('#loading').remove();
                 },
-                success: function(json) {
+                success: function (json) {
                     if (json['error']) {
                         $('#payment-modal .modal-message').append('<div class="alert alert-danger">' + json['message'] + '</div>');
                         $('div.alert-danger').delay(3000).fadeOut(350);
@@ -490,14 +520,14 @@
                         $('#payment-modal .modal-message').before('<div class="alert alert-success">' + json['message'] + '</div>');
                         $('div.alert-success').delay(3000).fadeOut(350);
 
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $("#payment-modal").modal('hide');
 
                             location.reload();
                         }, 3000);
                     }
                 },
-                error: function(data){
+                error: function (data) {
                     var errors = data.responseJSON;
 
                     if (typeof errors !== 'undefined') {

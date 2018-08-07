@@ -64,10 +64,10 @@ class ModuleEnable extends Command
     }
 
     /**
-    * Get the console command arguments.
-    *
-    * @return array
-    */
+     * Get the console command arguments.
+     *
+     * @return array
+     */
     protected function getArguments()
     {
         return array(

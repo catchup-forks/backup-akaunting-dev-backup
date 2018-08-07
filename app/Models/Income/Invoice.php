@@ -9,59 +9,80 @@ use App\Traits\Incomes;
 use App\Traits\Media;
 use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
-use Sofa\Eloquence\Eloquence;
 use Date;
+use Sofa\Eloquence\Eloquence;
 
 class Invoice extends Model
 {
     use Cloneable, Currencies, DateTime, Eloquence, Incomes, Media, Recurring;
-
-    protected $table = 'invoices';
-
-    /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array
-     */
-    protected $appends = ['attachment', 'discount'];
-
-    protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'invoice_number', 'order_number', 'invoice_status_code', 'invoiced_at', 'due_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'customer_name', 'customer_email', 'customer_tax_number', 'customer_phone', 'customer_address', 'notes', 'category_id', 'parent_id'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['invoice_number', 'customer_name', 'amount', 'status' , 'invoiced_at', 'due_at', 'invoice_status_code'];
-
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
-    protected $searchableColumns = [
-        'invoice_number'   => 10,
-        'order_number'     => 10,
-        'customer_name'    => 10,
-        'customer_email'   => 5,
-        'customer_phone'   => 2,
-        'customer_address' => 1,
-        'notes'            => 2,
+    public $sortable = [
+        'invoice_number',
+        'customer_name',
+        'amount',
+        'status',
+        'invoiced_at',
+        'due_at',
+        'invoice_status_code'
     ];
-
     /**
      * Clonable relationships.
      *
      * @var array
      */
     public $cloneable_relations = ['items', 'recurring', 'totals'];
+    protected $table = 'invoices';
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['attachment', 'discount'];
+    protected $dates = ['deleted_at', 'invoiced_at', 'due_at'];
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'company_id',
+        'invoice_number',
+        'order_number',
+        'invoice_status_code',
+        'invoiced_at',
+        'due_at',
+        'amount',
+        'currency_code',
+        'currency_rate',
+        'customer_id',
+        'customer_name',
+        'customer_email',
+        'customer_tax_number',
+        'customer_phone',
+        'customer_address',
+        'notes',
+        'category_id',
+        'parent_id'
+    ];
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    protected $searchableColumns = [
+        'invoice_number' => 10,
+        'order_number' => 10,
+        'customer_name' => 10,
+        'customer_email' => 5,
+        'customer_phone' => 2,
+        'customer_address' => 1,
+        'notes' => 2,
+    ];
 
     public function category()
     {
@@ -103,11 +124,6 @@ class Invoice extends Model
         return $this->belongsTo('App\Models\Income\InvoiceStatus', 'invoice_status_code', 'code');
     }
 
-    public function totals()
-    {
-        return $this->hasMany('App\Models\Income\InvoiceTotal');
-    }
-
     public function scopeDue($query, $date)
     {
         return $query->where('due_at', '=', $date);
@@ -142,23 +158,23 @@ class Invoice extends Model
     /**
      * Convert amount to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) money($value, $this->attributes['currency_code'])->getAmount();
+        $this->attributes['amount'] = (double)money($value, $this->attributes['currency_code'])->getAmount();
     }
 
     /**
      * Convert currency rate to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setCurrencyRateAttribute($value)
     {
-        $this->attributes['currency_rate'] = (double) $value;
+        $this->attributes['currency_rate'] = (double)$value;
     }
 
     /**
@@ -195,5 +211,10 @@ class Invoice extends Model
         }
 
         return $percent;
+    }
+
+    public function totals()
+    {
+        return $this->hasMany('App\Models\Income\InvoiceTotal');
     }
 }

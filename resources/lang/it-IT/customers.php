@@ -2,10 +2,10 @@
 
 return [
 
-    'allow_login'           => 'Abilitare la login?',
-    'user_created'          => 'Utente creato',
+    'allow_login' => 'Abilitare la login?',
+    'user_created' => 'Utente creato',
 
     'error' => [
-        'email'             => 'L\'email è già stata presa.'
+        'email' => 'L\'email è già stata presa.'
     ]
 ];

@@ -28,7 +28,8 @@
                     <div class="input-group-addon"><i class="fa fa-folder-open-o"></i></div>
                     {!! Form::select('category_id', $categories, null, array_merge(['class' => 'form-control', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.categories', 1)])])) !!}
                     <div class="input-group-btn">
-                        <button type="button" onclick="createCategory();" class="btn btn-default btn-icon"><i class="fa fa-plus"></i></button>
+                        <button type="button" onclick="createCategory();" class="btn btn-default btn-icon"><i
+                                    class="fa fa-plus"></i></button>
                     </div>
                 </div>
                 {!! $errors->first('category_id', '<p class="help-block">:message</p>') !!}
@@ -50,13 +51,14 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
+    <script src="{{ asset('./js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/colorpicker/bootstrap-colorpicker.css') }}">
 @endpush
 
 @push('scripts')
@@ -64,7 +66,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#enabled_1').trigger('click');
 
             $('#name').focus();
@@ -78,16 +80,16 @@
             });
 
             $('#picture').fancyfile({
-                text  : '{{ trans('general.form.select.file') }}',
-                style : 'btn-default',
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                text: '{{ trans('general.form.select.file') }}',
+                style: 'btn-default',
+                placeholder: '{{ trans('general.form.no_file_selected') }}'
             });
         });
 
         function createCategory() {
             $('#modal-create-category').remove();
 
-            modal  = '<div class="modal fade" id="modal-create-category" style="display: none;">';
+            modal = '<div class="modal fade" id="modal-create-category" style="display: none;">';
             modal += '  <div class="modal-dialog  modal-lg">';
             modal += '      <div class="modal-content">';
             modal += '          <div class="modal-header">';
@@ -144,7 +146,7 @@
                     $(".form-group").removeClass("has-error");
                     $(".help-block").remove();
                 },
-                success: function(data) {
+                success: function (data) {
                     $('#span-loading').remove();
 
                     $('#modal-create-category').modal('hide');
@@ -152,7 +154,7 @@
                     $("#category_id").append('<option value="' + data.id + '" selected="selected">' + data.name + '</option>');
                     $("#category_id").select2('refresh');
                 },
-                error: function(error, textStatus, errorThrown) {
+                error: function (error, textStatus, errorThrown) {
                     $('#span-loading').remove();
 
                     if (error.responseJSON.name) {

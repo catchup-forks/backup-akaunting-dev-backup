@@ -10,10 +10,12 @@
                 <div class="box-body box-profile">
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item" style="border-top: 0;">
-                            <b>{{ trans_choice('general.invoices', 2) }}</b> <a class="pull-right">{{ $counts['invoices'] }}</a>
+                            <b>{{ trans_choice('general.invoices', 2) }}</b> <a
+                                    class="pull-right">{{ $counts['invoices'] }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>{{ trans_choice('general.revenues', 2) }}</b> <a class="pull-right">{{ $counts['revenues'] }}</a>
+                            <b>{{ trans_choice('general.revenues', 2) }}</b> <a
+                                    class="pull-right">{{ $counts['revenues'] }}</a>
                         </li>
                     </ul>
                 </div>
@@ -37,7 +39,8 @@
                             <b>{{ trans('general.website') }}</b> <a class="pull-right">{{ $customer->website }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>{{ trans('general.tax_number') }}</b> <a class="pull-right">{{ $customer->tax_number }}</a>
+                            <b>{{ trans('general.tax_number') }}</b> <a
+                                    class="pull-right">{{ $customer->tax_number }}</a>
                         </li>
                     </ul>
                 </div>
@@ -61,7 +64,8 @@
 
             <!-- Edit -->
             <div>
-                    <a href="{{ url('incomes/customers/' . $customer->id . '/edit') }}" class="btn btn-primary btn-block"><b>{{ trans('general.edit') }}</b></a>
+                <a href="{{ url('incomes/customers/' . $customer->id . '/edit') }}"
+                   class="btn btn-primary btn-block"><b>{{ trans('general.edit') }}</b></a>
                 <!-- /.box-body -->
             </div>
         </div>
@@ -130,7 +134,9 @@
                             @foreach($transactions as $item)
                                 <tr>
                                     <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                                    <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
+                                    <td class="text-right amount-space">@money($item->amount, $item->currency_code,
+                                        true)
+                                    </td>
                                     <td class="hidden-xs">{{ $item->category->name }}</td>
                                     <td class="hidden-xs">{{ $item->account->name }}</td>
                                 </tr>

@@ -24,8 +24,9 @@
 
             {{ Form::radioGroup('enabled', trans('general.enabled')) }}
 
-            <div  id="customer-create-user" class="form-group col-md-12 margin-top">
-                <strong>{{ trans('customers.allow_login') }}</strong> &nbsp;  {{ Form::checkbox('create_user', '1', null, ['id' => 'create_user']) }}
+            <div id="customer-create-user" class="form-group col-md-12 margin-top">
+                <strong>{{ trans('customers.allow_login') }}</strong>
+                &nbsp; {{ Form::checkbox('create_user', '1', null, ['id' => 'create_user']) }}
             </div>
         </div>
         <!-- /.box-body -->
@@ -40,11 +41,11 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/iCheck/icheck.min.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
+    <link rel="stylesheet" href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/iCheck/square/green.css') }}">
 @endpush
 
 @push('scripts')
@@ -52,7 +53,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#enabled_1').trigger('click');
 
             $('#name').focus();
@@ -96,7 +97,7 @@
                         type: 'GET',
                         dataType: 'JSON',
                         data: {column: 'email', value: email},
-                        beforeSend: function() {
+                        beforeSend: function () {
                             $('.iCheck-helper').parent().after('<i class="fa fa-spinner fa-pulse fa-fw loading" style="margin-left: 10px;"></i>');
 
                             $('input[name="email"]').parent().parent().removeClass('has-error');
@@ -104,7 +105,7 @@
 
                             $('.box-footer .btn').attr('disabled', true);
                         },
-                        success: function(json) {
+                        success: function (json) {
                             if (json['errors']) {
                                 if (json['data']) {
                                     $('input[name="email"]').parent().parent().addClass('has-error');
@@ -124,12 +125,12 @@
                                     type: 'POST',
                                     dataType: 'JSON',
                                     data: {fields: fields},
-                                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                                    complete: function() {
+                                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                                    complete: function () {
                                         $('.box-footer .btn').attr('disabled', false);
                                         $('.loading').remove();
                                     },
-                                    success: function(json) {
+                                    success: function (json) {
                                         $('#customer-create-user').after(json['html']);
                                     }
                                 });
@@ -153,7 +154,7 @@
         });
 
         function unselect() {
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#create_user').iCheck('uncheck');
             }, 550);
         }

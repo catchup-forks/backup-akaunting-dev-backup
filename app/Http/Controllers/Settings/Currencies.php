@@ -60,7 +60,7 @@ class Currencies extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -89,7 +89,7 @@ class Currencies extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      *
      * @return Response
      */
@@ -119,8 +119,8 @@ class Currencies extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Currency  $currency
-     * @param  Request  $request
+     * @param  Currency $currency
+     * @param  Request $request
      *
      * @return Response
      */
@@ -162,7 +162,8 @@ class Currencies extends Controller
 
             return redirect('settings/currencies');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -173,7 +174,7 @@ class Currencies extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      *
      * @return Response
      */
@@ -192,7 +193,7 @@ class Currencies extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      *
      * @return Response
      */
@@ -219,7 +220,8 @@ class Currencies extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -232,7 +234,7 @@ class Currencies extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      *
      * @return Response
      */
@@ -258,7 +260,8 @@ class Currencies extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted',
+                ['name' => $currency->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }
@@ -292,7 +295,7 @@ class Currencies extends Controller
             $currency = config('money.' . $code);
             $currency['symbol_first'] = $currency['symbol_first'] ? 1 : 0;
 
-            $json = (object) $currency;
+            $json = (object)$currency;
         }
 
         return response()->json($json);

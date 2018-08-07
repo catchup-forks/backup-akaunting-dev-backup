@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
-use App\Models\Income\Invoice;
-use App\Models\Income\InvoicePayment;
-use App\Models\Income\Revenue;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\Payment;
+use App\Models\Income\Invoice;
+use App\Models\Income\InvoicePayment;
+use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use Charts;
 use Date;
@@ -107,7 +107,7 @@ class IncomeExpenseSummary extends Controller
                 $this->setAmount($profit_graph, $totals, $compares, $bills, 'bill', 'billed_at');
                 break;
         }
-        
+
         // Payments
         if ($status != 'upcoming') {
             $payments = Payment::monthsOfYear('paid_at')->isNotTransfer()->get();
@@ -132,7 +132,8 @@ class IncomeExpenseSummary extends Controller
             ->credits(false)
             ->view($chart_template);
 
-        return view($view_template, compact('chart', 'dates', 'income_categories', 'expense_categories', 'compares', 'totals'));
+        return view($view_template,
+            compact('chart', 'dates', 'income_categories', 'expense_categories', 'compares', 'totals'));
     }
 
     private function setAmount(&$graph, &$totals, &$compares, $items, $type, $date_field)

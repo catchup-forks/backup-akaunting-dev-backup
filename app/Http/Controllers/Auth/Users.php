@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\User as Request;
-use Illuminate\Http\Request as ARequest;
-use App\Models\Auth\User;
 use App\Models\Auth\Role;
+use App\Models\Auth\User;
 use App\Traits\Uploads;
-
 use Auth;
+use Illuminate\Http\Request as ARequest;
 
 class Users extends Controller
 {
@@ -53,7 +52,7 @@ class Users extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -85,7 +84,7 @@ class Users extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  User  $user
+     * @param  User $user
      *
      * @return Response
      */
@@ -115,8 +114,8 @@ class Users extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  User  $user
-     * @param  Request  $request
+     * @param  User $user
+     * @param  Request $request
      *
      * @return Response
      */
@@ -154,7 +153,7 @@ class Users extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  User  $user
+     * @param  User $user
      *
      * @return Response
      */
@@ -173,7 +172,7 @@ class Users extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  User  $user
+     * @param  User $user
      *
      * @return Response
      */
@@ -192,7 +191,7 @@ class Users extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User  $user
+     * @param  User $user
      *
      * @return Response
      */
@@ -219,7 +218,7 @@ class Users extends Controller
     /**
      * Mark upcoming bills notifications are read and redirect to bills page.
      *
-     * @param  User  $user
+     * @param  User $user
      *
      * @return Response
      */
@@ -242,7 +241,7 @@ class Users extends Controller
     /**
      * Mark overdue invoices notifications are read and redirect to invoices page.
      *
-     * @param  User  $user
+     * @param  User $user
      *
      * @return Response
      */
@@ -265,7 +264,7 @@ class Users extends Controller
     /**
      * Mark items out of stock notifications are read and redirect to items page.
      *
-     * @param  User  $user
+     * @param  User $user
      *
      * @return Response
      */
@@ -296,7 +295,7 @@ class Users extends Controller
         if (!empty($column) && !empty($value)) {
             switch ($column) {
                 case 'id':
-                    $user = User::find((int) $value);
+                    $user = User::find((int)$value);
                     break;
                 case 'email':
                     $user = User::where('email', $value)->first();
@@ -311,9 +310,9 @@ class Users extends Controller
         }
 
         return response()->json([
-            'errors'  => ($user) ? false : true,
+            'errors' => ($user) ? false : true,
             'success' => ($user) ? true : false,
-            'data'    => $data
+            'data' => $data
         ]);
     }
 }

@@ -32,7 +32,7 @@ class RecurringCheck extends Command
      * @var string
      */
     protected $description = 'Check for recurring';
-    
+
     /**
      * Create a new command instance.
      */
@@ -108,6 +108,43 @@ class RecurringCheck extends Command
         session()->forget('company_id');
     }
 
+    protected function recurBill($company, $model)
+    {
+        $model->cloneable_relations = ['items', 'totals'];
+
+        // Create new record
+        $clone = $model->duplicate();
+
+        // Set original bill id
+        $clone->parent_id = $model->id;
+
+        // Days between invoiced and due date
+        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
+
+        // Update dates
+        $clone->billed_at = $this->today->format('Y-m-d');
+        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
+        $clone->save();
+
+        // Add bill history
+        BillHistory::create([
+            'company_id' => session('company_id'),
+            'bill_id' => $clone->id,
+            'status_code' => 'draft',
+            'notify' => 0,
+            'description' => trans('messages.success.added', ['type' => $clone->bill_number]),
+        ]);
+
+        // Notify all users assigned to this company
+        foreach ($company->users as $user) {
+            if (!$user->can('read-notifications')) {
+                continue;
+            }
+
+            $user->notify(new BillNotification($clone));
+        }
+    }
+
     protected function recurInvoice($company, $model)
     {
         $model->cloneable_relations = ['items', 'totals'];
@@ -151,42 +188,5 @@ class RecurringCheck extends Command
 
         // Update next invoice number
         $this->increaseNextInvoiceNumber();
-    }
-
-    protected function recurBill($company, $model)
-    {
-        $model->cloneable_relations = ['items', 'totals'];
-
-        // Create new record
-        $clone = $model->duplicate();
-
-        // Set original bill id
-        $clone->parent_id = $model->id;
-
-        // Days between invoiced and due date
-        $diff_days = Date::parse($clone->due_at)->diffInDays(Date::parse($clone->invoiced_at));
-
-        // Update dates
-        $clone->billed_at = $this->today->format('Y-m-d');
-        $clone->due_at = $this->today->addDays($diff_days)->format('Y-m-d');
-        $clone->save();
-
-        // Add bill history
-        BillHistory::create([
-            'company_id' => session('company_id'),
-            'bill_id' => $clone->id,
-            'status_code' => 'draft',
-            'notify' => 0,
-            'description' => trans('messages.success.added', ['type' => $clone->bill_number]),
-        ]);
-
-        // Notify all users assigned to this company
-        foreach ($company->users as $user) {
-            if (!$user->can('read-notifications')) {
-                continue;
-            }
-
-            $user->notify(new BillNotification($clone));
-        }
     }
 }

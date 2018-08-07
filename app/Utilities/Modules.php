@@ -2,11 +2,10 @@
 
 namespace App\Utilities;
 
+use App\Events\PaymentGatewayListing;
 use Cache;
 use Date;
 use Module;
-
-use App\Events\PaymentGatewayListing;
 
 class Modules
 {

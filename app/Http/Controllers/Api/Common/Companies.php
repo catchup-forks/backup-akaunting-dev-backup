@@ -31,7 +31,7 @@ class Companies extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Company  $company
+     * @param  Company $company
      * @return \Dingo\Api\Http\Response
      */
     public function show(Company $company)
@@ -73,7 +73,7 @@ class Companies extends ApiController
 
         setting()->save();
 
-        return $this->response->created(url('api/companies/'.$company->id));
+        return $this->response->created(url('api/companies/' . $company->id));
     }
 
     /**
@@ -115,7 +115,7 @@ class Companies extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Company  $company
+     * @param  Company $company
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Company $company)

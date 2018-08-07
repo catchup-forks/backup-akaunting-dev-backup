@@ -1,3 +1,3 @@
 <ul class="nav nav-pills  nav-justified">
-  @include('menus::menu')
+    @include('menus::menu')
 </ul>

@@ -13,12 +13,12 @@ class Transactions extends ModelFilter
      * @var array
      */
     public $relations = [];
-    
+
     public function account($account_id)
     {
         return $this->where('account_id', $account_id);
     }
-    
+
     public function category($category_id)
     {
         // No category for bills/invoices

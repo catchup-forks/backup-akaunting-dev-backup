@@ -2,10 +2,9 @@
 
 namespace Modules\PaypalStandard\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
-
 use App\Events\PaymentGatewayListing;
+use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\ServiceProvider;
 use Modules\PaypalStandard\Events\Handlers\PaypalStandardGateway;
 
 class PaypalStandardServiceProvider extends ServiceProvider
@@ -35,13 +34,19 @@ class PaypalStandardServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the service provider.
+     * Register translations.
      *
      * @return void
      */
-    public function register()
+    public function registerTranslations()
     {
-        //
+        $langPath = resource_path('lang/modules/paypalstandard');
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, 'paypalstandard');
+        } else {
+            $this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'paypalstandard');
+        }
     }
 
     /**
@@ -52,11 +57,11 @@ class PaypalStandardServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([
-            __DIR__.'/../Config/config.php' => config_path('paypalstandard.php'),
+            __DIR__ . '/../Config/config.php' => config_path('paypalstandard.php'),
         ], 'config');
 
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'paypalstandard'
+            __DIR__ . '/../Config/config.php', 'paypalstandard'
         );
     }
 
@@ -69,7 +74,7 @@ class PaypalStandardServiceProvider extends ServiceProvider
     {
         $viewPath = resource_path('views/modules/paypalstandard');
 
-        $sourcePath = __DIR__.'/../Resources/views';
+        $sourcePath = __DIR__ . '/../Resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
@@ -81,30 +86,24 @@ class PaypalStandardServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register translations.
-     *
-     * @return void
-     */
-    public function registerTranslations()
-    {
-        $langPath = resource_path('lang/modules/paypalstandard');
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'paypalstandard');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', 'paypalstandard');
-        }
-    }
-
-    /**
      * Register an additional directory of factories.
      * @source https://github.com/sebastiaanluca/laravel-resource-flow/blob/develop/src/Modules/ModuleServiceProvider.php#L66
      */
     public function registerFactories()
     {
-        if (! app()->environment('production')) {
+        if (!app()->environment('production')) {
             app(Factory::class)->load(__DIR__ . '/Database/factories');
         }
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
     }
 
     /**

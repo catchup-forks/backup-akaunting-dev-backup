@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Reports;
 
 use App\Http\Controllers\Controller;
-use App\Models\Income\Invoice;
-use App\Models\Income\InvoicePayment;
-use App\Models\Income\Revenue;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillPayment;
 use App\Models\Expense\Payment;
+use App\Models\Income\Invoice;
+use App\Models\Income\InvoicePayment;
+use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use Charts;
 use Date;
@@ -135,7 +135,7 @@ class ProfitLoss extends Controller
                 $this->setAmount($totals, $compares, $bills, 'bill', 'billed_at');
                 break;
         }
-        
+
         // Payments
         if ($status != 'upcoming') {
             $payments = Payment::monthsOfYear('paid_at')->isNotTransfer()->get();
@@ -149,7 +149,8 @@ class ProfitLoss extends Controller
             $view_template = 'reports.profit_loss.index';
         }
 
-        return view($view_template, compact('dates', 'income_categories', 'expense_categories', 'compares', 'totals', 'gross'));
+        return view($view_template,
+            compact('dates', 'income_categories', 'expense_categories', 'compares', 'totals', 'gross'));
     }
 
     private function setAmount(&$totals, &$compares, $items, $type, $date_field)

@@ -56,8 +56,8 @@ class Reset extends Controller
         // database. Otherwise we will parse the error and return the response.
         $response = $this->broker()->reset(
             $this->credentials($request), function ($user, $password) {
-                $this->resetPassword($user, $password);
-            }
+            $this->resetPassword($user, $password);
+        }
         );
 
         // If the password was successfully reset, we will redirect the user back to
@@ -71,8 +71,8 @@ class Reset extends Controller
     /**
      * Reset the given user's password.
      *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $password
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword $user
+     * @param  string $password
      * @return void
      */
     protected function resetPassword($user, $password)
@@ -88,7 +88,7 @@ class Reset extends Controller
     /**
      * Get the response for a successful password reset.
      *
-     * @param  string  $response
+     * @param  string $response
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendResetResponse($response)
@@ -102,7 +102,7 @@ class Reset extends Controller
      * Get the response for a failed password reset.
      *
      * @param  \Illuminate\Http\Request
-     * @param  string  $response
+     * @param  string $response
      * @return \Illuminate\Http\RedirectResponse
      */
     protected function sendResetFailedResponse(Request $request, $response)

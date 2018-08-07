@@ -16,7 +16,15 @@ class Recurring extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'recurable_id', 'recurable_type', 'frequency', 'interval', 'started_at', 'count'];
+    protected $fillable = [
+        'company_id',
+        'recurable_id',
+        'recurable_type',
+        'frequency',
+        'interval',
+        'started_at',
+        'count'
+    ];
 
 
     /**

@@ -5,37 +5,37 @@
 @section('content')
     <!-- Default box -->
     <div class="box box-success">
-    {!! Form::open(['url' => 'settings/currencies', 'role' => 'form']) !!}
+        {!! Form::open(['url' => 'settings/currencies', 'role' => 'form']) !!}
 
-    <div class="box-body">
-        {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
+        <div class="box-body">
+            {{ Form::textGroup('name', trans('general.name'), 'id-card-o') }}
 
-        {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes) }}
+            {{ Form::selectGroup('code', trans('currencies.code'), 'code', $codes) }}
 
-        {{ Form::textGroup('rate', trans('currencies.rate'), 'money') }}
+            {{ Form::textGroup('rate', trans('currencies.rate'), 'money') }}
 
-        {{ Form::numberGroup('precision', trans('currencies.precision'), 'bullseye') }}
+            {{ Form::numberGroup('precision', trans('currencies.precision'), 'bullseye') }}
 
-        {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font') }}
+            {{ Form::textGroup('symbol', trans('currencies.symbol.symbol'), 'font') }}
 
-        {{ Form::selectGroup('symbol_first', trans('currencies.symbol.position'), 'text-width', ['1' => trans('currencies.symbol.before'), '0' => trans('currencies.symbol.after')]) }}
+            {{ Form::selectGroup('symbol_first', trans('currencies.symbol.position'), 'text-width', ['1' => trans('currencies.symbol.before'), '0' => trans('currencies.symbol.after')]) }}
 
-        {{ Form::textGroup('decimal_mark', trans('currencies.decimal_mark'), 'columns') }}
+            {{ Form::textGroup('decimal_mark', trans('currencies.decimal_mark'), 'columns') }}
 
-        {{ Form::textGroup('thousands_separator', trans('currencies.thousands_separator'), 'columns', []) }}
+            {{ Form::textGroup('thousands_separator', trans('currencies.thousands_separator'), 'columns', []) }}
 
-        {{ Form::radioGroup('enabled', trans('general.enabled')) }}
+            {{ Form::radioGroup('enabled', trans('general.enabled')) }}
 
-        {{ Form::radioGroup('default_currency', trans('currencies.default')) }}
-    </div>
-    <!-- /.box-body -->
+            {{ Form::radioGroup('default_currency', trans('currencies.default')) }}
+        </div>
+        <!-- /.box-body -->
 
-    <div class="box-footer">
-        {{ Form::saveButtons('settings/currencies') }}
-    </div>
-    <!-- /.box-footer -->
+        <div class="box-footer">
+            {{ Form::saveButtons('settings/currencies') }}
+        </div>
+        <!-- /.box-footer -->
 
-    {!! Form::close() !!}
+        {!! Form::close() !!}
     </div>
 @endsection
 
@@ -44,7 +44,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#enabled_1').trigger('click');
 
             $('#name').focus();
@@ -53,13 +53,13 @@
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans('currencies.code')]) }}"
             });
 
-            $('#code').change(function() {
+            $('#code').change(function () {
                 $.ajax({
                     url: '{{ url("settings/currencies/config") }}',
                     type: 'GET',
                     dataType: 'JSON',
                     data: 'code=' + $(this).val(),
-                    success: function(data) {
+                    success: function (data) {
                         $('#precision').val(data.precision);
                         $('#symbol').val(data.symbol);
                         $('#symbol_first').val(data.symbol_first);

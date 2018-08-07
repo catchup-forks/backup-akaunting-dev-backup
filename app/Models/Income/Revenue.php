@@ -9,31 +9,46 @@ use App\Traits\DateTime;
 use App\Traits\Media;
 use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
-use Sofa\Eloquence\Eloquence;
 use Date;
+use Sofa\Eloquence\Eloquence;
 
 class Revenue extends Model
 {
     use Cloneable, Currencies, DateTime, Eloquence, Media, Recurring;
-
-    protected $table = 'revenues';
-
-    protected $dates = ['deleted_at', 'paid_at'];
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'customer_id', 'description', 'category_id', 'payment_method', 'reference', 'parent_id'];
 
     /**
      * Sortable columns.
      *
      * @var array
      */
-    public $sortable = ['paid_at', 'amount','category_id', 'account', 'payment_method'];
-
+    public $sortable = ['paid_at', 'amount', 'category_id', 'account', 'payment_method'];
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    public $cloneable_relations = ['recurring'];
+    protected $table = 'revenues';
+    protected $dates = ['deleted_at', 'paid_at'];
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'company_id',
+        'account_id',
+        'paid_at',
+        'amount',
+        'currency_code',
+        'currency_rate',
+        'customer_id',
+        'description',
+        'category_id',
+        'payment_method',
+        'reference',
+        'parent_id'
+    ];
     /**
      * Searchable rules.
      *
@@ -41,18 +56,11 @@ class Revenue extends Model
      */
     protected $searchableColumns = [
         'invoice_number' => 10,
-        'order_number'   => 10,
-        'customer_name'  => 10,
+        'order_number' => 10,
+        'customer_name' => 10,
         'customer_email' => 5,
-        'notes'          => 2,
+        'notes' => 2,
     ];
-
-    /**
-     * Clonable relationships.
-     *
-     * @var array
-     */
-    public $cloneable_relations = ['recurring'];
 
     public function user()
     {
@@ -114,23 +122,23 @@ class Revenue extends Model
     /**
      * Convert amount to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) $value;
+        $this->attributes['amount'] = (double)$value;
     }
 
     /**
      * Convert currency rate to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setCurrencyRateAttribute($value)
     {
-        $this->attributes['currency_rate'] = (double) $value;
+        $this->attributes['currency_rate'] = (double)$value;
     }
 
     public function scopeLatest($query)

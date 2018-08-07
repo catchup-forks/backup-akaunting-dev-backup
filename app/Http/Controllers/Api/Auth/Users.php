@@ -27,7 +27,7 @@ class Users extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int|string  $id
+     * @param  int|string $id
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
@@ -58,7 +58,7 @@ class Users extends ApiController
         // Attach companies
         $user->companies()->attach($request->get('companies'));
 
-        return $this->response->created(url('api/users/'.$user->id));
+        return $this->response->created(url('api/users/' . $user->id));
     }
 
     /**
@@ -85,7 +85,7 @@ class Users extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User  $user
+     * @param  User $user
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(User $user)

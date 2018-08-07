@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Install;
 
-use Session;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Session;
 
 class Language extends Controller
 {
@@ -21,7 +21,7 @@ class Language extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */

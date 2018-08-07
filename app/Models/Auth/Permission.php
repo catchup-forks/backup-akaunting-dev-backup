@@ -3,9 +3,9 @@
 namespace App\Models\Auth;
 
 use EloquentFilter\Filterable;
+use Kyslik\ColumnSortable\Sortable;
 use Laratrust\LaratrustPermission;
 use Laratrust\Traits\LaratrustPermissionTrait;
-use Kyslik\ColumnSortable\Sortable;
 use Request;
 use Route;
 
@@ -45,7 +45,7 @@ class Permission extends LaratrustPermission
             return $this->provideFilter();
         }
 
-        $class = '\App\Filters\\' . ucfirst($folder) .'\\' . ucfirst($file);
+        $class = '\App\Filters\\' . ucfirst($folder) . '\\' . ucfirst($file);
 
         return $this->provideFilter($class);
     }

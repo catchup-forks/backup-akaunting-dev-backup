@@ -3,17 +3,17 @@
 namespace App\Scopes;
 
 use App;
-use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
 
 class Company implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  \Illuminate\Database\Eloquent\Builder $builder
+     * @param  \Illuminate\Database\Eloquent\Model $model
      * @return void
      */
     public function apply(Builder $builder, Model $model)
@@ -26,7 +26,17 @@ class Company implements Scope
         $table = $model->getTable();
 
         // Skip for specific tables
-        $skip_tables = ['companies', 'jobs', 'migrations', 'notifications', 'permissions', 'role_user', 'roles', 'sessions', 'users'];
+        $skip_tables = [
+            'companies',
+            'jobs',
+            'migrations',
+            'notifications',
+            'permissions',
+            'role_user',
+            'roles',
+            'sessions',
+            'users'
+        ];
         if (in_array($table, $skip_tables)) {
             return;
         }
@@ -43,7 +53,7 @@ class Company implements Scope
     /**
      * Check if scope exists.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
+     * @param  \Illuminate\Database\Eloquent\Builder $builder
      * @param  $column
      * @return boolean
      */
@@ -51,7 +61,7 @@ class Company implements Scope
     {
         $query = $builder->getQuery();
 
-        foreach ((array) $query->wheres as $key => $where) {
+        foreach ((array)$query->wheres as $key => $where) {
             if (empty($where) || empty($where['column'])) {
                 continue;
             }

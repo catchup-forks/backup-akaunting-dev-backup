@@ -9,21 +9,19 @@ class Transfer extends Model
 {
     use Currencies;
 
-    protected $table = 'transfers';
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'payment_id', 'revenue_id'];
-
     /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['payment.paid_at', 'payment.amount', 'payment.name', 'revenue.name'];
+    protected $table = 'transfers';
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['company_id', 'payment_id', 'revenue_id'];
 
     public function payment()
     {
@@ -47,6 +45,7 @@ class Transfer extends Model
 
     public function getDynamicConvertedAmount($format = false)
     {
-        return $this->dynamicConvert($this->default_currency_code, $this->amount, $this->currency_code, $this->currency_rate, $format);
+        return $this->dynamicConvert($this->default_currency_code, $this->amount, $this->currency_code,
+            $this->currency_rate, $format);
     }
 }

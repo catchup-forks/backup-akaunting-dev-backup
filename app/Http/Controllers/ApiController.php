@@ -20,6 +20,7 @@ class ApiController extends Controller
             throw new ResourceException('Validation Error', $errors);
         }
 
-        return redirect()->to($this->getRedirectUrl())->withInput($request->input())->withErrors($errors, $this->errorBag());
+        return redirect()->to($this->getRedirectUrl())->withInput($request->input())->withErrors($errors,
+            $this->errorBag());
     }
 }

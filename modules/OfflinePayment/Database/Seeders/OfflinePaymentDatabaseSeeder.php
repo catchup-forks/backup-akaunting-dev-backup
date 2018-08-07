@@ -2,8 +2,8 @@
 
 namespace Modules\OfflinePayment\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Setting;
 
 class OfflinePaymentDatabaseSeeder extends Seeder

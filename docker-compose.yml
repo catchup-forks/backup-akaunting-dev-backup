@@ -1,21 +1,58 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:5
-    ports:
-      - 3306:3306
+  # --- MariaDB 10.1
+  db:
+    image: mysql:5.6
+    container_name: "akaunting-db"
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: akaunting_root_password
       MYSQL_DATABASE: akaunting_db
       MYSQL_USER: akaunting_admin
       MYSQL_PASSWORD: akaunting_password
-  web:
-    image: akaunting
+    ports:
+      - 13306:3306
+    #env_file:
+    #  - ./.env
+    volumes:
+       - db_data:/var/lib/mysql
+  # --- PHP 7.2
+  php:
+    container_name: "akaunting-php"
+    image: bitnami/php-fpm:7.1
+    restart: always
+    volumes:
+      - .:/app
+      - ./resources/docker/php/php.ini:/opt/bitnami/php/etc/conf.d/php.ini:ro
+
+
+  # --- nginx 1.14
+  nginx:
+    container_name: "akaunting-nginx"
+    image: bitnami/nginx:1.14
+    restart: always
     volumes:
       - ./:/var/www/html
     ports:
-      - 8080:80
-    environment:
-      APP_DEBUG: "true"
+      - "127.0.0.1:80:8085"
+    depends_on:
+      - php
+    volumes:
+      - .:/app
+      - ./resources/docker/nginx/site.conf:/bitnami/nginx/conf/vhosts/site.conf:ro
     links:
-      - mysql
+      - db
+
+  # --- Redis 4.0
+  redis:
+    container_name: "akaunting-redis"
+    image: bitnami/redis:4.0
+    restart: always
+    environment:
+      - REDIS_PASSWORD=somepassword
+    ports:
+      - "127.0.0.1:16379:6379"
+volumes:
+
+  db_data:
+    driver: local

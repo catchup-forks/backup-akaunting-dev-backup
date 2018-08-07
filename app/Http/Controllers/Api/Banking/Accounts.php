@@ -27,7 +27,7 @@ class Accounts extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Account  $account
+     * @param  Account $account
      * @return \Dingo\Api\Http\Response
      */
     public function show(Account $account)
@@ -45,7 +45,7 @@ class Accounts extends ApiController
     {
         $account = Account::create($request->all());
 
-        return $this->response->created(url('api/accounts/'.$account->id));
+        return $this->response->created(url('api/accounts/' . $account->id));
     }
 
     /**
@@ -65,7 +65,7 @@ class Accounts extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Account  $account
+     * @param  Account $account
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Account $account)

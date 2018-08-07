@@ -1,3 +1,3 @@
 <ul class="nav navbar-nav navbar-right">
-  @include('menus::menu')
+    @include('menus::menu')
 </ul>

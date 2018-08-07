@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
-use App\Traits\Modules;
 use App\Models\Module\Module;
+use App\Traits\Modules;
 use Illuminate\Routing\Route;
 
 class Home extends Controller

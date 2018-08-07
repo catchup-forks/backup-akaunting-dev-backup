@@ -11,31 +11,39 @@ class Customer extends Model
 {
     use Cloneable, Eloquence, Notifiable;
 
-    protected $table = 'customers';
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'user_id', 'name', 'email', 'tax_number', 'phone', 'address', 'website', 'currency_code', 'enabled'];
-
     /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'email', 'phone', 'enabled'];
-
+    protected $table = 'customers';
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'company_id',
+        'user_id',
+        'name',
+        'email',
+        'tax_number',
+        'phone',
+        'address',
+        'website',
+        'currency_code',
+        'enabled'
+    ];
     /**
      * Searchable rules.
      *
      * @var array
      */
     protected $searchableColumns = [
-        'name'    => 10,
-        'email'   => 5,
-        'phone'   => 2,
+        'name' => 10,
+        'email' => 5,
+        'phone' => 2,
         'website' => 2,
         'address' => 1,
     ];

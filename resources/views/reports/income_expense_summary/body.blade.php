@@ -62,5 +62,5 @@
 </div>
 
 @push('js')
-{!! Charts::assets() !!}
+    {!! Charts::assets() !!}
 @endpush

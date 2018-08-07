@@ -25,31 +25,41 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="items">
                         <thead>
-                            <tr style="background-color: #f9f9f9;">
-                                <th width="5%"  class="text-center">{{ trans('general.actions') }}</th>
-                                <th width="40%" class="text-left">{{ trans('general.name') }}</th>
-                                <th width="5%" class="text-center">{{ trans('bills.quantity') }}</th>
-                                <th width="10%" class="text-right">{{ trans('bills.price') }}</th>
-                                <th width="15%" class="text-right">{{ trans_choice('general.taxes', 1) }}</th>
-                                <th width="10%" class="text-right">{{ trans('bills.total') }}</th>
-                            </tr>
+                        <tr style="background-color: #f9f9f9;">
+                            <th width="5%" class="text-center">{{ trans('general.actions') }}</th>
+                            <th width="40%" class="text-left">{{ trans('general.name') }}</th>
+                            <th width="5%" class="text-center">{{ trans('bills.quantity') }}</th>
+                            <th width="10%" class="text-right">{{ trans('bills.price') }}</th>
+                            <th width="15%" class="text-right">{{ trans_choice('general.taxes', 1) }}</th>
+                            <th width="10%" class="text-right">{{ trans('bills.total') }}</th>
+                        </tr>
                         </thead>
                         <tbody>
                         <?php $item_row = 0; ?>
                         @foreach($bill->items as $item)
                             <tr id="item-row-{{ $item_row }}">
                                 <td class="text-center" style="vertical-align: middle;">
-                                    <button type="button" onclick="$(this).tooltip('destroy'); $('#item-row-{{ $item_row }}').remove(); totalItem();" data-toggle="tooltip" title="Remove Item" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                    <button type="button"
+                                            onclick="$(this).tooltip('destroy'); $('#item-row-{{ $item_row }}').remove(); totalItem();"
+                                            data-toggle="tooltip" title="Remove Item" class="btn btn-xs btn-danger"><i
+                                                class="fa fa-trash"></i></button>
                                 </td>
                                 <td>
-                                    <input value="{{ $item->name }}" class="form-control typeahead" required="required" placeholder="Enter Item Name" name="item[{{ $item_row }}][name]" type="text" id="item-name-{{ $item_row }}" autocomplete="off">
-                                    <input value="{{ $item->item_id }}" name="item[{{ $item_row }}][item_id]" type="hidden" id="item-id-{{ $item_row }}">
+                                    <input value="{{ $item->name }}" class="form-control typeahead" required="required"
+                                           placeholder="Enter Item Name" name="item[{{ $item_row }}][name]" type="text"
+                                           id="item-name-{{ $item_row }}" autocomplete="off">
+                                    <input value="{{ $item->item_id }}" name="item[{{ $item_row }}][item_id]"
+                                           type="hidden" id="item-id-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input value="{{ $item->quantity }}" class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="text" id="item-quantity-{{ $item_row }}">
+                                    <input value="{{ $item->quantity }}" class="form-control text-center"
+                                           required="required" name="item[{{ $item_row }}][quantity]" type="text"
+                                           id="item-quantity-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input value="{{ $item->price }}" class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
+                                    <input value="{{ $item->price }}" class="form-control text-right"
+                                           required="required" name="item[{{ $item_row }}][price]" type="text"
+                                           id="item-price-{{ $item_row }}">
                                 </td>
                                 <td>
                                     {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, $item->tax_id, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control select2', 'placeholder' => trans('general.form.enter', ['field' => trans_choice('general.taxes', 1)])]) !!}
@@ -63,17 +73,28 @@
                         @if (empty($bill->items))
                             <tr id="item-row-{{ $item_row }}">
                                 <td class="text-center" style="vertical-align: middle;">
-                                    <button type="button" onclick="$(this).tooltip('destroy'); $('#item-row-{{ $item_row }}').remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+                                    <button type="button"
+                                            onclick="$(this).tooltip('destroy'); $('#item-row-{{ $item_row }}').remove(); totalItem();"
+                                            data-toggle="tooltip" title="{{ trans('general.delete') }}"
+                                            class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
                                 </td>
                                 <td>
-                                    <input class="form-control typeahead" required="required" placeholder="{{ trans('general.form.enter', ['field' => trans_choice('bills.item_name', 1)]) }}" name="item[{{ $item_row }}][name]" type="text" id="item-name-{{ $item_row }}">
-                                    <input name="item[{{ $item_row }}][item_id]" type="hidden" id="item-id-{{ $item_row }}">
+                                    <input class="form-control typeahead" required="required"
+                                           placeholder="{{ trans('general.form.enter', ['field' => trans_choice('bills.item_name', 1)]) }}"
+                                           name="item[{{ $item_row }}][name]" type="text"
+                                           id="item-name-{{ $item_row }}">
+                                    <input name="item[{{ $item_row }}][item_id]" type="hidden"
+                                           id="item-id-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input class="form-control text-center" required="required" name="item[{{ $item_row }}][quantity]" type="text" id="item-quantity-{{ $item_row }}">
+                                    <input class="form-control text-center" required="required"
+                                           name="item[{{ $item_row }}][quantity]" type="text"
+                                           id="item-quantity-{{ $item_row }}">
                                 </td>
                                 <td>
-                                    <input class="form-control text-right" required="required" name="item[{{ $item_row }}][price]" type="text" id="item-price-{{ $item_row }}">
+                                    <input class="form-control text-right" required="required"
+                                           name="item[{{ $item_row }}][price]" type="text"
+                                           id="item-price-{{ $item_row }}">
                                 </td>
                                 <td>
                                     {!! Form::select('item[' . $item_row . '][tax_id]', $taxes, null, ['id'=> 'item-tax-'. $item_row, 'class' => 'form-control tax-select2', 'placeholder' => trans('general.form.select.field', ['field' => trans_choice('general.taxes', 1)])]) !!}
@@ -83,32 +104,39 @@
                                 </td>
                             </tr>
                         @endif
-                            <?php $item_row++; ?>
-                            <tr id="addItem">
-                                <td class="text-center"><button type="button" onclick="addItem();" data-toggle="tooltip" title="{{ trans('general.add') }}" class="btn btn-xs btn-primary" data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i></button></td>
-                                <td class="text-right" colspan="5"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-right" colspan="5"><strong>{{ trans('bills.sub_total') }}</strong></td>
-                                <td class="text-right"><span id="sub-total">0</span></td>
-                            </tr>
+                        <?php $item_row++; ?>
+                        <tr id="addItem">
+                            <td class="text-center">
+                                <button type="button" onclick="addItem();" data-toggle="tooltip"
+                                        title="{{ trans('general.add') }}" class="btn btn-xs btn-primary"
+                                        data-original-title="{{ trans('general.add') }}"><i class="fa fa-plus"></i>
+                                </button>
+                            </td>
+                            <td class="text-right" colspan="5"></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="5"><strong>{{ trans('bills.sub_total') }}</strong></td>
+                            <td class="text-right"><span id="sub-total">0</span></td>
+                        </tr>
                         <tr>
                             <td class="text-right" style="vertical-align: middle;" colspan="5">
-                                <a href="javascript:void(0)" id="discount-text" rel="popover">{{ trans('bills.add_discount') }}</a>
+                                <a href="javascript:void(0)" id="discount-text"
+                                   rel="popover">{{ trans('bills.add_discount') }}</a>
                             </td>
                             <td class="text-right">
                                 <span id="discount-total"></span>
                                 {!! Form::hidden('discount', null, ['id' => 'discount', 'class' => 'form-control text-right']) !!}
                             </td>
                         </tr>
-                            <tr>
-                                <td class="text-right" colspan="5"><strong>{{ trans_choice('general.taxes', 1) }}</strong></td>
-                                <td class="text-right"><span id="tax-total">0</span></td>
-                            </tr>
-                            <tr>
-                                <td class="text-right" colspan="5"><strong>{{ trans('bills.total') }}</strong></td>
-                                <td class="text-right"><span id="grand-total">0</span></td>
-                            </tr>
+                        <tr>
+                            <td class="text-right" colspan="5"><strong>{{ trans_choice('general.taxes', 1) }}</strong>
+                            </td>
+                            <td class="text-right"><span id="tax-total">0</span></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right" colspan="5"><strong>{{ trans('bills.total') }}</strong></td>
+                            <td class="text-right"><span id="grand-total">0</span></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -144,15 +172,15 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/locales/bootstrap-datepicker.' . language()->getShortCode() . '.js') }}"></script>
+    <script src="{{ asset('./js/bootstrap-fancyfile.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')
@@ -160,7 +188,7 @@
         var item_row = {{ $item_row }};
 
         function addItem() {
-            html  = '<tr id="item-row-' + item_row + '">';
+            html = '<tr id="item-row-' + item_row + '">';
             html += '  <td class="text-center" style="vertical-align: middle;">';
             html += '      <button type="button" onclick="$(this).tooltip(\'destroy\'); $(\'#item-row-' + item_row + '\').remove(); totalItem();" data-toggle="tooltip" title="{{ trans('general.delete') }}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>';
             html += '  </td>';
@@ -178,9 +206,9 @@
             html += '      <select class="form-control tax-select2" name="item[' + item_row + '][tax_id]" id="item-tax-' + item_row + '">';
             html += '         <option selected="selected" value="">{{ trans('general.form.select.filed', ['field' => trans_choice('general.taxes', 1)]) }}</option>';
             @foreach($taxes as $tax_key => $tax_value)
-            html += '         <option value="{{ $tax_key }}">{{ $tax_value }}</option>';
+                html += '         <option value="{{ $tax_key }}">{{ $tax_value }}</option>';
             @endforeach
-            html += '      </select>';
+                html += '      </select>';
             html += '  </td>';
             html += '  <td class="text-right" style="vertical-align: middle;">';
             html += '      <span id="item-total-' + item_row + '">0</span>';
@@ -198,7 +226,7 @@
             item_row++;
         }
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             totalItem();
 
             //Date picker
@@ -234,46 +262,46 @@
             });
 
             $('#attachment').fancyfile({
-                text  : '{{ trans('general.form.select.file') }}',
-                style : 'btn-default',
+                text: '{{ trans('general.form.select.file') }}',
+                style: 'btn-default',
                 @if($bill->attachment)
-                placeholder : '<?php echo $bill->attachment->basename; ?>'
+                placeholder: '<?php echo $bill->attachment->basename; ?>'
                 @else
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                placeholder: '{{ trans('general.form.no_file_selected') }}'
                 @endif
             });
 
             @if($bill->attachment)
-                attachment_html  = '<span class="attachment">';
-                attachment_html += '    <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">';
-                attachment_html += '        <span id="download-attachment" class="text-primary">';
-                attachment_html += '            <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}';
-                attachment_html += '        </span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::open(['id' => 'attachment-' . $bill->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $bill->attachment->id)], 'style' => 'display:inline']) !!}';
-                attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
-                attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
-                attachment_html += '    </a>';
-                attachment_html += '    {!! Form::close() !!}';
-                attachment_html += '</span>';
+                attachment_html = '<span class="attachment">';
+            attachment_html += '    <a href="{{ url('uploads/' . $bill->attachment->id . '/download') }}">';
+            attachment_html += '        <span id="download-attachment" class="text-primary">';
+            attachment_html += '            <i class="fa fa-file-{{ $bill->attachment->aggregate_type }}-o"></i> {{ $bill->attachment->basename }}';
+            attachment_html += '        </span>';
+            attachment_html += '    </a>';
+            attachment_html += '    {!! Form::open(['id' => 'attachment-' . $bill->attachment->id, 'method' => 'DELETE', 'url' => [url('uploads/' . $bill->attachment->id)], 'style' => 'display:inline']) !!}';
+            attachment_html += '    <a id="remove-attachment" href="javascript:void();">';
+            attachment_html += '        <span class="text-danger"><i class="fa fa fa-times"></i></span>';
+            attachment_html += '    </a>';
+            attachment_html += '    {!! Form::close() !!}';
+            attachment_html += '</span>';
 
-                $('.fancy-file .fake-file').append(attachment_html);
+            $('.fancy-file .fake-file').append(attachment_html);
 
-                $(document).on('click', '#remove-attachment', function (e) {
-                    confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
-                });
-            @endif
+            $(document).on('click', '#remove-attachment', function (e) {
+                confirmDelete("#attachment-{!! $bill->attachment->id !!}", "{!! trans('general.attachment') !!}", "{!! trans('general.delete_confirm', ['name' => '<strong>' . $bill->attachment->basename . '</strong>', 'type' => strtolower(trans('general.attachment'))]) !!}", "{!! trans('general.cancel') !!}", "{!! trans('general.delete')  !!}");
+            });
+                    @endif
 
             var autocomplete_path = "{{ url('common/items/autocomplete') }}";
 
-            $(document).on('click', '.form-control.typeahead', function() {
+            $(document).on('click', '.form-control.typeahead', function () {
                 input_id = $(this).attr('id').split('-');
 
-                item_id = parseInt(input_id[input_id.length-1]);
+                item_id = parseInt(input_id[input_id.length - 1]);
 
                 $(this).typeahead({
                     minLength: 3,
-                    displayText:function (data) {
+                    displayText: function (data) {
                         return data.name + ' (' + data.sku + ')';
                     },
                     source: function (query, process) {
@@ -282,7 +310,7 @@
                             type: 'GET',
                             dataType: 'JSON',
                             data: 'query=' + query + '&type=bill&currency_code=' + $('#currency_code').val(),
-                            success: function(data) {
+                            success: function (data) {
                                 return process(data);
                             }
                         });
@@ -308,7 +336,7 @@
                 placement: 'bottom',
                 title: '{{ trans('bills.discount') }}',
                 content: function () {
-                    html  = '<div class="discount box-body">';
+                    html = '<div class="discount box-body">';
                     html += '    <div class="col-md-6">';
                     html += '        <div class="input-group" id="input-discount">';
                     html += '            {!! Form::number('pre-discount', null, ['id' => 'pre-discount', 'class' => 'form-control text-right']) !!}';
@@ -334,7 +362,7 @@
                 }
             });
 
-            $(document).on('keyup', '#pre-discount', function(e){
+            $(document).on('keyup', '#pre-discount', function (e) {
                 e.preventDefault();
 
                 $('#discount').val($(this).val());
@@ -342,11 +370,11 @@
                 totalItem();
             });
 
-            $(document).on('click', '#save-discount', function(){
+            $(document).on('click', '#save-discount', function () {
                 $('a[rel=popover]').trigger('click');
             });
 
-            $(document).on('click', '#cancel-discount', function(){
+            $(document).on('click', '#cancel-discount', function () {
                 $('#discount').val('');
 
                 totalItem();
@@ -354,11 +382,11 @@
                 $('a[rel=popover]').trigger('click');
             });
 
-            $(document).on('change', '#currency_code, #items tbody select', function(){
+            $(document).on('change', '#currency_code, #items tbody select', function () {
                 totalItem();
             });
 
-            $(document).on('keyup', '#items tbody .form-control', function(){
+            $(document).on('keyup', '#items tbody .form-control', function () {
                 totalItem();
             });
 
@@ -368,7 +396,7 @@
                     type: 'GET',
                     dataType: 'JSON',
                     data: 'vendor_id=' + $(this).val(),
-                    success: function(data) {
+                    success: function (data) {
                         $('#vendor_name').val(data.name);
                         $('#vendor_email').val(data.email);
                         $('#vendor_tax_number').val(data.tax_number);
@@ -391,10 +419,10 @@
                 type: 'POST',
                 dataType: 'JSON',
                 data: $('#currency_code, #discount input[type=\'number\'], #items input[type=\'text\'],#items input[type=\'number\'],#items input[type=\'hidden\'], #items textarea, #items select'),
-                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                success: function(data) {
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                success: function (data) {
                     if (data) {
-                        $.each( data.items, function( key, value ) {
+                        $.each(data.items, function (key, value) {
                             $('#item-total-' + key).html(value);
                         });
 

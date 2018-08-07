@@ -29,7 +29,7 @@ class Transfers extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Transfer  $transfer
+     * @param  Transfer $transfer
      * @return \Dingo\Api\Http\Response
      */
     public function show(Transfer $transfer)
@@ -47,7 +47,7 @@ class Transfers extends ApiController
     {
         $transfer = Transfer::create($request->all());
 
-        return $this->response->created(url('api/transfers/'.$transfer->id));
+        return $this->response->created(url('api/transfers/' . $transfer->id));
     }
 
     /**
@@ -67,7 +67,7 @@ class Transfers extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Transfer  $transfer
+     * @param  Transfer $transfer
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Transfer $transfer)

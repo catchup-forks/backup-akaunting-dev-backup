@@ -2,8 +2,8 @@
 
 return [
 
-    'version'               => 'Versioni',
-    'powered'               => 'Mundësuar nga Akaunting',
-    'software'              => 'Program Kontabiliteti Falas',
+    'version' => 'Versioni',
+    'powered' => 'Mundësuar nga Akaunting',
+    'software' => 'Program Kontabiliteti Falas',
 
 ];

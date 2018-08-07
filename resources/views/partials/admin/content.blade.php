@@ -2,9 +2,9 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    @stack('content_wrapper_start')
+@stack('content_wrapper_start')
 
-    <!-- Content Header (Page header) -->
+<!-- Content Header (Page header) -->
     <section class="content-header content-center">
         @stack('content_header_start')
 
@@ -14,7 +14,9 @@
             @if (!empty($suggestion_modules))
                 @foreach($suggestion_modules as $s_module)
                     <span class="new-button">
-                        <a href="{{ url($s_module->action_url) . '?' . http_build_query((array) $s_module->action_parameters) }}" class="btn btn-default btn-sm" target="{{ $s_module->action_target }}"><span class="fa fa-rocket"></span> &nbsp;{{ $s_module->name }}</a>
+                        <a href="{{ url($s_module->action_url) . '?' . http_build_query((array) $s_module->action_parameters) }}"
+                           class="btn btn-default btn-sm" target="{{ $s_module->action_target }}"><span
+                                    class="fa fa-rocket"></span> &nbsp;{{ $s_module->name }}</a>
                     </span>
                 @endforeach
             @endif

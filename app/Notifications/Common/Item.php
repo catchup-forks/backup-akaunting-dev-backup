@@ -2,8 +2,8 @@
 
 namespace App\Notifications\Common;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class Item extends Notification
 {
@@ -17,7 +17,7 @@ class Item extends Notification
     /**
      * Create a notification instance.
      *
-     * @param  object  $item
+     * @param  object $item
      */
     public function __construct($item)
     {
@@ -27,7 +27,7 @@ class Item extends Notification
     /**
      * Get the notification's channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array|string
      */
     public function via($notifiable)
@@ -38,7 +38,7 @@ class Item extends Notification
     /**
      * Build the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
@@ -56,7 +56,7 @@ class Item extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)

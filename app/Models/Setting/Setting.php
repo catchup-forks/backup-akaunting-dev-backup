@@ -8,16 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
 
-    protected $table = 'settings';
-
     public $timestamps = false;
-
+    protected $table = 'settings';
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
     protected $fillable = ['company_id', 'key', 'value'];
+
+    public static function all($code = 'general')
+    {
+        return static::where('key', 'like', $code . '.%')->get();
+    }
 
     /**
      * The "booting" method of the model.
@@ -29,11 +32,6 @@ class Setting extends Model
         parent::boot();
 
         static::addGlobalScope(new Company);
-    }
-
-    public static function all($code = 'general')
-    {
-        return static::where('key', 'like', $code . '.%')->get();
     }
 
     /**

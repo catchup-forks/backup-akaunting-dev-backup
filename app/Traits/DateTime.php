@@ -41,7 +41,18 @@ trait DateTime
     public function getTimezones()
     {
         // The list of available timezone groups to use.
-        $use_zones = array('Africa', 'America', 'Antarctica', 'Arctic', 'Asia', 'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific');
+        $use_zones = array(
+            'Africa',
+            'America',
+            'Antarctica',
+            'Arctic',
+            'Asia',
+            'Atlantic',
+            'Australia',
+            'Europe',
+            'Indian',
+            'Pacific'
+        );
 
         // Get the list of time zones from the server.
         $zones = \DateTimeZone::listIdentifiers();

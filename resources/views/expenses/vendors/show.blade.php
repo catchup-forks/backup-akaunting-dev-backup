@@ -10,10 +10,12 @@
                 <div class="box-body box-profile">
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item" style="border-top: 0;">
-                            <b>{{ trans_choice('general.bills', 2) }}</b> <a class="pull-right">{{ $counts['bills'] }}</a>
+                            <b>{{ trans_choice('general.bills', 2) }}</b> <a
+                                    class="pull-right">{{ $counts['bills'] }}</a>
                         </li>
                         <li class="list-group-item">
-                            <b>{{ trans_choice('general.payments', 2) }}</b> <a class="pull-right">{{ $counts['payments'] }}</a>
+                            <b>{{ trans_choice('general.payments', 2) }}</b> <a
+                                    class="pull-right">{{ $counts['payments'] }}</a>
                         </li>
                     </ul>
                 </div>
@@ -61,7 +63,8 @@
 
             <!-- Edit -->
             <div>
-                    <a href="{{ url('expenses/vendors/' . $vendor->id . '/edit') }}" class="btn btn-primary btn-block"><b>{{ trans('general.edit') }}</b></a>
+                <a href="{{ url('expenses/vendors/' . $vendor->id . '/edit') }}"
+                   class="btn btn-primary btn-block"><b>{{ trans('general.edit') }}</b></a>
                 <!-- /.box-body -->
             </div>
         </div>
@@ -130,7 +133,9 @@
                             @foreach($transactions as $item)
                                 <tr>
                                     <td>{{ Date::parse($item->paid_at)->format($date_format) }}</td>
-                                    <td class="text-right amount-space">@money($item->amount, $item->currency_code, true)</td>
+                                    <td class="text-right amount-space">@money($item->amount, $item->currency_code,
+                                        true)
+                                    </td>
                                     <td class="hidden-xs">{{ $item->category->name }}</td>
                                     <td class="hidden-xs">{{ $item->account->name }}</td>
                                 </tr>

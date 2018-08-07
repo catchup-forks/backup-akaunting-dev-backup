@@ -11,10 +11,10 @@ use App\Traits\DateTime;
 use App\Transformers\Income\InvoicePayments as Transformer;
 use Date;
 use Dingo\Api\Routing\Helpers;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
 class InvoicePayments extends BaseController
 {
@@ -77,7 +77,7 @@ class InvoicePayments extends BaseController
         } else {
             $request_invoice = new Invoice();
 
-            $request_invoice->amount = (float) $request['amount'];
+            $request_invoice->amount = (float)$request['amount'];
             $request_invoice->currency_code = $currency->code;
             $request_invoice->currency_rate = $currency->rate;
 
@@ -100,7 +100,7 @@ class InvoicePayments extends BaseController
         $request['notify'] = 0;
 
         $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
+        $desc_amount = money((float)$request['amount'], $request['currency_code'], true)->format();
         $request['description'] = $desc_date . ' ' . $desc_amount;
 
         InvoiceHistory::create($request->input());

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Customers;
 
-use App\Http\Controllers\Controller;
 use App\Events\InvoicePrinting;
+use App\Http\Controllers\Controller;
 use App\Models\Banking\Account;
+use App\Models\Common\Media;
 use App\Models\Income\Customer;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceStatus;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
-use App\Models\Common\Media;
 use App\Traits\Currencies;
 use App\Traits\DateTime;
 use App\Traits\Uploads;
@@ -41,7 +41,7 @@ class Invoices extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Invoice  $invoice
+     * @param  Invoice $invoice
      *
      * @return Response
      */
@@ -67,7 +67,8 @@ class Invoices extends Controller
 
         $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
 
-        $account_currency_code = Account::where('id', setting('general.default_account'))->pluck('currency_code')->first();
+        $account_currency_code = Account::where('id',
+            setting('general.default_account'))->pluck('currency_code')->first();
 
         $customers = Customer::enabled()->pluck('name', 'id');
 
@@ -75,13 +76,15 @@ class Invoices extends Controller
 
         $payment_methods = Modules::getPaymentMethods();
 
-        return view('customers.invoices.show', compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories', 'payment_methods'));
+        return view('customers.invoices.show',
+            compact('invoice', 'accounts', 'currencies', 'account_currency_code', 'customers', 'categories',
+                'payment_methods'));
     }
 
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Invoice  $invoice
+     * @param  Invoice $invoice
      *
      * @return Response
      */
@@ -92,31 +95,6 @@ class Invoices extends Controller
         $logo = $this->getLogo();
 
         return view($invoice->template_path, compact('invoice', 'logo'));
-    }
-
-    /**
-     * Show the form for viewing the specified resource.
-     *
-     * @param  Invoice  $invoice
-     *
-     * @return Response
-     */
-    public function pdfInvoice(Invoice $invoice)
-    {
-        $invoice = $this->prepareInvoice($invoice);
-
-        $logo = $this->getLogo();
-
-        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
-
-        $pdf = \App::make('dompdf.wrapper');
-        $pdf->loadHTML($html);
-
-        //$pdf->setPaper('A4', 'portrait');
-
-        $file_name = 'invoice_' . time() . '.pdf';
-
-        return $pdf->download($file_name);
     }
 
     protected function prepareInvoice(Invoice $invoice)
@@ -177,5 +155,30 @@ class Invoices extends Controller
         $logo = 'data:image/' . $extension . ';base64,' . base64_encode($image);
 
         return $logo;
+    }
+
+    /**
+     * Show the form for viewing the specified resource.
+     *
+     * @param  Invoice $invoice
+     *
+     * @return Response
+     */
+    public function pdfInvoice(Invoice $invoice)
+    {
+        $invoice = $this->prepareInvoice($invoice);
+
+        $logo = $this->getLogo();
+
+        $html = view($invoice->template_path, compact('invoice', 'logo'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($html);
+
+        //$pdf->setPaper('A4', 'portrait');
+
+        $file_name = 'invoice_' . time() . '.pdf';
+
+        return $pdf->download($file_name);
     }
 }

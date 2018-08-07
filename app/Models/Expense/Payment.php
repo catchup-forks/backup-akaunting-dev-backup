@@ -9,23 +9,12 @@ use App\Traits\DateTime;
 use App\Traits\Media;
 use App\Traits\Recurring;
 use Bkwld\Cloner\Cloneable;
-use Sofa\Eloquence\Eloquence;
 use Date;
+use Sofa\Eloquence\Eloquence;
 
 class Payment extends Model
 {
     use Cloneable, Currencies, DateTime, Eloquence, Media, Recurring;
-
-    protected $table = 'payments';
-
-    protected $dates = ['deleted_at', 'paid_at'];
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'account_id', 'paid_at', 'amount', 'currency_code', 'currency_rate', 'vendor_id', 'description', 'category_id', 'payment_method', 'reference', 'parent_id'];
 
     /**
      * Sortable columns.
@@ -33,7 +22,33 @@ class Payment extends Model
      * @var array
      */
     public $sortable = ['paid_at', 'amount', 'category.name', 'account.name'];
-
+    /**
+     * Clonable relationships.
+     *
+     * @var array
+     */
+    public $cloneable_relations = ['recurring'];
+    protected $table = 'payments';
+    protected $dates = ['deleted_at', 'paid_at'];
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'company_id',
+        'account_id',
+        'paid_at',
+        'amount',
+        'currency_code',
+        'currency_rate',
+        'vendor_id',
+        'description',
+        'category_id',
+        'payment_method',
+        'reference',
+        'parent_id'
+    ];
     /**
      * Searchable rules.
      *
@@ -42,16 +57,14 @@ class Payment extends Model
     protected $searchableColumns = [
         'accounts.name',
         'categories.name',
-        'vendors.name' ,
-        'description'  ,
+        'vendors.name',
+        'description',
     ];
 
-    /**
-     * Clonable relationships.
-     *
-     * @var array
-     */
-    public $cloneable_relations = ['recurring'];
+    public static function scopeLatest($query)
+    {
+        return $query->orderBy('paid_at', 'desc');
+    }
 
     public function account()
     {
@@ -108,28 +121,23 @@ class Payment extends Model
     /**
      * Convert amount to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = (double) $value;
+        $this->attributes['amount'] = (double)$value;
     }
 
     /**
      * Convert currency rate to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setCurrencyRateAttribute($value)
     {
-        $this->attributes['currency_rate'] = (double) $value;
-    }
-
-    public static function scopeLatest($query)
-    {
-        return $query->orderBy('paid_at', 'desc');
+        $this->attributes['currency_rate'] = (double)$value;
     }
 
     /**

@@ -50,18 +50,18 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#code").select2({
                 placeholder: "{{ trans('general.form.select.field', ['field' => trans('currencies.code')]) }}"
             });
 
-            $('#code').change(function() {
+            $('#code').change(function () {
                 $.ajax({
                     url: '{{ url("settings/currencies/config") }}',
                     type: 'GET',
                     dataType: 'JSON',
                     data: 'code=' + $(this).val(),
-                    success: function(data) {
+                    success: function (data) {
                         $('#precision').val(data.precision);
                         $('#symbol').val(data.symbol);
                         $('#symbol_first').val(data.symbol_first);

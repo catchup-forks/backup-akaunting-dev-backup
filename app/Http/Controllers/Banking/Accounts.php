@@ -40,14 +40,14 @@ class Accounts extends Controller
     public function create()
     {
         $currencies = Currency::enabled()->pluck('name', 'code');
-        
+
         return view('banking.accounts.create', compact('currencies'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -71,7 +71,7 @@ class Accounts extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Account  $account
+     * @param  Account $account
      *
      * @return Response
      */
@@ -80,15 +80,15 @@ class Accounts extends Controller
         $currencies = Currency::enabled()->pluck('name', 'code');
 
         $account->default_account = ($account->id == setting('general.default_account')) ?: 1;
-        
+
         return view('banking.accounts.edit', compact('account', 'currencies'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Account  $account
-     * @param  Request  $request
+     * @param  Account $account
+     * @param  Request $request
      *
      * @return Response
      */
@@ -116,7 +116,8 @@ class Accounts extends Controller
 
             return redirect('banking/accounts');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $account->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -127,7 +128,7 @@ class Accounts extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  Account  $account
+     * @param  Account $account
      *
      * @return Response
      */
@@ -146,7 +147,7 @@ class Accounts extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  Account  $account
+     * @param  Account $account
      *
      * @return Response
      */
@@ -164,7 +165,8 @@ class Accounts extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $account->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -177,7 +179,7 @@ class Accounts extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Account  $account
+     * @param  Account $account
      *
      * @return Response
      */
@@ -201,7 +203,8 @@ class Accounts extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $account->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted',
+                ['name' => $account->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }
@@ -211,7 +214,7 @@ class Accounts extends Controller
 
     public function currency()
     {
-        $account_id = (int) request('account_id');
+        $account_id = (int)request('account_id');
 
         if (empty($account_id)) {
             return response()->json([]);

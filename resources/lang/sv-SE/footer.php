@@ -2,8 +2,8 @@
 
 return [
 
-    'version'               => 'Version',
-    'powered'               => 'Powered By Akaunting',
-    'software'              => 'Fritt bokföringsprogram',
+    'version' => 'Version',
+    'powered' => 'Powered By Akaunting',
+    'software' => 'Fritt bokföringsprogram',
 
 ];

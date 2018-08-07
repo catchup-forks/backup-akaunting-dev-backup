@@ -7,21 +7,30 @@ use App\Models\Model;
 class Currency extends Model
 {
 
-    protected $table = 'currencies';
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'name', 'code', 'rate', 'enabled', 'precision', 'symbol', 'symbol_first', 'decimal_mark', 'thousands_separator'];
-
     /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'code', 'rate', 'enabled'];
+    protected $table = 'currencies';
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'company_id',
+        'name',
+        'code',
+        'rate',
+        'enabled',
+        'precision',
+        'symbol',
+        'symbol_first',
+        'decimal_mark',
+        'thousands_separator'
+    ];
 
     public function accounts()
     {
@@ -66,11 +75,11 @@ class Currency extends Model
     /**
      * Convert rate to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setRateAttribute($value)
     {
-        $this->attributes['rate'] = (double) $value;
+        $this->attributes['rate'] = (double)$value;
     }
 }

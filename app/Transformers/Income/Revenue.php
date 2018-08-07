@@ -2,11 +2,10 @@
 
 namespace App\Transformers\Income;
 
+use App\Models\Income\Revenue as Model;
 use App\Transformers\Banking\Account;
-use App\Transformers\Income\Customer;
 use App\Transformers\Setting\Category;
 use App\Transformers\Setting\Currency;
-use App\Models\Income\Revenue as Model;
 use League\Fractal\TransformerAbstract;
 
 class Revenue extends TransformerAbstract

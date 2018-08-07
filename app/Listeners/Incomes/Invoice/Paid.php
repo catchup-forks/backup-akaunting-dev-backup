@@ -3,11 +3,8 @@
 namespace App\Listeners\Incomes\Invoice;
 
 use App\Events\InvoicePaid;
-
-use App\Models\Income\Invoice;
-use App\Models\Income\InvoicePayment;
 use App\Models\Income\InvoiceHistory;
-
+use App\Models\Income\InvoicePayment;
 use App\Traits\DateTime;
 use Date;
 
@@ -61,7 +58,7 @@ class Paid
 
         $desc_date = Date::parse($request['paid_at'])->format($this->getCompanyDateFormat());
 
-        $desc_amount = money((float) $request['amount'], $request['currency_code'], true)->format();
+        $desc_amount = money((float)$request['amount'], $request['currency_code'], true)->format();
 
         $request['description'] = $desc_date . ' ' . $desc_amount;
 

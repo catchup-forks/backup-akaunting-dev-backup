@@ -7,7 +7,7 @@
         <div class="row invoice-header">
             <div class="col-xs-7">
                 @if ($logo)
-                <img src="{{ $logo }}" class="invoice-logo" />
+                    <img src="{{ $logo }}" class="invoice-logo"/>
                 @endif
             </div>
             <div class="col-xs-5 invoice-company">
@@ -51,10 +51,10 @@
                             <td class="text-right">{{ $invoice->invoice_number }}</td>
                         </tr>
                         @if ($invoice->order_number)
-                        <tr>
-                            <th>{{ trans('invoices.order_number') }}:</th>
-                            <td class="text-right">{{ $invoice->order_number }}</td>
-                        </tr>
+                            <tr>
+                                <th>{{ trans('invoices.order_number') }}:</th>
+                                <td class="text-right">{{ $invoice->order_number }}</td>
+                            </tr>
                         @endif
                         <tr>
                             <th>{{ trans('invoices.invoice_date') }}:</th>
@@ -74,18 +74,19 @@
             <div class="col-xs-12 table-responsive">
                 <table class="table table-striped">
                     <tbody>
-                        <tr>
-                            <th>{{ trans_choice('general.items', 1) }}</th>
-                            <th class="text-center">{{ trans('invoices.quantity') }}</th>
-                            <th class="text-right">{{ trans('invoices.price') }}</th>
-                            <th class="text-right">{{ trans('invoices.total') }}</th>
-                        </tr>
+                    <tr>
+                        <th>{{ trans_choice('general.items', 1) }}</th>
+                        <th class="text-center">{{ trans('invoices.quantity') }}</th>
+                        <th class="text-right">{{ trans('invoices.price') }}</th>
+                        <th class="text-right">{{ trans('invoices.total') }}</th>
+                    </tr>
                     @foreach($invoice->items as $item)
                         <tr>
                             <td>
                                 {{ $item->name }}
                                 @if ($item->sku)
-                                    <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
+                                    <br>
+                                    <small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
                                 @endif
                             </td>
                             <td class="text-center">{{ $item->quantity }}</td>
@@ -122,12 +123,15 @@
                                 @if ($invoice->paid)
                                     <tr class="text-success">
                                         <th>{{ trans('invoices.paid') }}:</th>
-                                        <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                                        <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)
+                                        </td>
                                     </tr>
                                 @endif
                                 <tr>
                                     <th>{{ trans($total->name) }}:</th>
-                                    <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                                    <td class="text-right">@money($total->amount - $invoice->paid,
+                                        $invoice->currency_code, true)
+                                    </td>
                                 </tr>
                             @endif
                         @endforeach

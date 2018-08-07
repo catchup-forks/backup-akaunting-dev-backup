@@ -3,8 +3,8 @@
 namespace App\Listeners\Updates;
 
 use App\Events\UpdateFinished;
-use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
+use App\Models\Auth\Role;
 
 class Version110 extends Listener
 {

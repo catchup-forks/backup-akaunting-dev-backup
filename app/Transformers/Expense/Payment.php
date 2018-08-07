@@ -2,11 +2,10 @@
 
 namespace App\Transformers\Expense;
 
+use App\Models\Expense\Payment as Model;
 use App\Transformers\Banking\Account;
-use App\Transformers\Expense\Vendor;
 use App\Transformers\Setting\Category;
 use App\Transformers\Setting\Currency;
-use App\Models\Expense\Payment as Model;
 use League\Fractal\TransformerAbstract;
 
 class Payment extends TransformerAbstract

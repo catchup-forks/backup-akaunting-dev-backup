@@ -3,22 +3,13 @@
 namespace App\Models\Expense;
 
 use App\Models\Model;
+use App\Traits\Media;
 use Bkwld\Cloner\Cloneable;
 use Sofa\Eloquence\Eloquence;
-use App\Traits\Media;
 
 class Vendor extends Model
 {
     use Cloneable, Eloquence, Media;
-
-    protected $table = 'vendors';
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['company_id', 'name', 'email', 'tax_number', 'phone', 'address', 'website', 'currency_code', 'enabled'];
 
     /**
      * Sortable columns.
@@ -26,16 +17,32 @@ class Vendor extends Model
      * @var array
      */
     public $sortable = ['name', 'email', 'phone', 'enabled'];
-
+    protected $table = 'vendors';
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'company_id',
+        'name',
+        'email',
+        'tax_number',
+        'phone',
+        'address',
+        'website',
+        'currency_code',
+        'enabled'
+    ];
     /**
      * Searchable rules.
      *
      * @var array
      */
     protected $searchableColumns = [
-        'name'    => 10,
-        'email'   => 5,
-        'phone'   => 2,
+        'name' => 10,
+        'email' => 5,
+        'phone' => 2,
         'website' => 2,
         'address' => 1,
     ];

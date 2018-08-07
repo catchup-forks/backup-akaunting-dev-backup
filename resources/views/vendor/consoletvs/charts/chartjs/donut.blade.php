@@ -16,18 +16,18 @@
             datasets: [{
                 data: [
                     @foreach($model->values as $dta)
-                        {{ $dta }},
+                    {{ $dta }},
                     @endforeach
                 ],
                 backgroundColor: [
                     @if($model->colors)
-                        @foreach($model->colors as $color)
-                            "{{ $color }}",
-                        @endforeach
-                    @else
-                        @foreach($model->values as $dta)
-                            "{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}",
-                        @endforeach
+                            @foreach($model->colors as $color)
+                        "{{ $color }}",
+                    @endforeach
+                            @else
+                            @foreach($model->values as $dta)
+                        "{{ sprintf('#%06X', mt_rand(0, 0xFFFFFF)) }}",
+                    @endforeach
                     @endif
                 ],
             }]
@@ -42,7 +42,7 @@
             },
             tooltips: {
                 callbacks: {
-                    label: function(tooltipItem, data) {
+                    label: function (tooltipItem, data) {
                         var allData = data.datasets[tooltipItem.datasetIndex].data;
                         var tooltipLabel = data.labels[tooltipItem.index];
                         var tooltipData = allData[tooltipItem.index];

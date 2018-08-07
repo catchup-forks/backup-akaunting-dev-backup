@@ -34,7 +34,7 @@ class Permissions extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -53,7 +53,7 @@ class Permissions extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Permission  $permission
+     * @param  Permission $permission
      *
      * @return Response
      */
@@ -65,8 +65,8 @@ class Permissions extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Permission  $permission
-     * @param  Request  $request
+     * @param  Permission $permission
+     * @param  Request $request
      *
      * @return Response
      */
@@ -85,7 +85,7 @@ class Permissions extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Permission  $permission
+     * @param  Permission $permission
      *
      * @return Response
      */

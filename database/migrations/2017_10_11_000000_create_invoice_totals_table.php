@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use App\Models\Model;
 use App\Models\Company\Company;
 use App\Models\Income\Invoice;
 use App\Models\Income\InvoiceItem;
 use App\Models\Income\InvoiceTotal;
+use App\Models\Model;
 use App\Models\Setting\Tax;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateInvoiceTotalsTable extends Migration
 {
@@ -40,7 +40,8 @@ class CreateInvoiceTotalsTable extends Migration
             $invoices = Invoice::where('company_id', $company->id)->get();
 
             foreach ($invoices as $invoice) {
-                $invoice_items = InvoiceItem::where('company_id', $company->id)->where('invoice_id', $invoice->id)->get();
+                $invoice_items = InvoiceItem::where('company_id', $company->id)->where('invoice_id',
+                    $invoice->id)->get();
 
                 $taxes = [];
                 $tax_total = 0;
@@ -52,7 +53,8 @@ class CreateInvoiceTotalsTable extends Migration
                     $invoice_item->total = $invoice_item->price * $invoice_item->quantity;
 
                     if (!empty($invoice_item->tax_id)) {
-                        $tax_object = Tax::where('company_id', $company->id)->where('id', $invoice_item->tax_id)->first();
+                        $tax_object = Tax::where('company_id', $company->id)->where('id',
+                            $invoice_item->tax_id)->first();
 
                         $invoice_item->tax = (($invoice_item->price * $invoice_item->quantity) / 100) * $tax_object->rate;
                     }

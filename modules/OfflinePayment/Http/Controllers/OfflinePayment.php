@@ -2,15 +2,10 @@
 
 namespace Modules\OfflinePayment\Http\Controllers;
 
-use App\Events\InvoicePaid;
-
+use App\Http\Requests\Customer\InvoicePayment as PaymentRequest;
+use App\Models\Income\Invoice;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
-use App\Http\Requests\Customer\InvoicePayment as PaymentRequest;
-use App\Http\Requests\Customer\InvoiceConfirm as ConfirmRequest;
-
-use App\Models\Income\Invoice;
 
 class OfflinePayment extends Controller
 {

@@ -1,8 +1,8 @@
 @php
-$page = explode('/', $url)[1];
-$text = $text ? $text : $page;
+    $page = explode('/', $url)[1];
+    $text = $text ? $text : $page;
 
-$name = addslashes($item->$value);
+    $name = addslashes($item->$value);
 @endphp
 
 {!! Form::open([

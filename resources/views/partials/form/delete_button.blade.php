@@ -1,6 +1,6 @@
 @php
-$page = explode('/', $url)[1];
-$text = $text ? $text : $page;
+    $page = explode('/', $url)[1];
+    $text = $text ? $text : $page;
 @endphp
 
 {!! Form::open([

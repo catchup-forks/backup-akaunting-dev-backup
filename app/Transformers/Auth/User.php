@@ -2,8 +2,8 @@
 
 namespace App\Transformers\Auth;
 
-use App\Transformers\Company\Company;
 use App\Models\Auth\User as Model;
+use App\Transformers\Company\Company;
 use League\Fractal\TransformerAbstract;
 
 class User extends TransformerAbstract

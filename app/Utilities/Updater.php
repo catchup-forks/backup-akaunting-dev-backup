@@ -8,9 +8,9 @@ use App\Traits\SiteApi;
 use Cache;
 use Date;
 use File;
+use GuzzleHttp\Exception\RequestException;
 use Module;
 use ZipArchive;
-use GuzzleHttp\Exception\RequestException;
 
 class Updater
 {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Install;
 
-use App\Http\Controllers\Controller;
 use App\Events\UpdateFinished;
+use App\Http\Controllers\Controller;
 use App\Utilities\Updater;
 use App\Utilities\Versions;
 use Artisan;

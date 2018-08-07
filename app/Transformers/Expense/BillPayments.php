@@ -2,9 +2,9 @@
 
 namespace App\Transformers\Expense;
 
+use App\Models\Expense\BillPayment as Model;
 use App\Transformers\Banking\Account;
 use App\Transformers\Setting\Currency;
-use App\Models\Expense\BillPayment as Model;
 use League\Fractal\TransformerAbstract;
 
 class BillPayments extends TransformerAbstract

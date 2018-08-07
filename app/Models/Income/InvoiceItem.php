@@ -17,7 +17,18 @@ class InvoiceItem extends Model
      *
      * @var array
      */
-    protected $fillable = ['company_id', 'invoice_id', 'item_id', 'name', 'sku', 'quantity', 'price', 'total', 'tax', 'tax_id'];
+    protected $fillable = [
+        'company_id',
+        'invoice_id',
+        'item_id',
+        'name',
+        'sku',
+        'quantity',
+        'price',
+        'total',
+        'tax',
+        'tax_id'
+    ];
 
     public function invoice()
     {
@@ -37,33 +48,33 @@ class InvoiceItem extends Model
     /**
      * Convert price to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setPriceAttribute($value)
     {
-        $this->attributes['price'] = (double) money($value, $this->invoice->currency_code)->getAmount();
+        $this->attributes['price'] = (double)money($value, $this->invoice->currency_code)->getAmount();
     }
 
     /**
      * Convert total to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setTotalAttribute($value)
     {
-        $this->attributes['total'] = (double) money($value, $this->invoice->currency_code)->getAmount();
+        $this->attributes['total'] = (double)money($value, $this->invoice->currency_code)->getAmount();
     }
 
     /**
      * Convert tax to double.
      *
-     * @param  string  $value
+     * @param  string $value
      * @return void
      */
     public function setTaxAttribute($value)
     {
-        $this->attributes['tax'] = (double) money($value, $this->invoice->currency_code)->getAmount();
+        $this->attributes['tax'] = (double)money($value, $this->invoice->currency_code)->getAmount();
     }
 }

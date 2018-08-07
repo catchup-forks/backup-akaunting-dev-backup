@@ -12,8 +12,8 @@ use App\Traits\Uploads;
 use App\Utilities\Import;
 use App\Utilities\ImportFile;
 use Date;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
 class Vendors extends Controller
@@ -35,7 +35,7 @@ class Vendors extends Controller
     /**
      * Show the form for viewing the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Vendor $vendor
      *
      * @return Response
      */
@@ -105,6 +105,25 @@ class Vendors extends Controller
     }
 
     /**
+     * Generate a pagination collection.
+     *
+     * @param array|Collection $items
+     * @param int $perPage
+     * @param int $page
+     * @param array $options
+     *
+     * @return LengthAwarePaginator
+     */
+    public function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return Response
@@ -119,7 +138,7 @@ class Vendors extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -144,7 +163,7 @@ class Vendors extends Controller
     /**
      * Duplicate the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Vendor $vendor
      *
      * @return Response
      */
@@ -162,7 +181,7 @@ class Vendors extends Controller
     /**
      * Import the specified resource.
      *
-     * @param  ImportFile  $import
+     * @param  ImportFile $import
      *
      * @return Response
      */
@@ -182,7 +201,7 @@ class Vendors extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Vendor $vendor
      *
      * @return Response
      */
@@ -196,8 +215,8 @@ class Vendors extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Vendor  $vendor
-     * @param  Request  $request
+     * @param  Vendor $vendor
+     * @param  Request $request
      *
      * @return Response
      */
@@ -222,7 +241,7 @@ class Vendors extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Vendor $vendor
      *
      * @return Response
      */
@@ -241,7 +260,7 @@ class Vendors extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  Vendor  $vendor
+     * @param  Vendor $vendor
      *
      * @return Response
      */
@@ -260,7 +279,7 @@ class Vendors extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Vendor  $vendor
+     * @param  Vendor $vendor
      *
      * @return Response
      */
@@ -278,7 +297,8 @@ class Vendors extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $vendor->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted',
+                ['name' => $vendor->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }
@@ -293,10 +313,14 @@ class Vendors extends Controller
      */
     public function export()
     {
-        \Excel::create('vendors', function($excel) {
-            $excel->sheet('vendors', function($sheet) {
+        \Excel::create('vendors', function ($excel) {
+            $excel->sheet('vendors', function ($sheet) {
                 $sheet->fromModel(Vendor::filter(request()->input())->get()->makeHidden([
-                    'id', 'company_id', 'created_at', 'updated_at', 'deleted_at'
+                    'id',
+                    'company_id',
+                    'created_at',
+                    'updated_at',
+                    'deleted_at'
                 ]));
             });
         })->download('xlsx');
@@ -304,12 +328,12 @@ class Vendors extends Controller
 
     public function currency()
     {
-        $vendor_id = (int) request('vendor_id');
+        $vendor_id = (int)request('vendor_id');
 
         if (empty($vendor_id)) {
             return response()->json([]);
         }
-        
+
         $vendor = Vendor::find($vendor_id);
 
         if (empty($vendor)) {
@@ -340,24 +364,5 @@ class Vendors extends Controller
         $vendor = Vendor::create($request->all());
 
         return response()->json($vendor);
-    }
-
-    /**
-     * Generate a pagination collection.
-     *
-     * @param array|Collection      $items
-     * @param int   $perPage
-     * @param int   $page
-     * @param array $options
-     *
-     * @return LengthAwarePaginator
-     */
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

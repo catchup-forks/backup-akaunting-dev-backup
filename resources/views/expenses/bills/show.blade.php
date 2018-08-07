@@ -26,9 +26,9 @@
             <div class="row invoice-header">
                 <div class="col-xs-7">
                     @if (isset($bill->vendor->logo) && !empty($bill->vendor->logo->id))
-                        <img src="{{ Storage::url($bill->vendor->logo->id) }}" class="invoice-logo" />
+                        <img src="{{ Storage::url($bill->vendor->logo->id) }}" class="invoice-logo"/>
                     @else
-                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
+                        <img src="{{ asset('./img/company.png') }}" class="invoice-logo"/>
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">
@@ -54,11 +54,11 @@
                         <strong>{{ $bill->vendor_name }}</strong><br>
                         {!! nl2br($bill->vendor_address) !!}<br>
                         @if ($bill->vendor_tax_number)
-                        {{ trans('general.tax_number') }}: {{ $bill->vendor_tax_number }}<br>
+                            {{ trans('general.tax_number') }}: {{ $bill->vendor_tax_number }}<br>
                         @endif
                         <br>
                         @if ($bill->vendor_phone)
-                        {{ $bill->vendor_phone }}<br>
+                            {{ $bill->vendor_phone }}<br>
                         @endif
                         {{ $bill->vendor_email }}
                     </address>
@@ -72,10 +72,10 @@
                                 <td class="text-right">{{ $bill->bill_number }}</td>
                             </tr>
                             @if ($bill->order_number)
-                            <tr>
-                                <th>{{ trans('bills.order_number') }}:</th>
-                                <td class="text-right">{{ $bill->order_number }}</td>
-                            </tr>
+                                <tr>
+                                    <th>{{ trans('bills.order_number') }}:</th>
+                                    <td class="text-right">{{ $bill->order_number }}</td>
+                                </tr>
                             @endif
                             <tr>
                                 <th>{{ trans('bills.bill_date') }}:</th>
@@ -95,25 +95,26 @@
                 <div class="col-xs-12 table-responsive">
                     <table class="table table-striped">
                         <tbody>
-                            <tr>
-                                <th>{{ trans_choice('general.items', 1) }}</th>
-                                <th class="text-center">{{ trans('bills.quantity') }}</th>
-                                <th class="text-right">{{ trans('bills.price') }}</th>
-                                <th class="text-right">{{ trans('bills.total') }}</th>
-                            </tr>
-                            @foreach($bill->items as $item)
+                        <tr>
+                            <th>{{ trans_choice('general.items', 1) }}</th>
+                            <th class="text-center">{{ trans('bills.quantity') }}</th>
+                            <th class="text-right">{{ trans('bills.price') }}</th>
+                            <th class="text-right">{{ trans('bills.total') }}</th>
+                        </tr>
+                        @foreach($bill->items as $item)
                             <tr>
                                 <td>
                                     {{ $item->name }}
                                     @if ($item->sku)
-                                        <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
+                                        <br>
+                                        <small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
                                     @endif
                                 </td>
                                 <td class="text-center">{{ $item->quantity }}</td>
                                 <td class="text-right">@money($item->price, $bill->currency_code, true)</td>
                                 <td class="text-right">@money($item->total, $bill->currency_code, true)</td>
                             </tr>
-                            @endforeach
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -133,7 +134,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                @foreach ($bill->totals as $total)
+                            @foreach ($bill->totals as $total)
                                 @if ($total->code != 'total')
                                     <tr>
                                         <th>{{ trans($total->title) }}:</th>
@@ -143,15 +144,18 @@
                                     @if ($bill->paid)
                                         <tr class="text-success">
                                             <th>{{ trans('invoices.paid') }}:</th>
-                                            <td class="text-right">- @money($bill->paid, $bill->currency_code, true)</td>
+                                            <td class="text-right">- @money($bill->paid, $bill->currency_code, true)
+                                            </td>
                                         </tr>
                                     @endif
                                     <tr>
                                         <th>{{ trans($total->name) }}:</th>
-                                        <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
+                                        <td class="text-right">@money($total->amount - $bill->paid,
+                                            $bill->currency_code, true)
+                                        </td>
                                     </tr>
                                 @endif
-                                @endforeach
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -163,24 +167,34 @@
                     <a href="{{ url('expenses/bills/' . $bill->id . '/edit') }}" class="btn btn-default">
                         <i class="fa fa-pencil-square-o"></i>&nbsp; {{ trans('general.edit') }}
                     </a>
-                    <a href="{{ url('expenses/bills/' . $bill->id . '/print') }}" target="_blank" class="btn btn-success">
+                    <a href="{{ url('expenses/bills/' . $bill->id . '/print') }}" target="_blank"
+                       class="btn btn-success">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
                     <div class="btn-group dropup">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-chevron-circle-up"></i>&nbsp; {{ trans('general.more_actions') }}</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false"><i
+                                    class="fa fa-chevron-circle-up"></i>&nbsp; {{ trans('general.more_actions') }}
+                        </button>
                         <ul class="dropdown-menu" role="menu">
                             @if($bill->status->code != 'paid')
-                            <li><a href="#" id="button-payment">{{ trans('bills.add_payment') }}</a></li>
-                            @permission('update-expenses-bills')
-                            @if($bill->bill_status_code == 'draft')
-                            <li><a href="{{ url('expenses/bills/' . $bill->id . '/received') }}">{{ trans('bills.mark_received') }}</a></li>
-                            @else
-                            <li><a href="javascript:void(0);" class="disabled"><span class="text-disabled">{{ trans('bills.mark_received') }}</span></a></li>
+                                <li><a href="#" id="button-payment">{{ trans('bills.add_payment') }}</a></li>
+                                @permission('update-expenses-bills')
+                                @if($bill->bill_status_code == 'draft')
+                                    <li>
+                                        <a href="{{ url('expenses/bills/' . $bill->id . '/received') }}">{{ trans('bills.mark_received') }}</a>
+                                    </li>
+                                @else
+                                    <li><a href="javascript:void(0);" class="disabled"><span
+                                                    class="text-disabled">{{ trans('bills.mark_received') }}</span></a>
+                                    </li>
+                                @endif
+                                @endpermission
+                                <li class="divider"></li>
                             @endif
-                            @endpermission
-                            <li class="divider"></li>
-                            @endif
-                            <li><a href="{{ url('expenses/bills/' . $bill->id . '/pdf') }}">{{ trans('bills.download_pdf') }}</a></li>
+                            <li>
+                                <a href="{{ url('expenses/bills/' . $bill->id . '/pdf') }}">{{ trans('bills.download_pdf') }}</a>
+                            </li>
                             <li class="divider"></li>
                             @permission('delete-expenses-bills')
                             <li>{!! Form::deleteLink($bill, 'expenses/bills') !!}</li>
@@ -219,7 +233,8 @@
                     <h3 class="box-title">{{ trans('bills.histories') }}</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                        </button>
                     </div>
                     <!-- /.box-tools -->
                 </div>
@@ -254,7 +269,8 @@
                     <h3 class="box-title">{{ trans('bills.payments') }}</h3>
 
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                        </button>
                     </div>
                     <!-- /.box-tools -->
                 </div>
@@ -276,8 +292,14 @@
                                     <td>@money($payment->amount, $payment->currency_code, true)</td>
                                     <td>{{ $payment->account->name }}</td>
                                     <td>
-                                        <a href="{{ url('expenses/bills/' . $payment->id) }}" class="btn btn-info btn-xs hidden"><i class="fa fa-eye" aria-hidden="true"></i> {{ trans('general.show') }}</a>
-                                        <a href="{{ url('expenses/bills/' . $payment->id . '/edit') }}" class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> {{ trans('general.edit') }}</a>
+                                        <a href="{{ url('expenses/bills/' . $payment->id) }}"
+                                           class="btn btn-info btn-xs hidden"><i class="fa fa-eye"
+                                                                                 aria-hidden="true"></i> {{ trans('general.show') }}
+                                        </a>
+                                        <a href="{{ url('expenses/bills/' . $payment->id . '/edit') }}"
+                                           class="btn btn-primary btn-xs  hidden"><i class="fa fa-pencil-square-o"
+                                                                                     aria-hidden="true"></i> {{ trans('general.edit') }}
+                                        </a>
                                         {!! Form::open([
                                             'id' => 'bill-payment-' . $payment->id,
                                             'method' => 'DELETE',
@@ -304,18 +326,18 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('./js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('../vendor/almasaeed2010/adminlte/plugins/datepicker/datepicker3.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $(document).on('click', '#button-payment', function (e) {
                 $('#payment-modal').remove();
 
@@ -413,7 +435,7 @@
                     type: 'GET',
                     dataType: 'JSON',
                     data: 'account_id=' + $(this).val(),
-                    success: function(data) {
+                    success: function (data) {
                         $('#currency').val(data.currency_name);
                         $('#currency_code').val(data.currency_code);
                     }
@@ -460,14 +482,14 @@
                 type: 'POST',
                 dataType: 'JSON',
                 data: $('#payment-modal input[type=\'text\'], #payment-modal input[type=\'hidden\'], #payment-modal textarea, #payment-modal select'),
-                headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                beforeSend: function() {
+                headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                beforeSend: function () {
                     $('#payment-modal .modal-content').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
                 },
-                complete: function() {
+                complete: function () {
                     $('#loading').remove();
                 },
-                success: function(json) {
+                success: function (json) {
                     if (json['error']) {
                         $('#payment-modal .modal-message').append('<div class="alert alert-danger">' + json['message'] + '</div>');
                         $('div.alert-danger').delay(3000).fadeOut(350);
@@ -477,14 +499,14 @@
                         $('#payment-modal .modal-message').before('<div class="alert alert-success">' + json['message'] + '</div>');
                         $('div.alert-success').delay(3000).fadeOut(350);
 
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $("#payment-modal").modal('hide');
 
                             location.reload();
                         }, 3000);
                     }
                 },
-                error: function(data){
+                error: function (data) {
                     var errors = data.responseJSON;
 
                     if (typeof errors !== 'undefined') {

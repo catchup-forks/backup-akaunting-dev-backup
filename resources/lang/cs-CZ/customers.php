@@ -2,10 +2,10 @@
 
 return [
 
-    'allow_login'           => 'Povolit přihlášení?',
-    'user_created'          => 'Uživatel vytvořen',
+    'allow_login' => 'Povolit přihlášení?',
+    'user_created' => 'Uživatel vytvořen',
 
     'error' => [
-        'email'             => 'Tato emailová adresa je už obsazena.'
+        'email' => 'Tato emailová adresa je už obsazena.'
     ]
 ];

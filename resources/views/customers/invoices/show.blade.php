@@ -10,11 +10,11 @@
             <div class="row invoice-header">
                 <div class="col-xs-7">
                     @if (setting('general.invoice_logo'))
-                        <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo" />
+                        <img src="{{ Storage::url(setting('general.invoice_logo')) }}" class="invoice-logo"/>
                     @elseif (setting('general.company_logo'))
-                        <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo" />
+                        <img src="{{ Storage::url(setting('general.company_logo')) }}" class="invoice-logo"/>
                     @else
-                        <img src="{{ asset('public/img/company.png') }}" class="invoice-logo" />
+                        <img src="{{ asset('./img/company.png') }}" class="invoice-logo"/>
                     @endif
                 </div>
                 <div class="col-xs-5 invoice-company">
@@ -92,7 +92,8 @@
                                 <td>
                                     {{ $item->name }}
                                     @if ($item->sku)
-                                        <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
+                                        <br>
+                                        <small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
                                     @endif
                                 </td>
                                 <td class="text-center">{{ $item->quantity }}</td>
@@ -123,18 +124,23 @@
                                 @if($total->code != 'total')
                                     <tr>
                                         <th>{{ trans($total['name']) }}:</th>
-                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)</td>
+                                        <td class="text-right">@money($total->amount, $invoice->currency_code, true)
+                                        </td>
                                     </tr>
                                 @else
                                     @if ($invoice->paid)
                                         <tr class="text-success">
                                             <th>{{ trans('invoices.paid') }}:</th>
-                                            <td class="text-right">- @money($invoice->paid, $invoice->currency_code, true)</td>
+                                            <td class="text-right">- @money($invoice->paid, $invoice->currency_code,
+                                                true)
+                                            </td>
                                         </tr>
                                     @endif
                                     <tr>
                                         <th>{{ trans($total['name']) }}:</th>
-                                        <td class="text-right">@money($total->amount - $invoice->paid, $invoice->currency_code, true)</td>
+                                        <td class="text-right">@money($total->amount - $invoice->paid,
+                                            $invoice->currency_code, true)
+                                        </td>
                                     </tr>
                                 @endif
                             @endforeach
@@ -146,10 +152,12 @@
 
             <div class="box-footer row no-print">
                 <div class="col-md-10">
-                    <a href="{{ url('customers/invoices/' . $invoice->id . '/print') }}" target="_blank" class="btn btn-default">
+                    <a href="{{ url('customers/invoices/' . $invoice->id . '/print') }}" target="_blank"
+                       class="btn btn-default">
                         <i class="fa fa-print"></i>&nbsp; {{ trans('general.print') }}
                     </a>
-                    <a href="{{ url('customers/invoices/' . $invoice->id . '/pdf') }}" class="btn btn-default" data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
+                    <a href="{{ url('customers/invoices/' . $invoice->id . '/pdf') }}" class="btn btn-default"
+                       data-toggle="tooltip" title="{{ trans('invoices.download_pdf') }}">
                         <i class="fa fa-file-pdf-o"></i>&nbsp; {{ trans('general.download') }}
                     </a>
                 </div>
@@ -172,7 +180,7 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $(document).on('change', '#payment-method', function (e) {
                 var payment_method = $(this).val();
 
@@ -183,16 +191,16 @@
                     type: 'GET',
                     dataType: 'JSON',
                     data: $('.box-footer input, .box-footer select'),
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                    beforeSend: function() {
+                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                    beforeSend: function () {
                         $('#confirm').html('');
 
                         $('#confirm').append('<div id="loading" class="text-center"><i class="fa fa-spinner fa-spin fa-5x checkout-spin"></i></div>');
                     },
-                    complete: function() {
+                    complete: function () {
                         $('#loading').remove();
                     },
-                    success: function(data) {
+                    success: function (data) {
                         if (data['error']) {
 
                         }
@@ -205,7 +213,7 @@
                             $('#confirm').append(data['html']);
                         }
                     },
-                    error: function(data){
+                    error: function (data) {
 
                     }
                 });

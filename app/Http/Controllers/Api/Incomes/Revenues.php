@@ -27,7 +27,7 @@ class Revenues extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Revenue  $revenue
+     * @param  Revenue $revenue
      * @return \Dingo\Api\Http\Response
      */
     public function show(Revenue $revenue)
@@ -45,7 +45,7 @@ class Revenues extends ApiController
     {
         $revenue = Revenue::create($request->all());
 
-        return $this->response->created(url('api/revenues/'.$revenue->id));
+        return $this->response->created(url('api/revenues/' . $revenue->id));
     }
 
     /**
@@ -65,7 +65,7 @@ class Revenues extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Revenue  $revenue
+     * @param  Revenue $revenue
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Revenue $revenue)

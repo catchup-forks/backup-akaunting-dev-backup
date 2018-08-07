@@ -2,22 +2,16 @@
 
 namespace App\Models\Common;
 
+use App\Traits\Media;
 use Auth;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
-use App\Traits\Media;
 
 class Company extends Eloquent
 {
     use Filterable, SoftDeletes, Sortable, Media;
-
-    protected $table = 'companies';
-
-    protected $dates = ['deleted_at'];
-
-    protected $fillable = ['domain', 'enabled'];
 
     /**
      * Sortable columns.
@@ -25,6 +19,9 @@ class Company extends Eloquent
      * @var array
      */
     public $sortable = ['name', 'domain', 'email', 'enabled', 'created_at'];
+    protected $table = 'companies';
+    protected $dates = ['deleted_at'];
+    protected $fillable = ['domain', 'enabled'];
 
     public function accounts()
     {
@@ -181,7 +178,7 @@ class Company extends Eloquent
             return $this->provideFilter();
         }
 
-        $class = '\App\Filters\\' . ucfirst($folder) .'\\' . ucfirst($file);
+        $class = '\App\Filters\\' . ucfirst($folder) . '\\' . ucfirst($file);
 
         return $this->provideFilter($class);
     }

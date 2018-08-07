@@ -2,10 +2,10 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
 use App\Models\Banking\Account;
-use Setting;
+use App\Models\Model;
 use Illuminate\Database\Seeder;
+use Setting;
 
 class Accounts extends Seeder
 {

@@ -2,8 +2,8 @@
 
 return [
 
-    'previous'              => '&laquo; Precedente',
-    'next'                  => 'Prossimo &raquo;',
-    'showing'               => 'Visualizza dal :first al :last di :total :type',
+    'previous' => '&laquo; Precedente',
+    'next' => 'Prossimo &raquo;',
+    'showing' => 'Visualizza dal :first al :last di :total :type',
 
 ];

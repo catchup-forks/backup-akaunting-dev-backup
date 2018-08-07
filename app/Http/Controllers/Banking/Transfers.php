@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Banking;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Requests\Banking\Transfer as Request;
 use App\Models\Banking\Account;
 use App\Models\Banking\Transfer;
@@ -11,9 +10,8 @@ use App\Models\Expense\Payment;
 use App\Models\Income\Revenue;
 use App\Models\Setting\Category;
 use App\Models\Setting\Currency;
-use Date;
-
 use App\Utilities\Modules;
+use Date;
 
 class Transfers extends Controller
 {
@@ -27,7 +25,12 @@ class Transfers extends Controller
     {
         $request = request();
 
-        $items = Transfer::with(['payment', 'payment.account', 'revenue', 'revenue.account'])->collect(['payment.paid_at' => 'desc']);
+        $items = Transfer::with([
+            'payment',
+            'payment.account',
+            'revenue',
+            'revenue.account'
+        ])->collect(['payment.paid_at' => 'desc']);
 
         $accounts = collect(Account::enabled()->orderBy('name')->pluck('name', 'id'))
             ->prepend(trans('general.all_type', ['type' => trans_choice('general.accounts', 2)]), '');
@@ -108,7 +111,7 @@ class Transfers extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -183,7 +186,7 @@ class Transfers extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -210,8 +213,8 @@ class Transfers extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Transfer  $transfer
-     * @param  Request  $request
+     * @param  Transfer $transfer
+     * @param  Request $request
      *
      * @return Response
      */
@@ -289,7 +292,7 @@ class Transfers extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Transfer  $transfer
+     * @param  Transfer $transfer
      *
      * @return Response
      */

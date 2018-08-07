@@ -6,12 +6,11 @@ use App\Events\BillCreated;
 use App\Events\BillUpdated;
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\Expense\Bill as Request;
+use App\Models\Common\Item;
 use App\Models\Expense\Bill;
 use App\Models\Expense\BillHistory;
 use App\Models\Expense\BillItem;
 use App\Models\Expense\BillPayment;
-use App\Models\Expense\BillStatus;
-use App\Models\Common\Item;
 use App\Models\Setting\Tax;
 use App\Transformers\Expense\Bill as Transformer;
 use Dingo\Api\Routing\Helpers;
@@ -35,7 +34,7 @@ class Bills extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Bill  $bill
+     * @param  Bill $bill
      * @return \Dingo\Api\Http\Response
      */
     public function show(Bill $bill)
@@ -116,7 +115,7 @@ class Bills extends ApiController
         // Fire the event to make it extendible
         event(new BillCreated($bill));
 
-        return $this->response->created(url('api/bills/'.$bill->id));
+        return $this->response->created(url('api/bills/' . $bill->id));
     }
 
     /**
@@ -188,7 +187,7 @@ class Bills extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Bill  $bill
+     * @param  Bill $bill
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Bill $bill)

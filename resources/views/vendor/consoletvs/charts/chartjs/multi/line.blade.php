@@ -11,24 +11,24 @@
             @endforeach
         ],
         datasets: [
-            @for ($i = 0; $i < count($model->datasets); $i++)
-                {
-                    fill: false,
-                    label: "{!! $model->datasets[$i]['label'] !!}",
-                    lineTension: 0.3,
-                    @if($model->colors and count($model->colors) > $i)
+                @for ($i = 0; $i < count($model->datasets); $i++)
+            {
+                fill: false,
+                label: "{!! $model->datasets[$i]['label'] !!}",
+                lineTension: 0.3,
+                @if($model->colors and count($model->colors) > $i)
                         @php($c = $model->colors[$i])
-                    @else
+                        @else
                         @php($c = sprintf('#%06X', mt_rand(0, 0xFFFFFF)))
-                    @endif
-                    borderColor: "{{ $c }}",
-                    backgroundColor: "{{ $c }}",
-                    data: [
-                        @foreach($model->datasets[$i]['values'] as $dta)
-                            {{ $dta }},
-                        @endforeach
-                    ],
-                },
+                        @endif
+                borderColor: "{{ $c }}",
+                backgroundColor: "{{ $c }}",
+                data: [
+                    @foreach($model->datasets[$i]['values'] as $dta)
+                    {{ $dta }},
+                    @endforeach
+                ],
+            },
             @endfor
         ]
     };
@@ -44,11 +44,11 @@
                 position: 'top'
             },
             @if($model->title)
-                title: {
-                    display: true,
-                    text: "{!! $model->title !!}",
-                    fontSize: 20,
-                }
+            title: {
+                display: true,
+                text: "{!! $model->title !!}",
+                fontSize: 20,
+            }
             @endif
         }
     });

@@ -14,10 +14,10 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#next-button').attr('disabled', true);
 
-            $('#company_name, #company_email, #user_email, #user_password').keyup(function() {
+            $('#company_name, #company_email, #user_email, #user_password').keyup(function () {
                 inputCheck();
             });
         });

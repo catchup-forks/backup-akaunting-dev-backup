@@ -2,13 +2,8 @@
 
 namespace App\Transformers\Expense;
 
-use App\Transformers\Expense\BillHistories;
-use App\Transformers\Expense\BillItems;
-use App\Transformers\Expense\BillPayments;
-use App\Transformers\Expense\BillStatus;
-use App\Transformers\Expense\Vendor;
-use App\Transformers\Setting\Currency;
 use App\Models\Expense\Bill as Model;
+use App\Transformers\Setting\Currency;
 use League\Fractal\TransformerAbstract;
 
 class Bill extends TransformerAbstract

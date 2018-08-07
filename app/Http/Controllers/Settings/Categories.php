@@ -60,7 +60,7 @@ class Categories extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
@@ -78,7 +78,7 @@ class Categories extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
@@ -99,8 +99,8 @@ class Categories extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Category  $category
-     * @param  Request  $request
+     * @param  Category $category
+     * @param  Request $request
      *
      * @return Response
      */
@@ -123,7 +123,8 @@ class Categories extends Controller
 
             return redirect('settings/categories');
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $category->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -134,7 +135,7 @@ class Categories extends Controller
     /**
      * Enable the specified resource.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
@@ -153,7 +154,7 @@ class Categories extends Controller
     /**
      * Disable the specified resource.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
@@ -175,7 +176,8 @@ class Categories extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.disabled', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.disabled',
+                ['name' => $category->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
 
@@ -188,7 +190,7 @@ class Categories extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Category  $category
+     * @param  Category $category
      *
      * @return Response
      */
@@ -196,7 +198,8 @@ class Categories extends Controller
     {
         // Can not delete the last category by type
         if (Category::where('type', $category->type)->count() == 1) {
-            $message = trans('messages.error.last_category', ['type' => strtolower(trans_choice('general.' . $category->type . 's', 1))]);
+            $message = trans('messages.error.last_category',
+                ['type' => strtolower(trans_choice('general.' . $category->type . 's', 1))]);
 
             flash($message)->warning();
 
@@ -218,7 +221,8 @@ class Categories extends Controller
 
             flash($message)->success();
         } else {
-            $message = trans('messages.warning.deleted', ['name' => $category->name, 'text' => implode(', ', $relationships)]);
+            $message = trans('messages.warning.deleted',
+                ['name' => $category->name, 'text' => implode(', ', $relationships)]);
 
             flash($message)->warning();
         }

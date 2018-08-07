@@ -3,19 +3,14 @@
 namespace Modules\PaypalStandard\Http\Controllers;
 
 use App\Events\InvoicePaid;
-
+use App\Http\Requests\Customer\InvoicePayment as PaymentRequest;
+use App\Models\Income\Invoice;
+use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-
-use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
-
-use GuzzleHttp\Client;
-
-use Illuminate\Http\Request;
-use App\Http\Requests\Customer\InvoicePayment as PaymentRequest;
-
-use App\Models\Income\Invoice;
+use Monolog\Logger;
 
 class PaypalStandard extends Controller
 {

@@ -18,7 +18,7 @@ trait Recurring
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int)$request['recurring_interval'];
         $started_at = $request->get('paid_at') ?: ($request->get('invoiced_at') ?: $request->get('billed_at'));
 
         $this->recurring()->create([
@@ -26,7 +26,7 @@ trait Recurring
             'frequency' => $frequency,
             'interval' => $interval,
             'started_at' => $started_at,
-            'count' => (int) $request['recurring_count'],
+            'count' => (int)$request['recurring_count'],
         ]);
     }
 
@@ -40,7 +40,7 @@ trait Recurring
         }
 
         $frequency = ($request['recurring_frequency'] != 'custom') ? $request['recurring_frequency'] : $request['recurring_custom_frequency'];
-        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int) $request['recurring_interval'];
+        $interval = ($request['recurring_frequency'] != 'custom') ? 1 : (int)$request['recurring_interval'];
         $started_at = $request->get('paid_at') ?: ($request->get('invoiced_at') ?: $request->get('billed_at'));
 
         $recurring = $this->recurring();
@@ -56,7 +56,7 @@ trait Recurring
             'frequency' => $frequency,
             'interval' => $interval,
             'started_at' => $started_at,
-            'count' => (int) $request['recurring_count'],
+            'count' => (int)$request['recurring_count'],
         ]);
     }
 
@@ -67,37 +67,6 @@ trait Recurring
         }
 
         return $schedule->current()->getStart();
-    }
-
-    public function next()
-    {
-        if (!$schedule = $this->schedule()) {
-            return false;
-        }
-
-        if (!$next = $schedule->next()) {
-            return false;
-        }
-
-        return $next->getStart();
-    }
-
-    public function first()
-    {
-        if (!$schedule = $this->schedule()) {
-            return false;
-        }
-
-        return $schedule->first()->getStart();
-    }
-
-    public function last()
-    {
-        if (!$schedule = $this->schedule()) {
-            return false;
-        }
-
-        return $schedule->last()->getStart();
     }
 
     public function schedule()
@@ -137,14 +106,45 @@ trait Recurring
         return setting('general.timezone');
     }
 
+    public function getRuleFrequency()
+    {
+        return strtoupper($this->frequency);
+    }
+
     public function getRuleCount()
     {
         // Fix for humans
         return $this->count + 1;
     }
 
-    public function getRuleFrequency()
+    public function next()
     {
-        return strtoupper($this->frequency);
+        if (!$schedule = $this->schedule()) {
+            return false;
+        }
+
+        if (!$next = $schedule->next()) {
+            return false;
+        }
+
+        return $next->getStart();
+    }
+
+    public function first()
+    {
+        if (!$schedule = $this->schedule()) {
+            return false;
+        }
+
+        return $schedule->first()->getStart();
+    }
+
+    public function last()
+    {
+        if (!$schedule = $this->schedule()) {
+            return false;
+        }
+
+        return $schedule->last()->getStart();
     }
 }

@@ -82,13 +82,6 @@ class Login extends Controller
         return redirect('/');
     }
 
-    public function destroy()
-    {
-        $this->logout();
-
-        return redirect('auth/login');
-    }
-
     public function logout()
     {
         auth()->logout();
@@ -98,5 +91,12 @@ class Login extends Controller
             $request = app('Illuminate\Http\Request');
             $request->session()->getHandler()->destroy($request->session()->getId());
         }
+    }
+
+    public function destroy()
+    {
+        $this->logout();
+
+        return redirect('auth/login');
     }
 }

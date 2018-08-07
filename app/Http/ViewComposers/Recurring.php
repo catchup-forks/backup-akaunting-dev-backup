@@ -10,7 +10,7 @@ class Recurring
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param  View $view
      * @return void
      */
     public function compose(View $view)
@@ -31,6 +31,9 @@ class Recurring
             'yearly' => trans('recurring.years'),
         ];
 
-        $view->with(['recurring_frequencies' => $recurring_frequencies, 'recurring_custom_frequencies' => $recurring_custom_frequencies]);
+        $view->with([
+            'recurring_frequencies' => $recurring_frequencies,
+            'recurring_custom_frequencies' => $recurring_custom_frequencies
+        ]);
     }
 }

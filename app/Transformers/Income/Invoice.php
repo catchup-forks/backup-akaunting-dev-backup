@@ -2,13 +2,8 @@
 
 namespace App\Transformers\Income;
 
-use App\Transformers\Income\Customer;
-use App\Transformers\Income\InvoiceHistories;
-use App\Transformers\Income\InvoiceItems;
-use App\Transformers\Income\InvoicePayments;
-use App\Transformers\Income\InvoiceStatus;
-use App\Transformers\Setting\Currency;
 use App\Models\Income\Invoice as Model;
+use App\Transformers\Setting\Currency;
 use League\Fractal\TransformerAbstract;
 
 class Invoice extends TransformerAbstract

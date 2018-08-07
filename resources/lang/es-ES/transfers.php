@@ -2,11 +2,11 @@
 
 return [
 
-    'from_account'          => 'De Cuenta',
-    'to_account'            => 'A Cuenta',
+    'from_account' => 'De Cuenta',
+    'to_account' => 'A Cuenta',
 
     'messages' => [
-        'delete'            => ':from a :to (:amount)',
+        'delete' => ':from a :to (:amount)',
     ],
 
 ];

@@ -2,10 +2,10 @@
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\View\View;
-use App\Traits\Modules as RemoteModules;
-use Route;
 use App\Models\Module\Module;
+use App\Traits\Modules as RemoteModules;
+use Illuminate\View\View;
+use Route;
 
 class Suggestions
 {
@@ -14,7 +14,7 @@ class Suggestions
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param  View $view
      * @return void
      */
     public function compose(View $view)
@@ -35,7 +35,8 @@ class Suggestions
                 $suggestion_modules = $suggestions->modules;
 
                 foreach ($suggestion_modules as $key => $module) {
-                    $installed = Module::where('company_id', '=', session('company_id'))->where('alias', '=', $module->alias)->first();
+                    $installed = Module::where('company_id', '=', session('company_id'))->where('alias', '=',
+                        $module->alias)->first();
 
                     if ($installed) {
                         unset($suggestion_modules[$key]);

@@ -27,7 +27,7 @@ class Payments extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Payment  $payment
+     * @param  Payment $payment
      * @return \Dingo\Api\Http\Response
      */
     public function show(Payment $payment)
@@ -45,7 +45,7 @@ class Payments extends ApiController
     {
         $payment = Payment::create($request->all());
 
-        return $this->response->created(url('api/payments/'.$payment->id));
+        return $this->response->created(url('api/payments/' . $payment->id));
     }
 
     /**
@@ -65,7 +65,7 @@ class Payments extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Payment  $payment
+     * @param  Payment $payment
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Payment $payment)

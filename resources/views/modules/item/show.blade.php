@@ -3,8 +3,10 @@
 @section('title', trans_choice('general.modules', 2))
 
 @section('new_button')
-    <span class="new-button"><a href="{{ url('apps/token/create') }}" class="btn btn-success btn-sm"><span class="fa fa-key"></span> &nbsp;{{ trans('modules.api_token') }}</a></span>
-    <span class="new-button"><a href="{{ url('apps/my')  }}" class="btn btn-default btn-sm"><span class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
+    <span class="new-button"><a href="{{ url('apps/token/create') }}" class="btn btn-success btn-sm"><span
+                    class="fa fa-key"></span> &nbsp;{{ trans('modules.api_token') }}</a></span>
+    <span class="new-button"><a href="{{ url('apps/my')  }}" class="btn btn-default btn-sm"><span
+                    class="fa fa-user"></span> &nbsp;{{ trans('modules.my_apps') }}</a></span>
 @endsection
 
 @section('content')
@@ -19,15 +21,19 @@
 
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">{{ trans('general.description') }}</a></li>
+                        <li class="active"><a href="#description" data-toggle="tab"
+                                              aria-expanded="true">{{ trans('general.description') }}</a></li>
                         @if ($module->installation)
-                        <li class=""><a href="#installation" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.installation') }}</a></li>
+                            <li class=""><a href="#installation" data-toggle="tab"
+                                            aria-expanded="false">{{ trans('modules.tab.installation') }}</a></li>
                         @endif
                         @if ($module->faq)
-                        <li class=""><a href="#faq" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.faq') }}</a></li>
+                            <li class=""><a href="#faq" data-toggle="tab"
+                                            aria-expanded="false">{{ trans('modules.tab.faq') }}</a></li>
                         @endif
                         @if ($module->changelog)
-                        <li class=""><a href="#changelog" data-toggle="tab" aria-expanded="false">{{ trans('modules.tab.changelog') }}</a></li>
+                            <li class=""><a href="#changelog" data-toggle="tab"
+                                            aria-expanded="false">{{ trans('modules.tab.changelog') }}</a></li>
                         @endif
                     </ul>
                     <div class="tab-content">
@@ -35,19 +41,19 @@
                             {!! $module->description !!}
                         </div>
                         @if ($module->installation)
-                        <div class="tab-pane" id="installation">
-                            {!! $module->installation !!}
-                        </div>
+                            <div class="tab-pane" id="installation">
+                                {!! $module->installation !!}
+                            </div>
                         @endif
                         @if ($module->faq)
-                        <div class="tab-pane" id="faq">
-                            {!! $module->faq !!}
-                        </div>
+                            <div class="tab-pane" id="faq">
+                                {!! $module->faq !!}
+                            </div>
                         @endif
                         @if ($module->changelog)
-                        <div class="tab-pane" id="changelog">
-                            {!! $module->changelog !!}
-                        </div>
+                            <div class="tab-pane" id="changelog">
+                                {!! $module->changelog !!}
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -80,25 +86,29 @@
                     <div class="box-footer">
                         @if ($installed)
                             @permission('delete-modules-item')
-                            <a href="{{ url('apps/' . $module->slug . '/uninstall') }}" class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
+                            <a href="{{ url('apps/' . $module->slug . '/uninstall') }}"
+                               class="btn btn-block btn-danger">{{ trans('modules.button.uninstall') }}</a>
                             @endpermission
                             @permission('update-modules-item')
                             @if ($enable)
-                                <a href="{{ url('apps/' . $module->slug . '/disable') }}" class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
+                                <a href="{{ url('apps/' . $module->slug . '/disable') }}"
+                                   class="btn btn-block btn-warning">{{ trans('modules.button.disable') }}</a>
                             @else
-                                <a href="{{ url('apps/' . $module->slug . '/enable') }}" class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
+                                <a href="{{ url('apps/' . $module->slug . '/enable') }}"
+                                   class="btn btn-block btn-success">{{ trans('modules.button.enable') }}</a>
                             @endif
                             @endpermission
                         @else
                             @permission('create-modules-item')
                             @if ($module->install)
-                            <a href="{{ $module->action_url }}" class="btn btn-success btn-block" id="install-module">
-                                {{ trans('modules.install') }}
-                            </a>
+                                <a href="{{ $module->action_url }}" class="btn btn-success btn-block"
+                                   id="install-module">
+                                    {{ trans('modules.install') }}
+                                </a>
                             @else
-                            <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
-                                {{ trans('modules.buy_now') }}
-                            </a>
+                                <a href="{{ $module->action_url }}" class="btn btn-success btn-block" target="_blank">
+                                    {{ trans('modules.buy_now') }}
+                                </a>
                             @endif
                             @endpermission
                         @endif
@@ -115,30 +125,34 @@
                     <div class="box-body">
                         <table class="table table-striped">
                             <tbody>
-                                <tr>
-                                    <th>{{ trans_choice('general.vendors', 1) }}</th>
-                                    <td class="text-right"><a href="{{ url('apps/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a></td>
-                                </tr>
-                                <tr>
-                                    <th>{{ trans('footer.version') }}</th>
-                                    <td class="text-right">{{ $module->version }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ trans('modules.added') }}</th>
-                                    <td class="text-right">{{ Date::parse($module->created_at)->format($date_format) }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ trans('modules.updated') }}</th>
-                                    <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ trans('modules.compatibility') }}</th>
-                                    <td class="text-right">{{ $module->compatibility }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ trans_choice('general.categories', 1) }}</th>
-                                    <td class="text-right"><a href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a></td>
-                                </tr>
+                            <tr>
+                                <th>{{ trans_choice('general.vendors', 1) }}</th>
+                                <td class="text-right"><a
+                                            href="{{ url('apps/vendor/' . $module->vendor->id) }}">{{ $module->vendor_name }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('footer.version') }}</th>
+                                <td class="text-right">{{ $module->version }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('modules.added') }}</th>
+                                <td class="text-right">{{ Date::parse($module->created_at)->format($date_format) }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('modules.updated') }}</th>
+                                <td class="text-right">{{ Date::parse($module->updated_at)->diffForHumans() }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans('modules.compatibility') }}</th>
+                                <td class="text-right">{{ $module->compatibility }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ trans_choice('general.categories', 1) }}</th>
+                                <td class="text-right"><a
+                                            href="{{ url('apps/categories/' . $module->category->slug) }}">{{ $module->category->name }}</a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -152,11 +166,11 @@
 
 @push('css')
     <style type="text/css">
-    .nav-tabs-custom img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-    }
+        .nav-tabs-custom img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 @endpush
 
@@ -166,8 +180,8 @@
         var total = 0;
         var path = '';
 
-        $(document).ready(function() {
-            $('#install-module').on('click', function(e) {
+        $(document).ready(function () {
+            $('#install-module').on('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
@@ -180,8 +194,8 @@
                     type: 'post',
                     dataType: 'json',
                     data: {name: '{{ $module->name }}', version: '{{ $module->version }}'},
-                    headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                    success: function(json) {
+                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                    success: function (json) {
                         if (json['errorr']) {
                             $('#progress-bar').addClass('progress-bar-danger');
                             $('#progress-text').html('<div class="text-danger">' + json['error'] + '</div>');
@@ -205,14 +219,14 @@
                 $('#progress-bar').css('width', (100 - (step.length / total) * 100) + '%');
                 $('#progress-text').html('<span class="text-info">' + data['text'] + '</span>');
 
-                setTimeout(function() {
+                setTimeout(function () {
                     $.ajax({
                         url: data.url,
                         type: 'post',
                         dataType: 'json',
                         data: {path: path, version: '{{ $module->version }}'},
-                        headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-                        success: function(json) {
+                        headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+                        success: function (json) {
                             if (json['errors']) {
                                 $('#progress-bar').addClass('progress-bar-danger');
                                 $('#progress-text').html('<div class="text-danger">' + json['errors'] + '</div>');
@@ -235,7 +249,7 @@
                                 window.location = json['installed'];
                             }
                         },
-                        error: function(xhr, ajaxOptions, thrownError) {
+                        error: function (xhr, ajaxOptions, thrownError) {
                             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                         }
                     });
@@ -246,7 +260,7 @@
         function startInstallation() {
             $('#modal-installation').remove();
 
-            modal  = '<div class="modal fade" id="modal-installation" style="display: none;">';
+            modal = '<div class="modal fade" id="modal-installation" style="display: none;">';
             modal += '  <div class="modal-dialog">';
             modal += '      <div class="modal-content">';
             modal += '          <div class="modal-header">';

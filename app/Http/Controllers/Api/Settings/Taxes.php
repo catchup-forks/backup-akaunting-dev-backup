@@ -27,7 +27,7 @@ class Taxes extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Tax  $tax
+     * @param  Tax $tax
      * @return \Dingo\Api\Http\Response
      */
     public function show(Tax $tax)
@@ -45,7 +45,7 @@ class Taxes extends ApiController
     {
         $tax = Tax::create($request->all());
 
-        return $this->response->created(url('api/taxes/'.$tax->id));
+        return $this->response->created(url('api/taxes/' . $tax->id));
     }
 
     /**
@@ -65,7 +65,7 @@ class Taxes extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Tax  $tax
+     * @param  Tax $tax
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Tax $tax)

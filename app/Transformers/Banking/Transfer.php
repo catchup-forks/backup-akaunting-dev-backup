@@ -2,9 +2,9 @@
 
 namespace App\Transformers\Banking;
 
+use App\Models\Banking\Transfer as Model;
 use App\Transformers\Expense\Payment;
 use App\Transformers\Income\Revenue;
-use App\Models\Banking\Transfer as Model;
 use League\Fractal\TransformerAbstract;
 
 class Transfer extends TransformerAbstract

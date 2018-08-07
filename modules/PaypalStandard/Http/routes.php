@@ -1,6 +1,10 @@
 <?php
 
-Route::group(['middleware' => ['web', 'auth', 'language', 'customermenu', 'permission:read-customer-panel'], 'prefix' => 'customers', 'namespace' => 'Modules\PaypalStandard\Http\Controllers'], function () {
+Route::group([
+    'middleware' => ['web', 'auth', 'language', 'customermenu', 'permission:read-customer-panel'],
+    'prefix' => 'customers',
+    'namespace' => 'Modules\PaypalStandard\Http\Controllers'
+], function () {
     Route::get('invoices/{invoice}/paypalstandard', 'PaypalStandard@show');
 });
 

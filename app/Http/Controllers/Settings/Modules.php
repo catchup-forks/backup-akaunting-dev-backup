@@ -17,7 +17,7 @@ class Modules extends Controller
     public function edit($alias)
     {
         /*$setting = Setting::all($alias)->pluck('value', 'key');*/
-        $setting = Setting::all($alias)->map(function($s) use($alias) {
+        $setting = Setting::all($alias)->map(function ($s) use ($alias) {
             $s->key = str_replace($alias . '.', '', $s->key);
             return $s;
         })->pluck('value', 'key');
@@ -37,9 +37,9 @@ class Modules extends Controller
     public function update($alias)
     {
         $fields = request()->all();
-        
+
         $skip_keys = ['company_id', '_method', '_token'];
-        
+
         foreach ($fields as $key => $value) {
             // Don't process unwanted keys
             if (in_array($key, $skip_keys)) {

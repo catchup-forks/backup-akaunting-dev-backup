@@ -2,11 +2,11 @@
 
 namespace Database\Seeds;
 
-use App\Models\Model;
 use App\Models\Auth\User;
 use App\Models\Common\Company;
-use Jenssegers\Date\Date;
+use App\Models\Model;
 use Illuminate\Database\Seeder;
+use Jenssegers\Date\Date;
 use Setting;
 
 class TestCompany extends Seeder

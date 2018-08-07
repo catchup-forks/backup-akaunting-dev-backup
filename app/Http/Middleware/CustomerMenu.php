@@ -12,8 +12,8 @@ class CustomerMenu
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -30,33 +30,33 @@ class CustomerMenu
 
             // Dashboard
             $menu->add([
-                'url'   => 'customers/',
+                'url' => 'customers/',
                 'title' => trans('general.dashboard'),
-                'icon'  => 'fa fa-dashboard',
+                'icon' => 'fa fa-dashboard',
                 'order' => 1,
             ]);
 
             // Invoices
             $menu->add([
-                'url'   => 'customers/invoices',
+                'url' => 'customers/invoices',
                 'title' => trans_choice('general.invoices', 2),
-                'icon'  => 'fa fa-wpforms',
+                'icon' => 'fa fa-wpforms',
                 'order' => 2,
             ]);
 
             // Payments
             $menu->add([
-                'url'   => 'customers/payments',
+                'url' => 'customers/payments',
                 'title' => trans_choice('general.payments', 2),
-                'icon'  => 'fa fa-money',
+                'icon' => 'fa fa-money',
                 'order' => 3,
             ]);
 
             // Payments
             $menu->add([
-                'url'   => 'customers/transactions',
+                'url' => 'customers/transactions',
                 'title' => trans_choice('general.transactions', 2),
-                'icon'  => 'fa fa-list',
+                'icon' => 'fa fa-list',
                 'order' => 4,
             ]);
 

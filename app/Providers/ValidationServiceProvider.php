@@ -17,19 +17,19 @@ class ValidationServiceProvider extends ServiceProvider
     {
         $currency_code = null;
 
-        Validator::extend('currency', function ($attribute, $value, $parameters, $validator) use(&$currency_code) {
-                $status = false;
+        Validator::extend('currency', function ($attribute, $value, $parameters, $validator) use (&$currency_code) {
+            $status = false;
 
-                $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
+            $currencies = Currency::enabled()->pluck('name', 'code')->toArray();
 
-                if (array_key_exists($value, $currencies)) {
-                    $status = true;
-                }
+            if (array_key_exists($value, $currencies)) {
+                $status = true;
+            }
 
-                $currency_code = $value;
+            $currency_code = $value;
 
-                return $status;
-            },
+            return $status;
+        },
             trans('validation.custom.invalid_currency', ['attribute' => $currency_code])
         );
     }

@@ -7,7 +7,7 @@
         <div class="row invoice-header">
             <div class="col-xs-7">
                 @if ($logo)
-                    <img src="{{ $logo }}" class="invoice-logo" />
+                    <img src="{{ $logo }}" class="invoice-logo"/>
                 @endif
             </div>
             <div class="col-xs-5 invoice-company">
@@ -85,7 +85,8 @@
                             <td>
                                 {{ $item->name }}
                                 @if ($item->sku)
-                                    <br><small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
+                                    <br>
+                                    <small>{{ trans('items.sku') }}: {{ $item->sku }}</small>
                                 @endif
                             </td>
                             <td class="text-center">{{ $item->quantity }}</td>
@@ -127,7 +128,9 @@
                                 @endif
                                 <tr>
                                     <th>{{ trans($total->name) }}:</th>
-                                    <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code, true)</td>
+                                    <td class="text-right">@money($total->amount - $bill->paid, $bill->currency_code,
+                                        true)
+                                    </td>
                                 </tr>
                             @endif
                         @endforeach

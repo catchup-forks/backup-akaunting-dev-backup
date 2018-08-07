@@ -38,11 +38,11 @@
 @endsection
 
 @push('js')
-<script src="{{ asset('public/js/bootstrap-fancyfile.js') }}"></script>
+    <script src="{{ asset('./js/bootstrap-fancyfile.js') }}"></script>
 @endpush
 
 @push('css')
-<link rel="stylesheet" href="{{ asset('public/css/bootstrap-fancyfile.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/bootstrap-fancyfile.css') }}">
 @endpush
 
 @push('scripts')
@@ -50,7 +50,7 @@
         var text_yes = '{{ trans('general.yes') }}';
         var text_no = '{{ trans('general.no') }}';
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#enabled_1').trigger('click');
 
             $('#name').focus();
@@ -60,9 +60,9 @@
             });
 
             $('#logo').fancyfile({
-                text  : '{{ trans('general.form.select.file') }}',
-                style : 'btn-default',
-                placeholder : '{{ trans('general.form.no_file_selected') }}'
+                text: '{{ trans('general.form.select.file') }}',
+                style: 'btn-default',
+                placeholder: '{{ trans('general.form.no_file_selected') }}'
             });
         });
     </script>

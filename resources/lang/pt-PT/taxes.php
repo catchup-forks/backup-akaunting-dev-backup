@@ -2,7 +2,7 @@
 
 return [
 
-    'rate'                  => 'Taxa',
-    'rate_percent'          => 'Taxa (%)',
+    'rate' => 'Taxa',
+    'rate_percent' => 'Taxa (%)',
 
 ];

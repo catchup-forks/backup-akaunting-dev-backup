@@ -11,7 +11,7 @@ class Company
     /**
      * Listen to the created event.
      *
-     * @param  Model  $company
+     * @param  Model $company
      * @return void
      */
     public function created(Model $company)
@@ -33,15 +33,34 @@ class Company
     /**
      * Listen to the deleted event.
      *
-     * @param  Model  $company
+     * @param  Model $company
      * @return void
      */
     public function deleted(Model $company)
     {
         $tables = [
-            'accounts', 'bill_histories', 'bill_items', 'bill_payments', 'bill_statuses', 'bills', 'categories',
-            'currencies', 'customers', 'invoice_histories', 'invoice_items', 'invoice_payments', 'invoice_statuses',
-            'invoices', 'items', 'payments', 'recurring', 'revenues', 'settings', 'taxes', 'transfers', 'vendors',
+            'accounts',
+            'bill_histories',
+            'bill_items',
+            'bill_payments',
+            'bill_statuses',
+            'bills',
+            'categories',
+            'currencies',
+            'customers',
+            'invoice_histories',
+            'invoice_items',
+            'invoice_payments',
+            'invoice_statuses',
+            'invoices',
+            'items',
+            'payments',
+            'recurring',
+            'revenues',
+            'settings',
+            'taxes',
+            'transfers',
+            'vendors',
         ];
 
         foreach ($tables as $table) {
@@ -52,7 +71,7 @@ class Company
     /**
      * Delete items in batch.
      *
-     * @param  Model  $company
+     * @param  Model $company
      * @param  $table
      * @return void
      */

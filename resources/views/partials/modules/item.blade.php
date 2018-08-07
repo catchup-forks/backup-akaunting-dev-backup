@@ -12,8 +12,8 @@
                 <span class="module-installed">
                     <small class="label {{ $color }}">{{ trans('modules.badge.installed') }}</small>
                 </span>
-            @endif
-            <!-- /.box-tools -->
+        @endif
+        <!-- /.box-tools -->
         </div>
         <!-- /.box-header -->
 

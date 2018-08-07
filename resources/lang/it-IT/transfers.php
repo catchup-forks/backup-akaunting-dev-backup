@@ -2,7 +2,7 @@
 
 return [
 
-    'from_account'          => 'Dal conto',
-    'to_account'            => 'Al Conto',
+    'from_account' => 'Dal conto',
+    'to_account' => 'Al Conto',
 
 ];

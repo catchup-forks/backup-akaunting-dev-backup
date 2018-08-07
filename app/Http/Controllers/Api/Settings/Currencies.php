@@ -27,7 +27,7 @@ class Currencies extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      * @return \Dingo\Api\Http\Response
      */
     public function show(Currency $currency)
@@ -45,7 +45,7 @@ class Currencies extends ApiController
     {
         $currency = Currency::create($request->all());
 
-        return $this->response->created(url('api/currencies/'.$currency->id));
+        return $this->response->created(url('api/currencies/' . $currency->id));
     }
 
     /**
@@ -65,7 +65,7 @@ class Currencies extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Currency  $currency
+     * @param  Currency $currency
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Currency $currency)

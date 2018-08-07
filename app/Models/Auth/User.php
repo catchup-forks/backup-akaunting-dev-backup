@@ -3,15 +3,15 @@
 namespace App\Models\Auth;
 
 use App\Notifications\Auth\Reset;
+use App\Traits\Media;
 use Date;
 use EloquentFilter\Filterable;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
 use Kyslik\ColumnSortable\Sortable;
-use App\Traits\Media;
+use Laratrust\Traits\LaratrustUserTrait;
 use Request;
 use Route;
 
@@ -19,35 +19,31 @@ class User extends Authenticatable
 {
     use Filterable, LaratrustUserTrait, Notifiable, SoftDeletes, Sortable, Media;
 
-    protected $table = 'users';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled'];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = ['password', 'remember_token'];
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
-
     /**
      * Sortable columns.
      *
      * @var array
      */
     public $sortable = ['name', 'email', 'enabled'];
+    protected $table = 'users';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'email', 'password', 'locale', 'enabled'];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['password', 'remember_token'];
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['last_logged_in_at', 'created_at', 'updated_at', 'deleted_at'];
 
     public function companies()
     {
@@ -76,7 +72,7 @@ class User extends Authenticatable
         if (setting('general.use_gravatar', '0') == '1') {
             try {
                 // Check for gravatar
-                $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))).'?size=90&d=404';
+                $url = 'https://www.gravatar.com/avatar/' . md5(strtolower($this->getAttribute('email'))) . '?size=90&d=404';
 
                 $client = new \GuzzleHttp\Client(['verify' => false]);
 

@@ -2,16 +2,16 @@
 
 namespace App\Traits;
 
+use App\Models\Module\Module as MModule;
 use App\Utilities\Info;
 use Artisan;
+use Cache;
+use Date;
 use File;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Module;
-use App\Models\Module\Module as MModule;
 use ZipArchive;
-use Cache;
-use Date;
 
 trait Modules
 {
@@ -35,20 +35,35 @@ trait Modules
         return false;
     }
 
+    protected function getRemote($path, $method = 'GET', $data = array())
+    {
+        $base = 'https://akaunting.com/api/';
+
+        $client = new Client(['verify' => false, 'base_uri' => $base]);
+
+        $headers['headers'] = [
+            'Authorization' => 'Bearer ' . setting('general.api_token'),
+            'Accept' => 'application/json',
+            'Referer' => env('APP_URL'),
+            'Akaunting' => version('short'),
+        ];
+
+        $data['http_errors'] = false;
+
+        $data = array_merge($data, $headers);
+
+        try {
+            $result = $client->request($method, $path, $data);
+        } catch (RequestException $e) {
+            $result = false;
+        }
+
+        return $result;
+    }
+
     public function getModules()
     {
         $response = $this->getRemote('apps/items');
-
-        if ($response && ($response->getStatusCode() == 200)) {
-            return json_decode($response->getBody())->data;
-        }
-
-        return [];
-    }
-
-    public function getModule($alias)
-    {
-        $response = $this->getRemote('apps/' . $alias);
 
         if ($response && ($response->getStatusCode() == 200)) {
             return json_decode($response->getBody())->data;
@@ -104,7 +119,8 @@ trait Modules
 
         $installed = [];
         $modules = Module::all();
-        $installed_modules = MModule::where('company_id', '=', session('company_id'))->pluck('status', 'alias')->toArray();
+        $installed_modules = MModule::where('company_id', '=', session('company_id'))->pluck('status',
+            'alias')->toArray();
 
         foreach ($modules as $module) {
             if (!array_key_exists($module->alias, $installed_modules)) {
@@ -121,6 +137,17 @@ trait Modules
         Cache::put($cache, $installed, Date::now()->addHour(6));
 
         return $installed;
+    }
+
+    public function getModule($alias)
+    {
+        $response = $this->getRemote('apps/' . $alias);
+
+        if ($response && ($response->getStatusCode() == 200)) {
+            return json_decode($response->getBody())->data;
+        }
+
+        return [];
     }
 
     public function getPaidModules($data = [])
@@ -282,7 +309,7 @@ trait Modules
         Artisan::call('cache:clear');
 
         $data = [
-            'path'  => $path,
+            'path' => $path,
             'name' => $module->name,
             'alias' => $module->alias
         ];
@@ -312,7 +339,7 @@ trait Modules
         return [
             'success' => true,
             'errors' => false,
-            'data'   => $data
+            'data' => $data
         ];
     }
 
@@ -333,7 +360,7 @@ trait Modules
         return [
             'success' => true,
             'errors' => false,
-            'data'   => $data
+            'data' => $data
         ];
     }
 
@@ -342,9 +369,9 @@ trait Modules
         $module = Module::findByAlias($alias);
 
         $data = [
-          'name' => $module->get('name'),
-          'category' => $module->get('category'),
-          'version' => $module->get('version'),
+            'name' => $module->get('name'),
+            'category' => $module->get('category'),
+            'version' => $module->get('version'),
         ];
 
         $module->disable();
@@ -354,8 +381,24 @@ trait Modules
         return [
             'success' => true,
             'errors' => false,
-            'data'   => $data
+            'data' => $data
         ];
+    }
+
+    public function getSuggestions($path)
+    {
+        // Get data from cache
+        $data = Cache::get('suggestions');
+
+        if (empty($data)) {
+            $data = $this->loadSuggestions();
+        }
+
+        if (!empty($data) && array_key_exists($path, $data)) {
+            return $data[$path];
+        }
+
+        return false;
     }
 
     public function loadSuggestions()
@@ -392,47 +435,5 @@ trait Modules
         Cache::put('suggestions', $data, Date::now()->addHour(6));
 
         return $data;
-    }
-
-    public function getSuggestions($path)
-    {
-        // Get data from cache
-        $data = Cache::get('suggestions');
-
-        if (empty($data)) {
-            $data = $this->loadSuggestions();
-        }
-
-        if (!empty($data) && array_key_exists($path, $data)) {
-            return $data[$path];
-        }
-
-        return false;
-    }
-
-    protected function getRemote($path, $method = 'GET', $data = array())
-    {
-        $base = 'https://akaunting.com/api/';
-
-        $client = new Client(['verify' => false, 'base_uri' => $base]);
-
-        $headers['headers'] = [
-            'Authorization' => 'Bearer ' . setting('general.api_token'),
-            'Accept'        => 'application/json',
-            'Referer'       => env('APP_URL'),
-            'Akaunting'     => version('short'),
-        ];
-
-        $data['http_errors'] = false;
-
-        $data = array_merge($data, $headers);
-
-        try {
-            $result = $client->request($method, $path, $data);
-        } catch (RequestException $e) {
-            $result = false;
-        }
-
-        return $result;
     }
 }

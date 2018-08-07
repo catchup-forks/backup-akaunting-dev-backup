@@ -3,9 +3,9 @@
 namespace App\Models\Auth;
 
 use EloquentFilter\Filterable;
+use Kyslik\ColumnSortable\Sortable;
 use Laratrust\LaratrustRole;
 use Laratrust\Traits\LaratrustRoleTrait;
-use Kyslik\ColumnSortable\Sortable;
 use Request;
 use Route;
 
@@ -14,7 +14,7 @@ class Role extends LaratrustRole
     use LaratrustRoleTrait;
     use Filterable;
     use Sortable;
-    
+
     protected $table = 'roles';
 
     /**
@@ -44,7 +44,7 @@ class Role extends LaratrustRole
             return $this->provideFilter();
         }
 
-        $class = '\App\Filters\\' . ucfirst($folder) .'\\' . ucfirst($file);
+        $class = '\App\Filters\\' . ucfirst($folder) . '\\' . ucfirst($file);
 
         return $this->provideFilter($class);
     }

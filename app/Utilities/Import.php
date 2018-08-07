@@ -29,6 +29,21 @@ class Import
         return $success;
     }
 
+    public static function isValidSheetName($sheet, $slug)
+    {
+        $t = explode('\\', $slug);
+
+        if (empty($t[1])) {
+            return false;
+        }
+
+        if ($sheet->getTitle() != str_plural(snake_case($t[1]))) {
+            return false;
+        }
+
+        return true;
+    }
+
     public static function createFromSheet($sheet, $slug)
     {
         $success = true;
@@ -75,20 +90,5 @@ class Import
         });
 
         return $success;
-    }
-
-    public static function isValidSheetName($sheet, $slug)
-    {
-        $t = explode('\\', $slug);
-
-        if (empty($t[1])) {
-            return false;
-        }
-
-        if ($sheet->getTitle() != str_plural(snake_case($t[1]))) {
-            return false;
-        }
-
-        return true;
     }
 }

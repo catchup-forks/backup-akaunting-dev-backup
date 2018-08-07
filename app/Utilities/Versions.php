@@ -5,8 +5,8 @@ namespace App\Utilities;
 use App\Traits\SiteApi;
 use Cache;
 use Date;
-use Parsedown;
 use GuzzleHttp\Exception\RequestException;
+use Parsedown;
 
 class Versions
 {
@@ -43,7 +43,7 @@ class Versions
                 continue;
             }
 
-            $output .= '<h2><span class="label label-success">'.$release->tag_name.'</span></h2>';
+            $output .= '<h2><span class="label label-success">' . $release->tag_name . '</span></h2>';
 
             $output .= $parsedown->text($release->body);
 

@@ -27,7 +27,7 @@ class Customers extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int|string  $id
+     * @param  int|string $id
      * @return \Dingo\Api\Http\Response
      */
     public function show($id)
@@ -52,7 +52,7 @@ class Customers extends ApiController
     {
         $customer = Customer::create($request->all());
 
-        return $this->response->created(url('api/customers/'.$customer->id));
+        return $this->response->created(url('api/customers/' . $customer->id));
     }
 
     /**
@@ -72,7 +72,7 @@ class Customers extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Customer  $customer
+     * @param  Customer $customer
      * @return \Dingo\Api\Http\Response
      */
     public function destroy(Customer $customer)

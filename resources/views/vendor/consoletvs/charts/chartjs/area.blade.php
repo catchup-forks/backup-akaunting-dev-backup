@@ -16,16 +16,16 @@
         datasets: [{
             fill: true,
             @if($model->colors)
-                backgroundColor: hex2rgba_convert("{{ $model->colors[0] }}", 50),
+            backgroundColor: hex2rgba_convert("{{ $model->colors[0] }}", 50),
             @endif
             label: "{!! $model->element_label !!}",
             lineTension: 0.3,
             @if($model->colors)
-                borderColor: "{{ $model->colors[0] }}",
+            borderColor: "{{ $model->colors[0] }}",
             @endif
             data: [
                 @foreach($model->values as $dta)
-                    {{ $dta }},
+                {{ $dta }},
                 @endforeach
             ],
         }]
@@ -38,11 +38,11 @@
             responsive: {{ $model->responsive || !$model->width ? 'true' : 'false' }},
             maintainAspectRatio: false,
             @if($model->title)
-                title: {
-                    display: true,
-                    text: "{!! $model->title !!}",
-                    fontSize: 20,
-                }
+            title: {
+                display: true,
+                text: "{!! $model->title !!}",
+                fontSize: 20,
+            }
             @endif
         }
     });

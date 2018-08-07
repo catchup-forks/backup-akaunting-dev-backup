@@ -2,7 +2,7 @@
 
 return [
 
-    'rate'                  => 'Kurs',
-    'rate_percent'          => 'Momssatts (%)',
+    'rate' => 'Kurs',
+    'rate_percent' => 'Momssatts (%)',
 
 ];

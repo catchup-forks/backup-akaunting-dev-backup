@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customer\Profile as Request;
-use App\Models\Auth\User;
 use App\Traits\Uploads;
 
 class Profile extends Controller
@@ -12,11 +11,6 @@ class Profile extends Controller
     use Uploads;
 
     public function index()
-    {
-        return $this->edit();
-    }
-
-    public function show()
     {
         return $this->edit();
     }
@@ -33,10 +27,15 @@ class Profile extends Controller
         return view('customers.profile.edit', compact('user'));
     }
 
+    public function show()
+    {
+        return $this->edit();
+    }
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      *
      * @return Response
      */
